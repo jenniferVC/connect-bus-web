@@ -10,46 +10,49 @@
 
 <body>
   <div class="main-form">
-    <h1 id="punTimes">Punny or Not!</h1>
-    Pun Number/ID: <input type="text" placeholder="Pun ID: " id="PunID"><br /><br />
-    Pun Category: <input type="text" placeholder="Category: " id="Category"><br /><br />
-    Pun Text: <input type="text" placeholder="Enter Text here..." id="PunText"> <br /><br />
-
+    <h1>Connect Bus Manager</h1>
+    
+    Bairro*: <input type="text" placeholder="Vila Nova " id="input-bairro-nome"><br /><br />
+    
+    <h2>Parada</h2>
+    Nome do Ponto: <input type="text" placeholder="ponto11 " id="input-ponto-nome"><br /><br />
+    Parada Number/ID: <input type="text" placeholder="11 " id="input-parada-id"><br /><br />
+    Latitude/Longitude: <input type="text" placeholder="lat,lgn " id="input-lat-lgn"><br /><br />
+    
     <br /><br />
-    <button id="saveButton" onclick="storeData()">Submit</button>
+
+    <h2>Horário</h2>
+    <div><label>Tipo de linha</label></div>
+    <select id="input-line-type">
+      <option value="">-- Selecione um tipo de linha --</option>
+      <option>Linha 001 AZUL</option>
+      <option>Linha 002 (A) LARANJA</option>
+      <option>Linha 002 (B) LARANJA</option>
+      <option>Linha 003 VERDE</option>
+      <option>Linha 004 VERMELHA</option>
+      <option>Linha 005 CORAL</option>
+      <option>Linha 006 LILÁS</option>
+      <option>Linha 007 (A) EXPRESSA</option>
+      <option>Linha 007 (B) EXPRESSA</option>
+      <option>Linha 008 PERIMETRAL</option>
+      <option>Linha 009 BRONZE</option>
+      <option>Linha 010 PRATA</option>
+      <option>Linha 011 TURÍSTICA</option>
+    </select><br /><br />
+    Hora: <input type="time" id="input-hora"><br /><br />
+
+  
+    <button id="saveButton" onclick="save()">Salvar</button>
   </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 
   <!--Como este projeto não utiliza ferramentas de builds, uso a opção de tag <script> para adicionar
          e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
         Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize -->
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyAEwDI9h28aKKvKoHFOPSgPS2DCnozvYTI",
-      authDomain: "connectbus-7d8d9.firebaseapp.com",
-      databaseURL: "https://connectbus-7d8d9-default-rtdb.firebaseio.com",
-      projectId: "connectbus-7d8d9",
-      storageBucket: "connectbus-7d8d9.appspot.com",
-      messagingSenderId: "128399003759",
-      appId: "1:128399003759:web:82eeea6e5988be22c73d9a",
-      measurementId: "G-SKW79929K5"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  </script>
-
-  <script src=”https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore.js”></script>
-  <script src="./pun.js"></script>
-
+  <script src="./js/firebase.js"></script>
+  <script src="./js/add-data.js"></script>
 </body>
 
 </html>
