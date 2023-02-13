@@ -1,0 +1,12 @@
+{
+  "name": "bus-manager-web",
+  "version": "1.0.0",
+  "description": "Gerenciador paradas e horários dos ônibus da cidade de Boituva do app Connect Bus",
+  "main": "index.js",
+  "scripts": {
+    "deployFireBaseWeb": "npm ci && npm run build",
+    "build": "npm build"
+  },
+  "author": "",
+  "license": "ISC"
+}
