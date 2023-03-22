@@ -69,7 +69,7 @@ function login() {
   showLoading();
   firebase.auth().signInWithEmailAndPassword(form.email().value, form.password().value).then(response => {
     hideLoading();
-    window.location.href = "pages/bus-manager.html";
+    window.location.href = "pages/dashboard/dashboard.html";
   }).catch(error => {
     hideLoading();
     alert(getErrorMessage(error));

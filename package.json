@@ -8,5 +8,8 @@
     "build": "npm build"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "geofire-common": "^6.0.0"
+  }
 }

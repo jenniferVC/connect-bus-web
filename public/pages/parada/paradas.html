@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ConnectBus | Paradas</title>
+</head>
+
+<body>
+  <h1>Cadastro de Paradas...</h1>
+
+  <div onclick="escolherBairro()">
+    <div><label>Bairro*: </label></div>
+    <select id="options-nomes-bairros">
+      <option value="">-- Selecione um bairro --</option>
+      <!-- Options de Bairros vão aqui-->
+    </select><br /><br />
+  </div>
+
+  <div onchange="onChangeBusStop()">
+    Latitude: <input type="text" placeholder="lat " id="input-lat"><br /><br />
+    Longitude: <input type="text" placeholder="lgn " id="input-lgn"><br /><br />
+  </div>
+
+  <button onclick="save()">Salvar</button>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+
+<!--Como este projeto não utiliza ferramentas de builds, uso a opção de tag <script> para adicionar
+       e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
+      Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize -->
+<script src="../../js/firebase-init.js"></script>
+<script src="https://cdn.firebase.com/libs/geofire/2.0.0/geofire.min.js"></script>
+<script src="./parada.js"></script>
+
+</html>

@@ -4,4 +4,6 @@ Gerenciador paradas e horários dos ônibus da cidade de Boituva do app Connect 
 
 Dominio: https://connectbus-7d8d9.web.app
 
-Precisa atualizar lista de PARADAS no firestore cada vez que alguem inserir uma parada no site.
+## Deploy
+
+Para fazer deploy do app execute o comando `firebase deploy`
