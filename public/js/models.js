@@ -3,9 +3,3 @@ class Parada {
     latitude;
     longitude;
 }
-
-class Horario {
-    bairro;
-    linha;
-    hora;
-}

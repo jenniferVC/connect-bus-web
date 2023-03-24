@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS  da pagina Horarios-->
-    <link rel="stylesheet" href="horarios.css">
+    <link rel="stylesheet" href="list-horarios.css">
 
     <!-- BoxIcons fornece icones personalizados -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -19,7 +19,7 @@
         <!-- Cabeçalho da tabela contendo um span e o botão Incluir-->
         <div class="header">
             <span>Horários</span>
-            <button onclick="openModal()" id="new">Incluir</i></button>
+            <button id="new"><a href="../create/create-horario.html">Incluir</a></button>
         </div>
 
         <div class="divTable">
@@ -28,12 +28,13 @@
                     <tr>
                         <th>Bairro</th>
                         <th>Linha</th>
-                        <th>Hora</th>
+                        <th>Funcionamento</th>
                         <th class="acao">Editar</th>
                         <th class="acao">Excluir</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Aqui vai o conteúdo da tabela-->
                 </tbody>
             </table>
         </div>
@@ -47,14 +48,24 @@
                     <label for="m-funcao">Linha</label>
                     <input id="m-funcao" type="text" required />
 
-                    <label for="m-salario">Hora</label>
+                    <label for="m-salario">Funcionamento</label>
                     <input id="m-salario" type="number" required />
                     <button id="btnSalvar">Salvar</button>
                 </form>
             </div>
         </div>
 
-        <script src="./horarios.js"></script>
+        <!--
+            Dependências Firebase
+
+            Como este projeto não utiliza ferramentas de builds, uso a opção de tag <script> para adicionar
+            e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
+            Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize 
+        -->
+        <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+        <script src="../../../js/firebase-init.js"></script>
+        <script src="list-horarios.js"></script>
 </body>
 
 </html>

@@ -11,7 +11,7 @@
 <body>
   <h1>Cadastro de Paradas...</h1>
 
-  <div onclick="escolherBairro()">
+  <div onclick="loadNeighborhood()">
     <div><label>Bairro*: </label></div>
     <select id="options-nomes-bairros">
       <option value="">-- Selecione um bairro --</option>
@@ -27,12 +27,15 @@
   <button onclick="save()">Salvar</button>
 </body>
 
+<!--
+        Dependências Firebase
+
+        Como este projeto não utiliza ferramentas de builds, uso a opção de tag <script> para adicionar
+        e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
+        Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize 
+    -->
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
-
-<!--Como este projeto não utiliza ferramentas de builds, uso a opção de tag <script> para adicionar
-       e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
-      Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize -->
 <script src="../../js/firebase-init.js"></script>
 <script src="https://cdn.firebase.com/libs/geofire/2.0.0/geofire.min.js"></script>
 <script src="./parada.js"></script>

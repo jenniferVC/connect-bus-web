@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConnectBus | Horários</title>
+</head>
+
+<body>
+    <h1>Cadastro de Horario...</h1>
+
+    <!-- Campo select de Bairros-->
+    <div onclick="loadNeighborhood()">
+        <label>Bairro*: </label>
+        <select name="bairro" id="options-nomes-bairros" required="required">
+            <!-- <option value="">-- Selecione um bairro --</option> -->
+            <!-- Options de Bairros vão aqui-->
+        </select><br /><br />
+    </div>
+
+    <!-- Campo select de Tipo da Linha-->
+    <div><label>Tipo de linha</label></div>
+    <select id="input-line-type" required="required">
+        <option value="">-- Selecione um tipo de linha --</option>
+        <option>Linha 001 AZUL</option>
+        <option>Linha 002 (A) LARANJA</option>
+        <option>Linha 002 (B) LARANJA</option>
+        <option>Linha 003 VERDE</option>
+        <option>Linha 004 VERMELHA</option>
+        <option>Linha 005 CORAL</option>
+        <option>Linha 006 LILÁS</option>
+        <option>Linha 007 (A) EXPRESSA</option>
+        <option>Linha 007 (B) EXPRESSA</option>
+        <option>Linha 008 PERIMETRAL</option>
+        <option>Linha 009 BRONZE</option>
+        <option>Linha 010 PRATA</option>
+        <option>Linha 011 TURÍSTICA</option>
+    </select>
+
+    <!-- Checkbox dos dias de funcionamento -->
+    <fieldset>
+        <legend>Dias de funcionamento:</legend>
+        <div>
+            <input type="radio" id="SegSex" name="dias" value="SegSex" />
+            <label for="SegSex">Segunda a Sexta-feira</label>
+        </div>
+        <div>
+            <input type="radio" id="DomFer" name="dias" value="DomFer" />
+            <label for="DomFer">Domingos e Feriados</label>
+        </div>
+        <div>
+            <input type="radio" id="sabado" name="dias" value="sabado" />
+            <label for="sabado">Sábados</label>
+        </div>
+    </fieldset>
+
+    <!-- Tabela dos horários -->
+    <button>Incluir</button>
+    <table>
+        <thead>
+            <tr>
+                <th> Horários</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aqui vai o conteúdo da tabela-->
+        </tbody>
+    </table>
+
+    <button onclick="save()">Salvar</button>
+
+    <!--
+        Dependências Firebase
+
+        Como este projeto não utiliza ferramentas de builds, uso a opção de tag <script> para adicionar
+        e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
+        Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize 
+    -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+    <script src="../../../js/firebase-init.js"></script>
+    <script src="create-horario.js"></script>
+</body>
+
+</html>

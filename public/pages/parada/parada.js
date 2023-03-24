@@ -5,7 +5,7 @@ var bairrosCollectionRef = db.collection("Bairros");
 /**
  * Carrega os nomes dos bairros no campo Select.
  */
-function escolherBairro() {
+function loadNeighborhood() {
     const inputBairroPai = document.getElementById('options-nomes-bairros');
     inputBairroPai.innerHTML = '';
 
