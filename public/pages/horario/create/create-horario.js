@@ -21,7 +21,7 @@ function loadNeighborhood() {
             `
             select.appendChild(option);
         });
-    }).catch(err => { alert(err) });
+    }).catch(err =>  alert(err) );
 }
 
 function convertBairroToOption(bairro){

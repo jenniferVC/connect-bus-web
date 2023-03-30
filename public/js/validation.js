@@ -1,6 +1,6 @@
 /**
- * Verifica se através da expressão regular se email esta no formato correto.
- * @param {*} email 
+ * Verifica através da expressão regular se email esta no formato correto.
+ * @param {string} email 
  * @returns boolean
  */
 function validateEmail(email) {

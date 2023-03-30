@@ -1,27 +1,38 @@
+/**
+ * Função chamada no momento que o usuário digitar no campo Email,
+ * validando se o email esta no formato correto ou se esta vazio.
+ */
 function onChangeEmail() {
     const email = form.email().value;
     form.emailRequiredError().style.display = email ? "none" : "block";
-
     form.emailInvalidError().style.display = validateEmail(email) ? "none" : "block";
-
     toggleRegisterButtonDisable();
 }
 
+/**
+ * Função chamada no momento que o usuário digitar no
+ * campo Senha, verificando se a senha possui o tamanho
+ * mínimo ou se esta vazia.
+ */
 function onChangePassword() {
     const password = form.password().value;
     form.passwordRequiredError().style.display = password ? "none" : "block";
-
     form.passwordMinLengthError().style.display = password.length >= 6 ? "none" : "block";
-
     validatePasswordsMatch();
     toggleRegisterButtonDisable();
 }
 
+/**
+ * Função chamada no momento que o usuário digitar no campo Confirmar Senha.
+ */
 function onChangeConfirmPassword() {
     validatePasswordsMatch();
     toggleRegisterButtonDisable();
 }
 
+/**
+ * Função que verifica se campos 'Senha' e 'Confirma Senha' são iguais.
+ */
 function validatePasswordsMatch() {
     const password = form.password().value;
     const confirmPassword = form.confirmPassword().value;
@@ -30,10 +41,17 @@ function validatePasswordsMatch() {
         password == confirmPassword ? "none" : "block";
 }
 
+/**
+ * Função que desabilita e habilita o botão 'Registrar' se campos do formulário foram validados ou não.
+ */
 function toggleRegisterButtonDisable() {
     form.registerButton().disabled = !isFormValid();
 }
 
+/**
+ * Função responsável por validar os campos Email, Senha e Confirmar Senha.
+ * @returns boolean
+ */
 function isFormValid() {
     const email = form.email().value;
     if (!email || !validateEmail(email)) {
@@ -53,6 +71,10 @@ function isFormValid() {
     return true;
 }
 
+/**
+ * Função chamada ao clicar no botão 'Registrar'. Captura os valores informados 
+ * no campo Email e Senha e registra no Firebase.
+ */
 function register() {
     showLoading();
 
@@ -69,6 +91,12 @@ function register() {
     })
 }
 
+/**
+ * Função responsável por deixar as mensagens de erro do Firebase
+ * mais amigáveis para os usuários.
+ * @param {*} error 
+ * @returns error.message
+ */
 function getErrorMessage(error) {
     if (error.code == "auth/email-already-in-use") {
         return "Email já está em uso";

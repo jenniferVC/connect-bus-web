@@ -17,7 +17,7 @@ function loadNeighborhood() {
             option.innerHTML = docBairro.data().nomeBairro;
             inputBairroPai.appendChild(option);
         });
-    }).catch(err => { alert(err) });
+    }).catch(err => alert('Erro ao listar bairros' + err));
 }
 
 /**
@@ -25,14 +25,12 @@ function loadNeighborhood() {
  * @returns 
  */
 function onChangeBusStop() {
-    const parada = {
-        geopoint: new firebase.firestore.GeoPoint(formParada.inputLat().value, formParada.inputLgn().value),
-    }
-
-    if (parada.geopoint) {
-        return parada;
+    if (formParada.inputLat().value && formParada.inputLgn().value) {
+        console.log('tem os dois campos')
+        return new firebase.firestore.GeoPoint(formParada.inputLat().value, formParada.inputLgn().value);
     }
     else {
+        console.log('esta faltando campo')
         return false;
     }
 }
@@ -42,27 +40,37 @@ function onChangeBusStop() {
  * Função chamada ao clicar no botão Salvar.
  */
 function save() {
-    var paradasCollectionRef = db.collection(`Bairros/${formParada.inputBairroNome().value}/Paradas`);
     const parada = onChangeBusStop();
-
-    debugger
 
     if (parada) {
 
         // Fazendo referencia ao documento que tem o nome do bairro, o qual
         // foi selecionado no Select.
-        // const bairroRef = bairrosCollectionRef.doc(formParada.inputBairroNome().value);
+        const docBairroRef = bairrosCollectionRef.doc(formParada.inputBairroNome().value);
 
-        paradasCollectionRef.add({
-            // Adicionando a nova parada no array "paradas"
-            geopoint: parada
-        })
-            .then(function () {
-                alert("Parada cadastrada com sucesso!")
-            })
-            .catch(function (error) {
-                alert(`Erro ao cadastrar parada\n${error}`)
-            });
+        docBairroRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log("Documento existe! Dados do documento:", doc.data());
+            } else {
+                // doc.data() pode ser indefinido no caso
+                alert("Não encontrou o documento!");
+            }
+        }).catch((error) => {
+            alert("Error ao consultar documento:", error);
+        });
+
+
+
+        // paradasCollectionRef.add({
+        //     // Adicionando a nova parada no array "paradas"
+        //     geopoint: parada
+        // })
+        //     .then(function () {
+        //         alert("Parada cadastrada com sucesso!")
+        //     })
+        //     .catch(function (error) {
+        //         alert(`Erro ao cadastrar parada\n${error}`)
+        //     });
     }
 }
 

@@ -5,14 +5,23 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ConnectBus | Bairros</title>
+  <title>ConnectBus | Paradas</title>
 </head>
 
 <body>
-  <h1>Cadastro de Bairro...</h1>
+  <h1>Cadastro de Paradas...</h1>
+
+  <div onclick="loadNeighborhood()">
+    <div><label>Bairro*: </label></div>
+    <select id="options-nomes-bairros">
+      <option value="">-- Selecione um bairro --</option>
+      <!-- Options de Bairros vão aqui-->
+    </select><br /><br />
+  </div>
 
   <div>
-    Nome do bairro: <input type="text" placeholder="Vila Nova" id="input-bairro-nome">
+    Latitude: <input type="text" placeholder="lat " id="input-lat"><br /><br />
+    Longitude: <input type="text" placeholder="lgn " id="input-lgn"><br /><br />
   </div>
 
   <button onclick="save()">Salvar</button>
@@ -27,8 +36,8 @@
     -->
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
-<script src="../../js/firebase-init.js"></script>
+<script src="../../../js/firebase-init.js"></script>
 <script src="https://cdn.firebase.com/libs/geofire/2.0.0/geofire.min.js"></script>
-<script src="./bairros.js"></script>
+<script src="create-parada.js"></script>
 
 </html>
