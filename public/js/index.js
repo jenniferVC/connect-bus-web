@@ -63,7 +63,8 @@ function isPasswordValid() {
 }
 
 /**
- * Função responsável por verificar no banco Firebase o login do usuário.
+ * Função responsável por consultar Email e Senha do usuário no Firebase e
+ * caso usuário esteja registrado o direciona para a página do Dashboard.
  */
 function login() {
   showLoading();
@@ -76,6 +77,11 @@ function login() {
   });
 }
 
+/**
+ * Função chamado ao clicar no botão 'Recuperar Senha', a mesma envia
+ * um email de recuperação de senha para o email do usuário que está cadastrado
+ * no Firebase.
+ */
 function recoverPassword() {
   showLoading();
   firebase.auth().sendPasswordResetEmail(form.email().value).then(() => {
@@ -87,6 +93,12 @@ function recoverPassword() {
   });
 }
 
+/**
+ * Função responsável por deixar as mensagens de erro do Firebase
+ * mais amigáveis para os usuários.
+ * @param {*} error 
+ * @returns error.message
+ */
 function getErrorMessage(error) {
   if (error.code == "auth/user-not-found") {
     return "Usuário não encontrado";
