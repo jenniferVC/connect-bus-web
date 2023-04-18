@@ -9,27 +9,45 @@
 </head>
 
 <body>
-    <div> 
+    <header>
+        <button type="button" onclick="logout()">Sair</button>
+    </header>
+
+    <div>
         <button><a href="../parada/list/list-paradas.html">PARADAS</a></button>
     </div>
-    <div> 
+    <div>
         <button><a href="../horario/list/list-horarios.html">HORARIOS</a></button>
     </div>
-    <div> 
+    <div>
         <button><a href="../onibus/onibus.html">ONIBUS</a></button>
     </div>
-    <div> 
+    <div>
         <button><a href="../bairros/list/list-bairros.html">BAIRROS</a></button>
     </div>
-    <div> 
+    <div>
         <button><a href="../motorista/motoristas.html">MOTORISTAS</a></button>
     </div>
-    <div> 
+    <div>
         <button><a href="../suporte/suporte.html">SUPORTE</a></button>
     </div>
+
+    <link rel="stylesheet" href="../../css/global.css">
+    <link rel="stylesheet" href="./dashboard.css">
+
+    <!--
+        Dependências Firebase
+
+        Como este projeto não utiliza ferramentas de builds, uso a opção de tag <script> para adicionar
+        e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
+        Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize 
+    -->
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+    <script src="../../js/firebase-init.js"></script>
+
+    <!-- JS -->
+    <script src="dashboard.js"></script>
 </body>
-
-<link rel="stylesheet" href="../../css/global.css">
-<link rel="stylesheet" href="./dashboard.css">
-
+  
 </html>

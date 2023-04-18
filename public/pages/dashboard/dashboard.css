@@ -2,3 +2,11 @@ button a {
     text-decoration: none;
     color: black;
 }
+
+header {
+    text-align: right;
+}
+
+header button {
+    width: auto;
+}
