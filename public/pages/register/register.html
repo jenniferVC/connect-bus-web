@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
-    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../../css/global.css">
     <link rel="stylesheet" href="./register.css">
     <title>ConnectBus | Register</title>
 </head>
@@ -45,22 +45,21 @@
         </div>
     </form>
 
-    
-    <!-- JS -->
-    <script src="./register.js"></script>
-    <script src="../js/validation.js"></script>
-    <script src="../js/loading.js"></script>
-
     <!--
         Dependências Firebase
 
         Como este projeto não utiliza ferramentas de builds, uso a opção de tag <script> para adicionar
-        e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
-        Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize 
-    -->
+            e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
+            Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize 
+        -->
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
-    <script src="../js/firebase-init.js"></script>
+    <script src="../../js/firebase-init.js"></script>
+
+    <!-- JS -->
+    <script src="./register.js"></script>
+    <script src="../../js/validation.js"></script>
+    <script src="../../js/loading.js"></script>
 </body>
 
 </html>
