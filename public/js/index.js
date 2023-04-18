@@ -1,4 +1,14 @@
 /**
+ * "onAuthStateChanged()" método que captura quando o Estado de Autenticação do usuário mudar.
+ * Se o usuário estiver logado, então o redireciona para a página Dashboard.
+ */
+firebase.auth().onAuthStateChanged(user => {
+  if (user) {
+      window.location.href = "pages/dashboard/dashboard.html";
+  }
+})
+
+/**
  * Função chamada ao detectar alteração no campo email.
  */
 function onChangeEmail() {
@@ -66,7 +76,7 @@ function isPasswordValid() {
  * Função responsável por consultar Email e Senha do usuário no Firebase e
  * caso usuário esteja registrado o direciona para a página do Dashboard.
  */
-function login() {
+function login() { 
   showLoading();
   firebase.auth().signInWithEmailAndPassword(form.email().value, form.password().value).then(response => {
     hideLoading();
