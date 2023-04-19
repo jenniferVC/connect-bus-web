@@ -84,7 +84,7 @@ function register() {
         email, password
     ).then(() => {
         hideLoading();
-        window.location.href = "pages/bus-manager.html";
+        window.location.href = "../dashboard/dashboard.html";
     }).catch(error => {
         hideLoading();
         alert(getErrorMessage(error));
