@@ -39,7 +39,10 @@ function onChangeBusStop() {
 /**
  * Função chamada ao clicar no botão Salvar.
  */
+// Video que mostra como salvar um objeto no firestore
+// https://www.youtube.com/watch?v=qaojB_xyZ4s&list=PLMbclvogjXZWgHgQcY5H4MvKtEW8q53cC&index=26
 function save() {
+    // TODO: chamar a função que mostrar o loading por uns segundos
     const parada = onChangeBusStop();
 
     if (parada) {
