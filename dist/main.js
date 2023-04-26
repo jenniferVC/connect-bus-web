@@ -1,0 +1,1 @@
+firebase.auth().onAuthStateChanged((a=>{a&&(window.location.href="pages/dashboard/dashboard.html")}));
