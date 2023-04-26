@@ -1,3 +1,44 @@
+'use strict';
+
+// Importando Firebase Authentication, Cloud Firestore, Cloud Storage, Cloud Messaging
+// e Performance Monitoring.
+// Em aplicativos futuros, certifique-se de importar apenas as partes do Firebase
+// necessárias para reduzir o tempo de carregamento do seu aplicativo.
+import { initializeApp } from 'firebase/app';
+import {
+  getAuth,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+} from 'firebase/auth';
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  limit,
+  onSnapshot,
+  setDoc,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from 'firebase/firestore';
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from 'firebase/storage';
+import { getMessaging, getToken, onMessage } from 'firebase/messaging';
+import { getPerformance } from 'firebase/performance';
+
+import { getFirebaseConfig } from './firebase-config.js';
+
+
+
+
 /**
  * "onAuthStateChanged()" método que captura quando o Estado de Autenticação do usuário mudar.
  * Se o usuário estiver logado, então o redireciona para a página Dashboard.
@@ -128,3 +169,7 @@ const form = {
   passwordRequiredError: () => document.getElementById("password-required-error"),
   recoverPasswordButton: () => document.getElementById("recover-password-button"),
 } 
+
+// Initialize Firebase
+const firebaseAppConfig = getFirebaseConfig();
+initializeApp(firebaseAppConfig);
