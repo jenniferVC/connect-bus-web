@@ -28,15 +28,14 @@ body {
     border: none;
 }
 
-.solid {
+/* .solid {
     background: white;
     border: none;
     color: rgb(45, 211, 111);
-}
+} */
 
 .error {
-    color: white;
-    background: red;
+    color: red;
     display: none;
 }
 

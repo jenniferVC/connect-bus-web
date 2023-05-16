@@ -5,6 +5,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Material Design -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
   <!-- CSS -->
   <link rel="stylesheet" href="./css/index.css">
   <link rel="stylesheet" href="./css/global.css">
@@ -14,32 +22,42 @@
 <body class="centralize">
   <form>
     <!-- Campo Email -->
-    <div class="form-field">
+    <label class="form-field mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+      <span class="mdc-text-field__ripple"></span>
+      <input class="mdc-text-field__input" type="email" onchange="onChangeEmail()"  placeholder="Email" id="email">
+      <span class="mdc-line-ripple"></span>
+    </label>
+    <div class="error" id="email-required-error">Email é obrigatório</div>
+    <div class="error" id="email-invalid-error">Email é inválido</div>
+    <!-- <div class="form-field">
       <label for="email">Email: </label><br>
       <input type="email" name="email" onchange="onChangeEmail()" placeholder="seu@email.com" id="email">
       <div class="error" id="email-required-error">Email é obrigatório</div>
       <div class="error" id="email-invalid-error">Email é inválido</div>
-    </div>
+    </div> -->
 
     <!-- Campo Senha -->
-    <div class="form-field">
-      <label for="password">Senha: </label><br>
-      <input type="password" name="password" onchange="onChangePassword()" id="password">
-      <div class="error" id="password-required-error">Senha é obrigatória</div>
-    </div>
+    <label class="form-field mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+      <span class="mdc-text-field__ripple"></span>
+      <input class="mdc-text-field__input" type="password" onchange="onChangePassword()" placeholder="Senha" id="password">
+      <span class="mdc-line-ripple"></span>
+    </label>
+    <div class="error" id="password-required-error">Senha é obrigatória</div>
+
 
     <!-- Botão Recuperar Senha -->
     <div>
       <button type="button" class="clear" disabled="true" onclick="recoverPassword()"
-        id="recover-password-button">Recuperar Senha</button>
+      id="recover-password-button">Recuperar Senha</button>
     </div>
-
+    
     <!-- Botão Entrar -->
     <div>
       <button type="button" class="solid" onclick="login()" disabled="true" id="login-button">Entrar</button>
     </div>
   </form>
 
+  
   <!--
     Dependências Firebase
 

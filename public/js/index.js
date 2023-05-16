@@ -45,7 +45,7 @@ function togglePasswordErrors() {
 }
 
 /**
- * Método para habilitar e desabilitar botão de "Recuperar Senha" e de "Entrar".
+ * Método para habilitar e desabilitar botões de "Recuperar Senha" e de "Entrar".
  */
 function toggleButtonsDisable() {
   const emailValid = isEmailValid();
@@ -130,7 +130,3 @@ const form = {
   passwordRequiredError: () => document.getElementById("password-required-error"),
   recoverPasswordButton: () => document.getElementById("recover-password-button"),
 } 
-
-// Initialize Firebase
-const firebaseAppConfig = getFirebaseConfig();
-initializeApp(firebaseAppConfig);
