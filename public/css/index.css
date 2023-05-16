@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(175, 175, 175);
+    background-color: white;
     height: 100vh;
 }
 
@@ -7,10 +7,10 @@ form {
     width: 300px;
 }
 
-input {
-    border: none;
+.mdc-text-field--filled {
+    height: 56px;
+    width: -webkit-fill-available;
 }
-
 
 
 
