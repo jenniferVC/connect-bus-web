@@ -69,22 +69,45 @@ function convertDocumentFirebaseToObject(doc) {
 /**
  * Função chamada quando é informado um valor no campo de Busca
  */
-function searchItem(){
-    const item = document.getElementById('busca');
-    console.log('item de busca: '+ item.value)
+function searchItem() {
+    const latlongSearch = document.getElementById('busca').value;
+    console.log('lat e long de busca: ' + latlongSearch);
+    const latlongSplited = latlongSearch.split(',');
+    console.log('latitude e longitude quebrada pela virgula: '+   latlongSplited)
+    const geopointSearch = new firebase.firestore.GeoPoint(latlongSplited[0], latlongSplited[1])
+
+    console.log('geopoint consulta: '+JSON.stringify(geopointSearch));
+
+    paradasCollectionRef.where("paradas", "array-contains", geopointSearch).get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.id, " => ", doc.data());
+            });
+        })
+        .catch((error) => {
+            console.log("Erro ao obter documentos: ", error);
+        });
+
+
 }
 
 function getItensBD() {
+    // Recuperandos todos os documentos da Collection 'Paradas'
+    // https://firebase.google.com/docs/firestore/query-data/get-data?hl=pt-br#get_multiple_documents_from_a_collection
     paradasCollectionRef.get().then((querySnapshot) => {
-        console.log(querySnapshot.docs.map(doc => convertDocumentFirebaseToObject(doc)));
+        console.log('Obtendo todos os documentos da coleção: ' + querySnapshot.docs.map(doc => convertDocumentFirebaseToObject(doc)));
         const paradasNormalizadas = querySnapshot.docs.map(doc => convertDocumentFirebaseToObject(doc));
-        console.log('paradasNormalizadas = ', paradasNormalizadas)
+        console.log('Documentos transformados no Objeto Parada = ', paradasNormalizadas)
 
         // Normalizando o array com a função 'flat()'
         const arrayParadasFlat = paradasNormalizadas.flat();
         console.log(arrayParadasFlat);
         loadItensInTable(arrayParadasFlat);
-    });
+    })
+        .catch((error) => {
+            console.log("Erro ao obter documentos: ", error);
+        });
 }
 
 getItensBD();
