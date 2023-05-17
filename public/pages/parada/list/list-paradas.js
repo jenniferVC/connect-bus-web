@@ -66,6 +66,13 @@ function convertDocumentFirebaseToObject(doc) {
     return arrayParadas;
 }
 
+/**
+ * Função chamada quando é informado um valor no campo de Busca
+ */
+function searchItem(){
+    const item = document.getElementById('busca');
+    console.log('item de busca: '+ item.value)
+}
 
 function getItensBD() {
     paradasCollectionRef.get().then((querySnapshot) => {
