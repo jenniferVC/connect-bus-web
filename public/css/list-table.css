@@ -87,21 +87,21 @@ tr {
     border-bottom: 1px solid rgb(238, 235, 235) !important;
 }
 
-tbody tr td {
+/* tbody tr td {
     vertical-align: text-top;
     padding: 6px;
     max-width: 50px;
-}
+} */
 
 thead tr th {
     padding: 5px;
     text-align: start;
     margin-bottom: 50px;
 }
-
+/* 
 tbody tr {
     margin-bottom: 50px;
-}
+} */
 
 thead tr th.acao {
     width: 100px !important;

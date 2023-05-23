@@ -72,9 +72,9 @@ function convertDocumentFirebaseToObject(doc) {
 function searchItem() {
     const latlongSearch = document.getElementById('busca').value;
     console.log('lat e long de busca: ' + latlongSearch);
-    const latlongSplited = latlongSearch.split(',');
-    console.log('latitude e longitude quebrada pela virgula: '+   latlongSplited)
-    const geopointSearch = new firebase.firestore.GeoPoint(latlongSplited[0], latlongSplited[1])
+    const latlongWithoutComma = latlongSearch.split(',');
+    console.log('latitude e longitude quebrada pela virgula: '+   latlongWithoutComma)
+    const geopointSearch = new firebase.firestore.GeoPoint(latlongWithoutComma[0], latlongWithoutComma[1])
 
     console.log('geopoint consulta: '+JSON.stringify(geopointSearch));
 
