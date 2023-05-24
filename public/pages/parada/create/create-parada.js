@@ -2,22 +2,34 @@ var db = firebase.firestore();
 
 var bairrosCollectionRef = db.collection("Bairros");
 
+function loadNeighborhoodInSelect() {
+    
+}
+
 /**
- * Carrega os nomes dos bairros no campo Select.
+ * Função responsável por fazer a consulta no banco.
  */
-function loadNeighborhood() {
-    const inputBairroPai = document.getElementById('options-nomes-bairros');
-    inputBairroPai.innerHTML = '';
+function getItensBD() {
+    // const inputBairroPai = document.getElementById('neighborhood-select');
+    // inputBairroPai.innerHTML = '';
 
     // Itera sobre cada documento da collection "Bairros" e
     // coloca o valor do atributo "nomeBairro" dentro da tag "option"
     bairrosCollectionRef.get().then((querySnapshot) => {
-        querySnapshot.forEach((docBairro) => {
-            const option = document.createElement("option");
-            option.innerHTML = docBairro.data().nomeBairro;
-            inputBairroPai.appendChild(option);
-        });
+        // querySnapshot.forEach((docBairro) => {
+        //     // const option = document.createElement("option");
+
+        //     // option.setAttribute("value", docBairro.data().nomeBairro);
+        //     // option.innerHTML = docBairro.data().nomeBairro;
+        //     // inputBairroPai.appendChild(option);
+
+        //     concatOption += `
+        //         <option value="${docBairro.data().nomeBairro}">${docBairro.data().nomeBairro}</option> 
+        //     `
+        // });
     }).catch(err => alert('Erro ao listar bairros' + err));
+
+    console.log('Options concatenados: ', concatOption);
 }
 
 /**
@@ -25,6 +37,7 @@ function loadNeighborhood() {
  * @returns 
  */
 function onChangeBusStop() {
+    console.log('longitude: ', formParada.inputLgn().value);
     if (formParada.inputLat().value && formParada.inputLgn().value) {
         console.log('tem os dois campos')
         return new firebase.firestore.GeoPoint(formParada.inputLat().value, formParada.inputLgn().value);
@@ -49,7 +62,7 @@ function save() {
 
         // Fazendo referencia ao documento que tem o nome do bairro, o qual
         // foi selecionado no Select.
-        const docBairroRef = bairrosCollectionRef.doc(formParada.inputBairroNome().value);
+        const docBairroRef = bairrosCollectionRef.doc(formParada.selectNeighbourhood().value);
 
         docBairroRef.get().then((doc) => {
             if (doc.exists) {
@@ -81,7 +94,7 @@ function save() {
  * Objeto que irá receber os dados informados no formulario
  */
 const formParada = {
-    inputBairroNome: () => document.getElementById("options-nomes-bairros"),
+    selectNeighborhood: () => document.getElementById("neighborhood-select"),
     inputLat: () => document.getElementById("input-lat"),
     inputLgn: () => document.getElementById("input-lgn"),
 }

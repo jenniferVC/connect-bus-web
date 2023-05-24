@@ -1,6 +1,14 @@
 var db = firebase.firestore();
 var bairrosCollectionRef = db.collection("Bairros");
 
+function logout() {
+    firebase.auth().signOut().then(() => {
+        window.location.href = "../../../index.html";
+    }).catch((error) => {
+        alert('Um Erro ocorreu ao fazer logout', error);
+    })
+}
+
 /**
  * Função chamada ao clicar no botão 'Salvar', a mesma verifica
  * se já existe algum documento com o nome do Bairro informado.
@@ -14,7 +22,7 @@ function save() {
         if (doc.exists) {
             alert('Bairro já cadastrado! Por favor informe outro bairro.')
         } else {
-            insertItem();
+            insertItem(formBairro.inputBairroNome().value);
         }
     }).catch((error) => {
         alert("Error ao consultar documento referente ao bairro:", error);
@@ -22,20 +30,20 @@ function save() {
 }
 
 /**
- * Função responsável por criar um documento com o nome do bairro 
- * informado dentro do documento criar um campo 'nomeBairro' com 
+ * Função responsável por criar um Documento com o nome do bairro 
+ * informado pelo usuário. Dentro do Documento criar um campo 'nomeBairro' com 
  * o nome do bairro.
  */
-function insertItem() {
-    bairrosCollectionRef.doc(formBairro.inputBairroNome().value).set({
-        nomeBairro: formBairro.inputBairroNome().value
+function insertItem(bairro) {
+    bairrosCollectionRef.doc(bairro).set({
+        nomeBairro: bairro
     }).then((docRef) => {
         alert("Bairro cadastrado com sucesso!");
     }).catch((error) => {
         alert("Error ao cadastrar bairro: ", error);
     });
 
-    // Listando os dados da Coleção Bairros como DEBUG
+    // DEBUG: Listando os dados da Coleção Bairros
     db.collection("Bairros").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);

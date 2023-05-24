@@ -52,7 +52,9 @@ function deleteItem(index) {
     console.log('deletando item:' + index)
 }
 
-
+/**
+ * Função responsável por fazer a consulta no banco.
+ */
 function getItensBD() {
     horariosCollectionRef.get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {

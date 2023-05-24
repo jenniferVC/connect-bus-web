@@ -92,6 +92,9 @@ function searchItem() {
 
 }
 
+/**
+ * Função responsável por fazer a consulta no banco.
+ */
 function getItensBD() {
     // Recuperandos todos os documentos da Collection 'Paradas'
     // https://firebase.google.com/docs/firestore/query-data/get-data?hl=pt-br#get_multiple_documents_from_a_collection
@@ -106,7 +109,7 @@ function getItensBD() {
         loadItensInTable(arrayParadasFlat);
     })
         .catch((error) => {
-            console.log("Erro ao obter documentos: ", error);
+            alert("Erro ao obter documentos: ", error);
         });
 }
 

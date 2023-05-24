@@ -5,26 +5,73 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Normalize.css padroniza o estilo em todos os navegadores e remove bordas e outros elementos dos navegadores -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+
+  <!-- Material Design -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+  <!-- Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../../css/global.css">
+
   <title>ConnectBus | Paradas</title>
 </head>
 
 <body>
-  <h1>Cadastro de Paradas...</h1>
+  <!---- TOPBAR ----------------------------------->
+  <header class="mdc-top-app-bar">
+    <div class="mdc-top-app-bar__row">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <span class="mdc-top-app-bar__title">Cadastro de Paradas</span>
+      </section>
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Logout" title="Sair">logout</button>
+      </section>
+    </div>
+  </header>
+  <main class="mdc-top-app-bar--fixed-adjust centralize">
 
-  <div onclick="loadNeighborhood()">
-    <div><label>Bairro*: </label></div>
-    <select id="options-nomes-bairros">
-      <option value="">-- Selecione um bairro --</option>
-      <!-- Options de Bairros vão aqui-->
-    </select><br /><br />
-  </div>
+    <div onclick="getItensBD()">
+      <label for="neighborhood-select">Bairro*: </label>
+      <select name="neighborhoods" id="neighborhood-select">
+        <option value="">-- Selecione um bairro --</option>
+        <!-- Options de Bairros vão aqui-->
+      </select><br /><br />
+    </div>
 
-  <div>
-    Latitude: <input type="text" placeholder="lat " id="input-lat"><br /><br />
-    Longitude: <input type="text" placeholder="lgn " id="input-lgn"><br /><br />
-  </div>
+    <label for="pet-select">Choose a pet:</label>
 
-  <button onclick="save()">Salvar</button>
+    <select name="pets" id="pet-select">
+      <option value="">--Please choose an option--</option>
+      <option value="dog">Dog</option>
+      <option value="cat">Cat</option>
+      <option value="hamster">Hamster</option>
+      <option value="parrot">Parrot</option>
+      <option value="spider">Spider</option>
+      <option value="goldfish">Goldfish</option>
+    </select>
+
+    <!-- Campo Latitude-->
+    <label class="form-field mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+      <span class="mdc-text-field__ripple"></span>
+      <input id="input-lat" class="mdc-text-field__input" type="text" placeholder="Latitude" aria-label="Label">
+      <span class="mdc-line-ripple"></span>
+    </label>
+
+    <!-- Campo Longitude-->
+    <label class="form-field mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+      <span class="mdc-text-field__ripple"></span>
+      <input id="input-lgn" class="mdc-text-field__input" type="text" placeholder="Longitude" aria-label="Label">
+      <span class="mdc-line-ripple"></span>
+    </label>
+
+    <button onclick="save()">Salvar</button>
+  </main>
 </body>
 
 <!--
@@ -38,7 +85,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
 <script src="../../../js/firebase-config.js"></script>
-<script src="../../../js/auth-guard.js"></script> 
+<script src="../../../js/auth-guard.js"></script>
 <script src="create-parada.js"></script>
 
 </html>
