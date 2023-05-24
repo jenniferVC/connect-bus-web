@@ -2,6 +2,7 @@ var db = firebase.firestore();
 var bairrosCollectionRef = db.collection("Bairros");
 const tbody = document.querySelector('tbody');
 
+const paginationTotal = document.getElementById('pagination-total');
 
 function editItem(bairro) {
     // Função para editar o item
@@ -44,6 +45,7 @@ function loadItensInTable(documents) {
     }
     else {
         tbody.innerHTML = "";
+        paginationTotal.innerHTML = `1-${documents.length} de ${documents.length}`;
         const arrBairros = documents.map(doc => doc.data().nomeBairro);
         console.log(arrBairros);
         // TODO: Colocar loading

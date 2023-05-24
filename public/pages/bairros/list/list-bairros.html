@@ -58,6 +58,7 @@
                 <button id="new"><a href="../create/create-bairros.html">Incluir</a></button>
             </div>
 
+            <!-- Tabela -->
             <div class="divTable">
                 <table>
                     <thead>
@@ -71,6 +72,31 @@
                         <!-- Aqui vai o conteúdo da tabela-->
                     </tbody>
                 </table>
+            </div>
+
+            <!---- PAGINAÇÃO ----------------------------------->
+            <div class="mdc-data-table__pagination">
+                <div class="mdc-data-table__pagination-navigation">
+                    <div class="mdc-data-table__pagination-total">
+                        <p id="pagination-total"></p>
+                    </div>
+                    <button class="mdc-icon-button material-icons" data-first-page="true" disabled>
+                        <div class="mdc-icon-button__ripple"></div>
+                        first_page
+                    </button>
+                    <button class="mdc-icon-button material-icons" data-prev-page="true" disabled>
+                        <div class="mdc-icon-button__ripple"></div>
+                        chevron_left
+                    </button>
+                    <button class="mdc-icon-button material-icons" data-next-page="true">
+                        <div class="mdc-icon-button__ripple"></div>
+                        chevron_right
+                    </button>
+                    <button class="mdc-icon-button material-icons" data-last-page="true">
+                        <div class="mdc-icon-button__ripple"></div>
+                        last_page
+                    </button>
+                </div>
             </div>
         </div>
     </main>
