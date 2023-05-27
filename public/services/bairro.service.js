@@ -30,6 +30,11 @@ const bairroService = {
         return querySnapshot.docs;
       });
   },
+  /**
+   * 
+   * @param {string} name 
+   * @returns 
+   */
   findByEqualName: name => {
     return firebase.firestore()
       .collection("Bairros")
@@ -53,6 +58,32 @@ const bairroService = {
         if (doc.exists) {
           return doc.data();
         }
+      })
+  },
+  /**
+   * 
+   * @param {string} nome 
+   * @returns 
+   */
+  create: nome => {
+    return firebase.firestore()
+      .collection("Bairros")
+      .add({
+        nomeBairro: nome
+      })
+  },
+  /**
+   * 
+   * @param {string} id 
+   * @param {string} nome 
+   * @returns 
+   */
+  update: (id, nome) => {
+    return firebase.firestore()
+      .collection("Bairros")
+      .doc(id)
+      .update({
+        nomeBairro: nome
       })
   },
   /**

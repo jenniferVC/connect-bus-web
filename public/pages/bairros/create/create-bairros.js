@@ -110,21 +110,13 @@ function verifyIfExists() {
  * Função responsável por criar um Documento com o nome do bairro 
  * informado pelo usuário. Dentro do Documento criar um campo 'nomeBairro' com 
  * o nome do bairro.
+ * @param {string} nome
  */
-function INSERT(bairro) {
-    bairrosCollectionRef.add({
-        nomeBairro: bairro
-    }).then((docRef) => {
+function INSERT(nome) {
+    bairroService.create(nome).then(() => {
         alert("Bairro cadastrado com sucesso!");
     }).catch((error) => {
         alert("Error ao cadastrar bairro: ", error);
-    });
-
-    // DEBUG: Listando os dados da Coleção Bairros
-    db.collection("Bairros").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
-        });
     });
 }
 
@@ -133,10 +125,7 @@ function INSERT(bairro) {
  */
 function UPDATE() {
     showLoading();
-
-    bairrosCollectionRef.doc(getItemURL()).update({
-        nomeBairro: formBairro.inputBairroNome().value
-    }).then(() => {
+    bairroService.update(getItemURL(), formBairro.inputBairroNome().value).then(() => {
         hideLoading();
         alert("Bairro atualizado com sucesso!");
     })
