@@ -1,6 +1,3 @@
-var db = firebase.firestore();
-var bairrosCollectionRef = db.collection("Bairros");
-
 const tbody = document.querySelector('tbody');
 const paginationTotal = document.getElementById('pagination-total');
 
@@ -22,7 +19,7 @@ function editItem(bairro) {
  * @param {Bairro} bairro 
  */
 function deleteItem(bairro) {
-    bairrosCollectionRef.doc(bairro.id).delete().then(() => {
+    bairroService.delete(bairro).then(() => {
         alert("Bairro deletado com sucesso!");
         window.location.reload();
     }).catch((error) => {
@@ -110,7 +107,7 @@ function loadItensInTable(documents) {
  * @param {*} document 
  * @returns Bairro
  */
-function convertDocumentFirebaseToObject(document){
+function convertDocumentFirebaseToObject(document) {
     const bairro = new Bairro();
     bairro.id = document.id;
     bairro.nomeBairro = document.data().nomeBairro;
@@ -137,12 +134,10 @@ function searchItem() {
     console.log('Bairro pesquisado: ', bairroSearch);
 
     showLoading();
-    bairrosCollectionRef.where("nomeBairro", ">=", bairroSearch)
-        .get()
-        .then((querySnapshot) => {
-            hideLoading();
-            loadItensInTable(querySnapshot.docs);
-        })
+    bairroService.findByName(bairroSearch).then((bairros) => {
+        hideLoading();
+        loadItensInTable(bairros);
+    })
         .catch((error) => {
             hideLoading();
             alert("Erro ao obter documentos: ", error);
@@ -154,9 +149,9 @@ function searchItem() {
  */
 function getItensBD() {
     showLoading();
-    bairrosCollectionRef.get().then((querySnapshot) => {
+    bairroService.getAll().then((documents) => {
         hideLoading();
-        loadItensInTable(querySnapshot.docs);
+        loadItensInTable(documents);
     }).catch((error) => {
         hideLoading();
         alert("Erro ao obter documentos: ", error);
