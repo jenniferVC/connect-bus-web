@@ -43,11 +43,11 @@ function getItemURL() {
  */
 function findItemByID(id) {
     showLoading();
-    bairrosCollectionRef.doc(id).get().then(doc => {
+    bairroService.findByID(id).then(bairro => {
         hideLoading();
-        if (doc.exists) {
-            console.log(doc.data());
-            fillFields(doc.data());
+        if (bairro) {
+            console.log(bairro);
+            fillFields(bairro);
         }
         else {
             alert("Documento não encontrado");
@@ -94,8 +94,8 @@ function saveItem() {
  * para criar o documento.
  */
 function verifyIfExists() {
-    bairrosCollectionRef.where("nomeBairro", "==", formBairro.inputBairroNome().value).get().then((querySnapshot) => {
-        if (querySnapshot.docs.length > 0) {
+    bairroService.findByEqualName(formBairro.inputBairroNome().value).then((documents) => {
+        if (documents.length > 0) {
             alert('Bairro já cadastrado! Por favor informe outro bairro.')
         } else {
             saveItem();

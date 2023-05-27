@@ -30,6 +30,31 @@ const bairroService = {
         return querySnapshot.docs;
       });
   },
+  findByEqualName: name => {
+    return firebase.firestore()
+      .collection("Bairros")
+      .where("nomeBairro", "==", name)
+      .get()
+      .then((querySnapshot) => {
+        return querySnapshot.docs;
+      });
+  },
+  /**
+   * 
+   * @param {string} id 
+   * @returns Promise
+   */
+  findByID: id => {
+    return firebase.firestore()
+      .collection("Bairros")
+      .doc(id)
+      .get()
+      .then(doc => {
+        if (doc.exists) {
+          return doc.data();
+        }
+      })
+  },
   /**
    * 
    * @param {Bairro} bairro 
