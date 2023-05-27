@@ -11,18 +11,18 @@ class Bairro {
 
 /**
  * Função chamada ao clicar no icone de editar da tabela.
- * @param {string} nome 
+ * @param {Bairro} bairro 
  */
-function editItem(nome) {
-    window.location.href = "../create/create-bairros.html?nomeBairro=" + nome;
+function editItem(bairro) {
+    window.location.href = "../create/create-bairros.html?id=" + bairro.id;
 }
 
 /**
  * Função chamada ao clicar no icone de excluir da tabela.
- * @param {string} nome 
+ * @param {Bairro} bairro 
  */
-function deleteItem(nome) {
-    bairrosCollectionRef.doc(nome).delete().then(() => {
+function deleteItem(bairro) {
+    bairrosCollectionRef.doc(bairro.id).delete().then(() => {
         alert("Bairro deletado com sucesso!");
         window.location.reload();
     }).catch((error) => {
@@ -32,15 +32,15 @@ function deleteItem(nome) {
 
 /**
  *Função que converte cada item do banco para um item HTML da tabela
- * @param {string[]} arrNomeBairros 
+ * @param {Bairro[]} arrBairros 
  */
-function convertDocumentFirebaseToHTML(arrNomeBairros) {
+function convertDocumentFirebaseToHTML(arrBairros) {
     console.log('entrou na funcao convertHTML')
-    arrNomeBairros.forEach((nome, index) => {
+    arrBairros.forEach((bairro, index) => {
         // ------------ CÉLULA DO NOME DO BAIRRO -------------
 
         let td_bairro = document.createElement("td");
-        td_bairro.innerHTML = nome;
+        td_bairro.innerHTML = bairro.nomeBairro;
 
         // ------------ CÉLULA DO BOTÃO EDITAR -------------
 
@@ -51,7 +51,7 @@ function convertDocumentFirebaseToHTML(arrNomeBairros) {
         // Botao contendo icone de editar
         let button_edit = document.createElement("button");
         button_edit.appendChild(icon_edit);
-        button_edit.addEventListener("click", () => editItem(nome));
+        button_edit.addEventListener("click", () => editItem(bairro));
 
         // Celula TD da tabela contendo o botao de editar
         let td_edit = document.createElement("td");
@@ -67,7 +67,7 @@ function convertDocumentFirebaseToHTML(arrNomeBairros) {
         // Botao contendo icone de excluir
         let button_delete = document.createElement("button");
         button_delete.appendChild(icon_delete);
-        button_delete.addEventListener("click", () => deleteItem(nome));
+        button_delete.addEventListener("click", () => deleteItem(bairro));
 
         // Celula TD da tabela contendo o botao de excluir
         let td_delete = document.createElement("td");
@@ -97,17 +97,24 @@ function loadItensInTable(documents) {
     else {
         tbody.innerHTML = "";
         paginationTotal.innerHTML = `1-${documents.length} de ${documents.length}`;
-        const arrNomeBairros = documents.map(doc => {
-            const bairro = new Bairro();
-            bairro.id = doc.id;
-            bairro.nomeBairro = doc.data().nomeBairro;
-            return bairro;
-         });
-        console.log(arrNomeBairros);
+        const arrBairros = documents.map(document => convertDocumentFirebaseToObject(document));
+        console.log(arrBairros);
         // TODO: Colocar loading
         console.log('convertendo documents em html')
-        convertDocumentFirebaseToHTML(arrNomeBairros);
+        convertDocumentFirebaseToHTML(arrBairros);
     }
+}
+
+/**
+ * Converte documento do Firebase no Objeto Bairro
+ * @param {*} document 
+ * @returns Bairro
+ */
+function convertDocumentFirebaseToObject(document){
+    const bairro = new Bairro();
+    bairro.id = document.id;
+    bairro.nomeBairro = document.data().nomeBairro;
+    return bairro;
 }
 
 /**
