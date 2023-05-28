@@ -32,44 +32,18 @@ function deleteItem(bairro) {
  * @param {Bairro[]} arrBairros 
  */
 function convertDocumentFirebaseToHTML(arrBairros) {
-    console.log('entrou na funcao convertHTML')
-    arrBairros.forEach((bairro, index) => {
+    arrBairros.forEach((bairro) => {
         // ------------ CÉLULA DO NOME DO BAIRRO -------------
 
-        let td_bairro = document.createElement("td");
-        td_bairro.innerHTML = bairro.nomeBairro;
+        const td_bairro = generateElementTextTd(bairro.nomeBairro);
 
         // ------------ CÉLULA DO BOTÃO EDITAR -------------
 
-        // Icone de editar
-        let icon_edit = document.createElement("i");
-        icon_edit.classList.add("bx", "bx-edit");
-
-        // Botao contendo icone de editar
-        let button_edit = document.createElement("button");
-        button_edit.appendChild(icon_edit);
-        button_edit.addEventListener("click", () => editItem(bairro));
-
-        // Celula TD da tabela contendo o botao de editar
-        let td_edit = document.createElement("td");
-        td_edit.classList.add("acao");
-        td_edit.appendChild(button_edit);
+        const td_edit = generateButtonEdit(bairro);
 
         // ------------ CÉLULA DO BOTÃO EXCLUIR -------------
 
-        // Icone de excluir
-        let icon_delete = document.createElement("i");
-        icon_delete.classList.add("bx", "bx-trash");
-
-        // Botao contendo icone de excluir
-        let button_delete = document.createElement("button");
-        button_delete.appendChild(icon_delete);
-        button_delete.addEventListener("click", () => deleteItem(bairro));
-
-        // Celula TD da tabela contendo o botao de excluir
-        let td_delete = document.createElement("td");
-        td_delete.classList.add("acao");
-        td_delete.appendChild(button_delete);
+        const td_delete = generateButtonDelete(bairro);
 
         // Linha TR da tabela contendo todas as celulas
         let tr = document.createElement("tr");
@@ -80,6 +54,63 @@ function convertDocumentFirebaseToHTML(arrBairros) {
         // Acrescentando a linha ao corpo da tabela
         tbody.appendChild(tr)
     });
+}
+
+/**
+ * Função responsável por criar célula TR de texto 
+ * @param {string} text 
+ * @returns HTMLTableCellElement
+ */
+function generateElementTextTd(text) {
+    let td = document.createElement("td");
+    td.innerHTML = text;
+    return td;
+}
+
+/**
+ * Função responsável por criar célula TR contendo botão de editar. 
+ * @param {*} item 
+ * @returns HTMLTableCellElement
+ */
+function generateButtonEdit(item) {
+    // Icone de editar
+    let icon_edit = document.createElement("i");
+    icon_edit.classList.add("bx", "bx-edit");
+
+    // Botao contendo icone de editar
+    let button_edit = document.createElement("button");
+    button_edit.appendChild(icon_edit);
+    button_edit.addEventListener("click", () => editItem(item));
+
+    // Celula TD da tabela contendo o botao de editar
+    let td_edit = document.createElement("td");
+    td_edit.classList.add("acao");
+    td_edit.appendChild(button_edit);
+
+    return td_edit;
+}
+
+/**
+ * Função responsável por criar célula TR contendo botão de excluir. 
+ * @param {*} item 
+ * @returns HTMLTableCellElement
+ */
+function generateButtonDelete(item) {
+    // Icone de excluir
+    let icon_delete = document.createElement("i");
+    icon_delete.classList.add("bx", "bx-trash");
+
+    // Botao contendo icone de excluir
+    let button_delete = document.createElement("button");
+    button_delete.appendChild(icon_delete);
+    button_delete.addEventListener("click", () => deleteItem(item));
+
+    // Celula TD da tabela contendo o botao de excluir
+    let td_delete = document.createElement("td");
+    td_delete.classList.add("acao");
+    td_delete.appendChild(button_delete);
+    
+    return td_delete;
 }
 
 /**
