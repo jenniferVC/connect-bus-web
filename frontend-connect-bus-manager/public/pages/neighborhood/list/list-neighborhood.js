@@ -1,25 +1,25 @@
 const tbody = document.querySelector('tbody');
 const paginationTotal = document.getElementById('pagination-total');
 
-class Bairro {
-    id;
-    nomeBairro;
+class Neighborhood {
+    docId;
+    name;
 }
 
 /**
  * Função chamada ao clicar no icone de editar da tabela.
- * @param {Bairro} bairro 
+ * @param {Neighborhood} neighborhood 
  */
-function editItem(bairro) {
-    window.location.href = "../create/create-bairros.html?id=" + bairro.id;
+function editItem(neighborhood) {
+    window.location.href = "../create/create-neighborhood.html?docID=" + neighborhood.docId;
 }
 
 /**
  * Função chamada ao clicar no icone de excluir da tabela.
- * @param {Bairro} bairro 
+ * @param {Neighborhood} neighborhood 
  */
-function deleteItem(bairro) {
-    bairroService.delete(bairro).then(() => {
+function deleteItem(neighborhood) {
+    neighborhoodService.delete(neighborhood.docId).then(() => {
         alert("Bairro deletado com sucesso!");
         window.location.reload();
     }).catch((error) => {
@@ -29,25 +29,25 @@ function deleteItem(bairro) {
 
 /**
  *Função que converte cada item do banco para um item HTML da tabela
- * @param {Bairro[]} arrBairros 
+ * @param {Neighborhood[]} arrNeighborhoods 
  */
-function convertDocumentFirebaseToHTML(arrBairros) {
-    arrBairros.forEach((bairro) => {
+function convertDocumentFirebaseToHTML(arrNeighborhoods) {
+    arrNeighborhoods.forEach((neighborhood) => {
         // ------------ CÉLULA DO NOME DO BAIRRO -------------
 
-        const td_bairro = generateElementTextTd(bairro.nomeBairro);
+        const td_name = generateElementTextTd(neighborhood.name);
 
         // ------------ CÉLULA DO BOTÃO EDITAR -------------
 
-        const td_edit = generateButtonEdit(bairro);
+        const td_edit = generateButtonEdit(neighborhood);
 
         // ------------ CÉLULA DO BOTÃO EXCLUIR -------------
 
-        const td_delete = generateButtonDelete(bairro);
+        const td_delete = generateButtonDelete(neighborhood);
 
         // Linha TR da tabela contendo todas as celulas
         let tr = document.createElement("tr");
-        tr.appendChild(td_bairro)
+        tr.appendChild(td_name)
         tr.appendChild(td_edit)
         tr.appendChild(td_delete)
 
@@ -136,17 +136,17 @@ function loadItensInTable(documents) {
 /**
  * Converte documento do Firebase no Objeto Bairro
  * @param {*} document 
- * @returns Bairro
+ * @returns Neighborhood
  */
 function convertDocumentFirebaseToObject(document) {
-    const bairro = new Bairro();
-    bairro.id = document.id;
-    bairro.nomeBairro = document.data().nomeBairro;
-    return bairro;
+    const neighborhood = new Neighborhood();
+    neighborhood.docId = document.id;
+    neighborhood.name = document.data().name;
+    return neighborhood;
 }
 
 /**
- * Função que irá exibir mensagem de 'Nenhum conteúdo para listar'
+ * Função que irá exibir mensagem de 'Nenhum conteúdo para listar' ao fazer uma pesquisa.
  */
 function itemNotFound() {
     tbody.innerHTML = "";
@@ -161,13 +161,13 @@ function itemNotFound() {
  * Função chamada quando é informado um valor no campo de Busca
  */
 function searchItem() {
-    const bairroSearch = document.getElementById('busca').value;
-    console.log('Bairro pesquisado: ', bairroSearch);
+    const neighborhoodSearch = document.getElementById('search').value;
+    console.log('Bairro pesquisado: ', neighborhoodSearch);
 
     showLoading();
-    bairroService.findByName(bairroSearch).then((bairros) => {
+    neighborhoodService.findByName(neighborhoodSearch).then((neighborhoods) => {
         hideLoading();
-        loadItensInTable(bairros);
+        loadItensInTable(neighborhoods);
     })
         .catch((error) => {
             hideLoading();
@@ -180,7 +180,7 @@ function searchItem() {
  */
 function getItensBD() {
     showLoading();
-    bairroService.getAll().then((documents) => {
+    neighborhoodService.getAll().then((documents) => {
         hideLoading();
         loadItensInTable(documents);
     }).catch((error) => {

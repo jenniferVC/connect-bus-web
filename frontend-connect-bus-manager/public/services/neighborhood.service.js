@@ -1,15 +1,15 @@
 /**
  * Service de Bairro criado para manipular os acessos ao banco Firestore
  */
-const bairroService = {
+const neighborhoodService = {
   /**
    * Retorna todos os Bairros do banco
    * @returns Promise
    */
   getAll: () => {
     return firebase.firestore()
-      .collection("Bairros")
-      .orderBy("nomeBairro", "asc")
+      .collection("Neighborhoods")
+      .orderBy("name", "asc")
       .get()
       .then((querySnapshot) => {
         return querySnapshot.docs;
@@ -22,9 +22,9 @@ const bairroService = {
    */
   findByName: name => {
     return firebase.firestore()
-      .collection("Bairros")
-      .where("nomeBairro", ">=", name)
-      .orderBy("nomeBairro", "asc")
+      .collection("Neighborhoods")
+      .where("name", ">=", name)
+      .orderBy("name", "asc")
       .get()
       .then((querySnapshot) => {
         return querySnapshot.docs;
@@ -37,8 +37,8 @@ const bairroService = {
    */
   findByEqualName: name => {
     return firebase.firestore()
-      .collection("Bairros")
-      .where("nomeBairro", "==", name)
+      .collection("Neighborhoods")
+      .where("name", "==", name)
       .get()
       .then((querySnapshot) => {
         return querySnapshot.docs;
@@ -51,7 +51,7 @@ const bairroService = {
    */
   findByID: id => {
     return firebase.firestore()
-      .collection("Bairros")
+      .collection("Neighborhoods")
       .doc(id)
       .get()
       .then(doc => {
@@ -62,39 +62,39 @@ const bairroService = {
   },
   /**
    * 
-   * @param {string} nome 
+   * @param {string} name 
    * @returns 
    */
-  create: nome => {
+  create: name => {
     return firebase.firestore()
-      .collection("Bairros")
+      .collection("Neighborhoods")
       .add({
-        nomeBairro: nome
+        name: name
       })
   },
   /**
    * 
    * @param {string} id 
-   * @param {string} nome 
+   * @param {string} name 
    * @returns 
    */
-  update: (id, nome) => {
+  update: (id, name) => {
     return firebase.firestore()
-      .collection("Bairros")
+      .collection("Neighborhoods")
       .doc(id)
       .update({
-        nomeBairro: nome
+        name: name
       })
   },
   /**
    * 
-   * @param {Bairro} bairro 
+   * @param {string} id 
    * @returns Promise
    */
-  delete: bairro => {
+  delete: id => {
     return firebase.firestore()
-      .collection("Bairros")
-      .doc(bairro.id)
+      .collection("Neighborhoods")
+      .doc(id)
       .delete();
   }
 }

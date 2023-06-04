@@ -1,9 +1,9 @@
 var db = firebase.firestore();
-var bairrosCollectionRef = db.collection("Bairros");
+var bairrosCollectionRef = db.collection("Neighborhoods");
 
-class Bairro {
-    id;
-    nomeBairro;
+class Neighborhood {
+    docId;
+    name;
 }
 
 /**
@@ -20,8 +20,8 @@ function logout() {
 // Verificando  se tem um paramentro na URL 
 // caso tenha então o consulta no banco
 if (existParams()) {
-    const bairroID = getItemURL();
-    findItemByID(bairroID);
+    const docID = getItemURL();
+    findItemByID(docID);
 }
 
 /**
@@ -31,27 +31,27 @@ if (existParams()) {
  */
 function getItemURL() {
     const urlParams = new URLSearchParams(window.location.search);
-    console.log('Parametro enviado pela URL: ', urlParams.get('id'));
-    return urlParams.get('id');
+    console.log('Parametro enviado pela URL: ', urlParams.get('docID'));
+    return urlParams.get('docID');
 }
 
 /**
  * Função responsável por consultar no banco através do ID do Document.
  * Caso encontre, então preenche os campos com a função fillFields(), 
  * caso contrário o usuário é redirecionado para a pagina da tabela bairros.
- * @param {string} id 
+ * @param {string} docID 
  */
-function findItemByID(id) {
+function findItemByID(docID) {
     showLoading();
-    bairroService.findByID(id).then(bairro => {
+    neighborhoodService.findByID(docID).then(neighborhood => {
         hideLoading();
-        if (bairro) {
-            console.log(bairro);
-            fillFields(bairro);
+        if (neighborhood) {
+            console.log(neighborhood);
+            fillFields(neighborhood);
         }
         else {
             alert("Documento não encontrado");
-            window.location.href = "../list/list-bairros.html";
+            window.location.href = "../list/list-neighborhood.html";
         }
     }).catch(error => {
         hideLoading();
@@ -61,10 +61,10 @@ function findItemByID(id) {
 
 /**
  * Função responsável por preencher todos os campos da pagina.
- * @param {Bairro} bairro 
+ * @param {Neighborhood} neighborhood 
  */
-function fillFields(bairro) {
-    formBairro.inputBairroNome().value = bairro.nomeBairro;
+function fillFields(neighborhood) {
+    formNeighborhood.inputNeighborhoodName().value = neighborhood.name;
 }
 
 /**
@@ -84,7 +84,7 @@ function saveItem() {
     if (existParams()) {
         UPDATE();
     } else {
-        INSERT(formBairro.inputBairroNome().value);
+        INSERT(formNeighborhood.inputNeighborhoodName().value);
     }
 }
 
@@ -94,7 +94,7 @@ function saveItem() {
  * para criar o documento.
  */
 function verifyIfExists() {
-    bairroService.findByEqualName(formBairro.inputBairroNome().value).then((documents) => {
+    neighborhoodService.findByEqualName(formNeighborhood.inputNeighborhoodName().value).then((documents) => {
         if (documents.length > 0) {
             alert('Bairro já cadastrado! Por favor informe outro bairro.')
         } else {
@@ -108,12 +108,12 @@ function verifyIfExists() {
 
 /**
  * Função responsável por criar um Documento com o nome do bairro 
- * informado pelo usuário. Dentro do Documento criar um campo 'nomeBairro' com 
+ * informado pelo usuário. Dentro do Documento criar um campo 'name' com 
  * o nome do bairro.
- * @param {string} nome
+ * @param {string} name
  */
-function INSERT(nome) {
-    bairroService.create(nome).then(() => {
+function INSERT(name) {
+    neighborhoodService.create(name).then(() => {
         alert("Bairro cadastrado com sucesso!");
     }).catch((error) => {
         alert("Error ao cadastrar bairro: ", error);
@@ -125,7 +125,7 @@ function INSERT(nome) {
  */
 function UPDATE() {
     showLoading();
-    bairroService.update(getItemURL(), formBairro.inputBairroNome().value).then(() => {
+    neighborhoodService.update(getItemURL(), formNeighborhood.inputNeighborhoodName().value).then(() => {
         hideLoading();
         alert("Bairro atualizado com sucesso!");
     })
@@ -137,6 +137,6 @@ function UPDATE() {
 }
 
 
-const formBairro = {
-    inputBairroNome: () => document.getElementById("input-bairro-nome"),
+const formNeighborhood = {
+    inputNeighborhoodName: () => document.getElementById("input-name-neighborhood"),
 }

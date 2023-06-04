@@ -1,6 +1,6 @@
 var db = firebase.firestore();
 
-var BairrosCollection = db.collection("Bairros");
+var BairrosCollection = db.collection("Neighborhoods");
 
 /**
  * Carrega os nomes dos bairros no campo Select.
