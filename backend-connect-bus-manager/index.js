@@ -1,6 +1,6 @@
 import express from 'express';
 import admin from 'firebase-admin';
-import { authenticateToken } from './middlewares/authenticate-jwt.js';
+import { bairrosRouter } from './bairros/routes.js';
 
 const app = express();
 
@@ -16,24 +16,7 @@ admin.initializeApp({
 
 
 
-//
-// https://expressjs.com/en/guide/routing.html
-//
-app.get('/bairros', authenticateToken, (request, response) => {
-  console.log('GET bairros');
-  admin.firestore()
-    .collection('Bairros')
-    .orderBy("nomeBairro", "asc")
-    .get()
-    .then(snapshot => {
-      const bairros = snapshot.docs.map(doc => ({
-        ...doc.data(),
-        id: doc.id
-      }))
-      response.json(bairros);
-    })
-
-})
+app.use('/bairros', bairrosRouter);
 
 app.listen(3000, () => console.log('API rest iniciada em http://localhost:3000'))
 
