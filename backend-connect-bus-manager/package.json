@@ -16,6 +16,16 @@
     "firebase-admin": "^11.9.0"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.21.5",
     "jest": "^29.5.0"
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": [
+          "@babel/plugin-transform-modules-commonjs"
+        ]
+      }
+    }
   }
 }

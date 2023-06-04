@@ -1,4 +1,4 @@
-import admin from 'firebase-admin';
+import { NameNotInformedError } from './errors/name-not-informed.error.js';
 import { NeighborhoodRepository } from './repository.js';
 // Camada de Modelo 
 // - Contém a logica e as regras de negócio
@@ -19,10 +19,7 @@ export class Neighborhood {
 
   findByName() {
     if (!this.name) {
-      return Promise.reject({
-        code: 500,
-        message: "Nome de neighborhood nao informado"
-      })
+      return Promise.reject(new NameNotInformedError)
     }
 
     return this.#repository.findByName(this.name);
