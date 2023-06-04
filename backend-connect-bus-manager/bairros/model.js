@@ -1,25 +1,23 @@
 import admin from 'firebase-admin';
+import { BairroRepository } from './repository.js';
 // Camada de Modelo 
 // - Contém a logica e as regras de negócio
 // - Converte dados em algo que faz sentido para o meu negocio
 
 export class Bairro {
   name;
+  // Hashtag '#' na frente do atributo pois o JS entende que ele é privado 
+  #repository;
 
-  listAll() {
-    return admin.firestore()
-      .collection('Bairros')
-      .orderBy("nomeBairro", "asc")
-      .get()
-      .then(querySnapshot => {
-        return querySnapshot.docs.map(doc => ({
-          ...doc.data(),
-          id: doc.id
-        }))
-      })
+  constructor() {
+    this.#repository = new BairroRepository();
   }
 
-  findByName(name) {
+  listAll() {
+    return this.#repository.listAll();
+  }
+
+  findByName() {
     if (!this.name) {
       return Promise.reject({
         code: 500,
@@ -27,13 +25,6 @@ export class Bairro {
       })
     }
 
-    return admin.firestore()
-      .collection("Bairros")
-      .where("nomeBairro", ">=", this.name)
-      .orderBy("nomeBairro", "asc")
-      .get()
-      .then((querySnapshot) => {
-        return querySnapshot.docs;
-      });
+    return this.#repository.findByName(this.name);
   }
 }
