@@ -1,22 +1,28 @@
 // Controller é responsavel por receber a requisição do servidor
 // e retornar uma  resposta para o cliente
 
-import admin from 'firebase-admin';
+import { Bairro } from './model.js';
 
 
-export class BairrosController {
-  listAll (request, response) {
-    console.log('GET bairros');
-    admin.firestore()
-      .collection('Bairros')
-      .orderBy("nomeBairro", "asc")
-      .get()
-      .then(snapshot => {
-        const bairros = snapshot.docs.map(doc => ({
-          ...doc.data(),
-          id: doc.id
-        }))
-        response.json(bairros);
-      })
+export class BairroController {
+  listAll(request, response) {
+    const bairro = new Bairro();
+
+    bairro.listAll().then(bairros => {
+      response.json(bairros);
+    }).catch(error => {
+      response.status(error.code).json(error);
+    })
+  }
+
+  findByName(request, response){
+    const bairro = new Bairro();
+    // bairro.name = request.name;
+
+    bairro.findByName().then(bairros => {
+      response.json(bairros);
+    }).catch(error => {
+      response.status(error.code).json(error);
+    })
   }
 }

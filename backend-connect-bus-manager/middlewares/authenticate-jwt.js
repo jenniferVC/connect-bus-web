@@ -24,9 +24,9 @@ export async function authenticateToken(request, response, next) {
     return;
   }
 
-  request.user = {
-    uid: decodedIdToken.sub
-  }
+  // request.user = {
+  //   uid: decodedIdToken.sub
+  // }
 
   next();
 }
