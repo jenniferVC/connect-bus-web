@@ -9,8 +9,8 @@ export class Neighborhood {
   // Hashtag '#' na frente do atributo pois o JS entende que ele é privado 
   #repository;
 
-  constructor() {
-    this.#repository = new NeighborhoodRepository();
+  constructor(neighborhoodRepository) {
+    this.#repository = neighborhoodRepository || new NeighborhoodRepository();
   }
 
   listAll() {
