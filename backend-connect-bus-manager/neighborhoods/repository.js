@@ -4,12 +4,12 @@ import admin from 'firebase-admin';
 // - Contém a lógica de acesso aos dados necessária para a aplicacao funcionar
 // sejam dados obtidos em banco de dados ou de outra API qualquer.
 
-export class BairroRepository {
+export class NeighborhoodRepository {
   listAll(){
     return admin.firestore()
-    .collection('Bairros')
-    .orderBy("nomeBairro", "asc")
-    .get()
+    .collection('Neighborhoods')
+    .orderBy("name", "asc")
+    .get()  
     .then(querySnapshot => {
       return querySnapshot.docs.map(doc => ({
         ...doc.data(),
@@ -20,9 +20,9 @@ export class BairroRepository {
 
   findByName(name) {
     return admin.firestore()
-      .collection("Bairros")
-      .where("nomeBairro", ">=", name)
-      .orderBy("nomeBairro", "asc")
+      .collection("Neighborhoods")
+      .where("name", ">=", name)
+      .orderBy("name", "asc")
       .get()
       .then((querySnapshot) => {
         return querySnapshot.docs;

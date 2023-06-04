@@ -1,6 +1,6 @@
 import express from 'express';
 import admin from 'firebase-admin';
-import { bairrosRouter } from './bairros/routes.js';
+import { neighborhoodsRouter } from './neighborhoods/routes.js';
 
 const app = express();
 
@@ -16,7 +16,7 @@ admin.initializeApp({
 
 
 
-app.use('/bairros', bairrosRouter);
+app.use('/neighborhoods', neighborhoodsRouter);
 
 app.listen(3000, () => console.log('API rest iniciada em http://localhost:3000'))
 
