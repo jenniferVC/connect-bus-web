@@ -7,8 +7,12 @@ import { Neighborhood } from './model.js';
 export class NeighborhoodController {
   #instance;
 
-  // Singleton
+  /**
+   * 
+   * @param {Neighborhood} instance 
+   */
   constructor(instance) {
+    // Singleton
     this.#instance = instance || new Neighborhood();
   }
 

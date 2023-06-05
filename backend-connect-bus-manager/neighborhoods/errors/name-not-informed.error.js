@@ -1,9 +1,9 @@
-export class NameNotInformedError extends Error {
+export class NeighborhoodNameNotInformedError extends Error {
   constructor(){
     // 'super' chama o construtor da classe Pai
-    super("Nome nao informado");
+    super("Nome do bairro nao foi informado");
     // 'name' é o nome do erro
-    this.name = "name-not-informed";
+    this.name = "neighborhood-name-not-informed";
     this.code = 500;
   }
 }
