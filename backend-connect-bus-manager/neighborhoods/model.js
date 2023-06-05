@@ -7,14 +7,15 @@ import { NeighborhoodRepository } from './repository.js';
 export class Neighborhood {
   name;
   // Hashtag '#' na frente do atributo pois o JS entende que ele é privado 
-  #repository;
+  #instanceRepository;
 
-  constructor(neighborhoodRepository) {
-    this.#repository = neighborhoodRepository || new NeighborhoodRepository();
+  // Singleton
+  constructor(instanceRepository) {
+    this.#instanceRepository = instanceRepository || new NeighborhoodRepository();
   }
 
   listAll() {
-    return this.#repository.listAll();
+    return this.#instanceRepository.listAll();
   }
 
   findByName() {
@@ -22,6 +23,6 @@ export class Neighborhood {
       return Promise.reject(new NameNotInformedError)
     }
 
-    return this.#repository.findByName(this.name);
+    return this.#instanceRepository.findByName(this.name);
   }
 }
