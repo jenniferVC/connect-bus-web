@@ -23,7 +23,7 @@ export class NeighborhoodRepository {
   }
 
   /**
- * 
+ * Busca no banco todos os bairros que tem os nomes parecidos
  * @param {string} name 
  * @returns Promise
  */
@@ -39,7 +39,7 @@ export class NeighborhoodRepository {
   }
 
   /**
- * 
+ * Encontra o bairro pelo ID do documento
  * @param {string} id 
  * @returns Promise
  */
@@ -53,5 +53,18 @@ export class NeighborhoodRepository {
           return doc.data();
         }
       });
+  }
+
+  /**
+ * Adiciona no banco um bairro novo com o ID do documento gerado automaticamente
+ * @param {string} name 
+ * @returns 
+ */
+  create(name) {
+    return firebase.firestore()
+      .collection("Neighborhoods")
+      .add({
+        name: name
+      })
   }
 }

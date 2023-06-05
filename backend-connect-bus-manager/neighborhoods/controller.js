@@ -8,11 +8,10 @@ export class NeighborhoodController {
   #instance;
 
   /**
-   * 
+   * Construtor de NeighborhoodController com Singleton
    * @param {Neighborhood} instance 
    */
   constructor(instance) {
-    // Singleton
     this.#instance = instance || new Neighborhood();
   }
 
@@ -36,7 +35,16 @@ export class NeighborhoodController {
 
   findByDocID(request, response) {
     this.#instance.docID = request.params.docID;
+
     return this.#instance.findByDocID().then(() => {
+      response.status(200).json(this.#instance);
+    }).catch(error => {
+      response.status(error.code).json(error);
+    })
+  }
+
+  create(request, response) {
+    return this.#instance.create(request.body).then(() => {
       response.status(200).json(this.#instance);
     }).catch(error => {
       response.status(error.code).json(error);

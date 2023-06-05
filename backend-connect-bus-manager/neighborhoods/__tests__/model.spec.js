@@ -7,12 +7,11 @@ import { Neighborhood } from "../model.js"
 // Função 'describe()' agrupa varios testes.
 // Mais informações: https://jestjs.io/pt-BR/docs/api#describename-fn
 describe("Neighborhood model", () => {
-
   const neighborhoodRepositoryMock = {
     findByName: () => Promise.resolve([{ name: "name1" }, { name: "name2" }])
   }
 
-  // Testing findByName()
+  //#region Testing findByName()
   describe("given find neighborhood by name", () => {
     test("when name is not informed, then return error 500", async () => {
       const model = new Neighborhood();
@@ -34,7 +33,9 @@ describe("Neighborhood model", () => {
     })
 
   })
+  //#endregion Testing findByName()
 
+  //#region Testing findByDocID()
   describe('given find neighborhood by docID', () => {
     test('then return neighborhood', async () => {
       const exampleNeighborhood = createExampleNeighborhood();
@@ -66,5 +67,6 @@ describe("Neighborhood model", () => {
       return neighborhood;
     }
   })
+  //#endregion Testing findByDocID()
 
 })

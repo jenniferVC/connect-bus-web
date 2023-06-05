@@ -14,6 +14,9 @@ describe('Neighborhood controller', () => {
 
   //#region Testing findByName()
   describe('given find neighborhoods by name', () => {
+
+    // ------- When Success ------------------
+
     test('when success, then return neighborhood', (done) => {
       const neighborhoods = [{ name: "name1" }, { name: "name2" }];
 
@@ -30,7 +33,9 @@ describe('Neighborhood controller', () => {
       })
     })
 
-    test('when fail, then return error', (done) => {
+    // ------- When Fail ------------------
+
+    test('when fail, then return error json', (done) => {
       const error = { code: 500 };
       const controller = new NeighborhoodController({
         findByName: () => Promise.reject(error)
@@ -58,7 +63,10 @@ describe('Neighborhood controller', () => {
 
   //#region Testing findByDocID()
   describe('given find neighborhood by DocID', () => {
-    test('given success, then return status 200', async () => {
+
+    // ------- When Success ------------------
+
+    test('when success, then return status 200', async () => {
       const controller = new NeighborhoodController({
         findByDocID: () => Promise.resolve()
       });
@@ -79,9 +87,11 @@ describe('Neighborhood controller', () => {
       expect(response._json).toEqual(neighborhood);
     })
 
+    // ------- When Fail ------------------
+
     test('when fail, then return error status 500', async () => {
       const controller = new NeighborhoodController({
-        findByDocID: () => Promise.reject({code: 500})
+        findByDocID: () => Promise.reject({ code: 500 })
       });
       const request = { params: { docID: "anyID" } };
       const response = new ResponseMock();
@@ -91,15 +101,69 @@ describe('Neighborhood controller', () => {
 
     test('when fail, then return error json', async () => {
       const controller = new NeighborhoodController({
-        findByDocID: () => Promise.reject({code: 500})
+        findByDocID: () => Promise.reject({ code: 500 })
       });
       const request = { params: { docID: "anyID" } };
       const response = new ResponseMock();
       await controller.findByDocID(request, response);
-      expect(response._json).toEqual({code: 500});
+      expect(response._json).toEqual({ code: 500 });
     })
   })
   //#endregion Testing findByDocID()
+
+  //#region Testing create()
+  describe('given create new neighborhood', () => {
+
+    // ------- When Success ------------------
+
+    test('when success, then return status 200', async () => {
+      const controller = new NeighborhoodController({
+        create: () => Promise.resolve()
+      });
+      const request = { body: {} };
+      const response = new ResponseMock();
+
+      await controller.create(request, response);
+      expect(response._status).toEqual(200);
+    })
+
+    test('when success, then return neighborhood', async () => {
+      const neighborhood = {
+        create: () => Promise.resolve()
+      }
+      const controller = new NeighborhoodController(neighborhood);
+      const request = { body: {} };
+      const response = new ResponseMock();
+
+      await controller.create(request, response);
+      expect(response._json).toEqual(neighborhood);
+    })
+
+    // ------- When Fail ------------------
+
+    test('when fail, then return error status 500', async () => {
+      const controller = new NeighborhoodController({
+        create: () => Promise.reject({ code: 500 })
+      });
+      const request = { body: {} };
+      const response = new ResponseMock();
+
+      await controller.create(request, response);
+      expect(response._status).toEqual(500);
+    })
+
+    test('when fail, then return error json ', async () => {
+      const controller = new NeighborhoodController({
+        create: () => Promise.reject({ code: 500 })
+      });
+      const request = { body: {} };
+      const response = new ResponseMock();
+
+      await controller.create(request, response);
+      expect(response._json).toEqual({ code: 500 });
+    })
+  })
+  //#endregion Testing create()
 
   class ResponseMock {
     _json = null;

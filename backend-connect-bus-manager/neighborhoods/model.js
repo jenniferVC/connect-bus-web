@@ -44,4 +44,11 @@ export class Neighborhood {
       this.name = neighborhood.name; 
     })
   }
+
+  create(params) {
+    this.name = params.name;
+    return this.#instanceRepository.create(this).then(response => {
+      this.docID = response.id;
+    })
+  }
 }
