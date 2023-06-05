@@ -16,7 +16,7 @@ admin.initializeApp({
 
 
 
-app.use('/neighborhoods', neighborhoodsRouter);
+app.use('/bairros', neighborhoodsRouter);
 
 app.listen(3000, () => console.log('API rest iniciada em http://localhost:3000'))
 
