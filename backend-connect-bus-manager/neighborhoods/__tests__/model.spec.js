@@ -10,6 +10,7 @@ describe("Neighborhood model", () => {
     findByName: () => Promise.resolve([{ name: "name1" }, { name: "name2" }])
   }
 
+  // Testing findByName()
   describe("given find neighborhood by name", () => {
     test("when name is not informed, then return error 500", async () => {
       const model = new Neighborhood();
@@ -21,7 +22,7 @@ describe("Neighborhood model", () => {
 
     test("when name is informed, then return neighborhoods", async () => {
       // No construtor de Neighborhood() é passado um falso repository, pois nao precisamos usar o repositorio
-      // real para realizar testes, pois o foco é testar o Modelo Neighborhood() e nao o seu repositorio 
+      // real para realizar testes, pois o foco é testar o Modelo Neighborhood() e nao o arquivo Repository 
       const model = new Neighborhood(neighborhoodRepositoryMock);
       model.name = "anyName";
       const response = model.findByName();

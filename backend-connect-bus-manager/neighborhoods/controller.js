@@ -5,21 +5,25 @@ import { Neighborhood } from './model.js';
 
 
 export class NeighborhoodController {
-  listAll(request, response) {
-    const neighborhood = new Neighborhood();
+  #instance;
 
-    neighborhood.listAll().then(neighborhoods => {
+  // Singleton
+  constructor(instance) {
+    this.#instance = instance || new Neighborhood();
+  }
+
+  listAll(request, response) {
+    return this.#instance.listAll().then(neighborhoods => {
       response.json(neighborhoods);
     }).catch(error => {
       response.status(error.code).json(error);
     })
   }
 
-  findByName(request, response){
-    const neighborhood = new Neighborhood();
-    // neighborhood.name = request.name;
+  findByName(request, response) {
+    this.#instance.name = request.name;
 
-    neighborhood.findByName().then(neighborhoods => {
+    return this.#instance.findByName().then(neighborhoods => {
       response.json(neighborhoods);
     }).catch(error => {
       response.status(error.code).json(error);
