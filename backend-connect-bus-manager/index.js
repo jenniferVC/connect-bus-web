@@ -1,8 +1,10 @@
-import express from 'express';
+import express, { json } from 'express';
 import admin from 'firebase-admin';
 import { neighborhoodsRouter } from './neighborhoods/routes.js';
 
 const app = express();
+app.use(json());
+
 
 /**
  * Referenciando o arquivo `serviceAccountKey.json` que

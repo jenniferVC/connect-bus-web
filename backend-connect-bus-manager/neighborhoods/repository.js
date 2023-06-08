@@ -17,7 +17,7 @@ export class NeighborhoodRepository {
       .then(querySnapshot => {
         return querySnapshot.docs.map(doc => ({
           ...doc.data(),
-          id: doc.id
+          docId: doc.id
         }))
       })
   }
@@ -60,11 +60,9 @@ export class NeighborhoodRepository {
  * @param {string} name 
  * @returns 
  */
-  create(name) {
-    return firebase.firestore()
+  create(bairro) {
+    return admin.firestore()
       .collection("Neighborhoods")
-      .add({
-        name: name
-      })
+      .add(JSON.parse(JSON.stringify(bairro)))
   }
 }
