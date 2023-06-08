@@ -56,6 +56,21 @@ export class NeighborhoodRepository {
   }
 
   /**
+ * 
+ * @param {string} name 
+ * @returns 
+ */
+  findByEqualName(name) {
+    return admin.firestore()
+      .collection("Neighborhoods")
+      .where("name", "==", name)
+      .get()
+      .then((querySnapshot) => {
+        return querySnapshot.docs;
+      });
+  }
+
+  /**
  * Adiciona no banco um bairro novo com o ID do documento gerado automaticamente
  * @param {string} name 
  * @returns 

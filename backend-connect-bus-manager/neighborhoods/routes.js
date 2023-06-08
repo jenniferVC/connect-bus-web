@@ -2,6 +2,7 @@ import express from 'express';
 import admin from 'firebase-admin';
 import { authenticateToken } from '../middlewares/authenticate-jwt.js';
 import { NeighborhoodController } from './controller.js';
+import { validateCreateNeighborhood } from './validators/create.validator.js';
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.get('/:docID',
 );
 
 // Adiciona bairro
-app.post('/create',
+app.post('/novo',
+  (request, response, next) => validateCreateNeighborhood(request, response, next),
   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
   (request, response) => neighborhoodsController.create(request, response)
 )
