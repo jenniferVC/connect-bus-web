@@ -51,4 +51,9 @@ export class Neighborhood {
       this.docID = response.id;
     })
   }
+
+  update(params){
+    this.name = params.name;
+    return this.#instanceRepository.update(this);
+  }
 }

@@ -1,4 +1,5 @@
 import admin from 'firebase-admin';
+import { Neighborhood } from './model';
 
 // Camada de Repositório
 // - Contém a lógica de acesso aos dados necessária para a aplicacao funcionar
@@ -56,7 +57,7 @@ export class NeighborhoodRepository {
   }
 
   /**
- * 
+ * Busca no banco todos os bairros que tem os nomes exatamente igual
  * @param {string} name 
  * @returns 
  */
@@ -72,7 +73,7 @@ export class NeighborhoodRepository {
 
   /**
  * Adiciona no banco um bairro novo com o ID do documento gerado automaticamente
- * @param {string} name 
+ * @param {Neighborhood} bairro 
  * @returns 
  */
   create(bairro) {
@@ -80,4 +81,18 @@ export class NeighborhoodRepository {
       .collection("Neighborhoods")
       .add(JSON.parse(JSON.stringify(bairro)))
   }
+
+    /**
+   * Atualiza o bairro
+   * @param {Neighborhood} bairro 
+   * @returns 
+   */
+    update (bairro) {
+      return admin.firestore()
+        .collection("Neighborhoods")
+        .doc(bairro.docID)
+        .update({
+          name: bairro.name
+        })
+    }
 }

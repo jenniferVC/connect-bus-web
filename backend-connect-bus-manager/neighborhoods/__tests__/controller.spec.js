@@ -165,6 +165,74 @@ describe('Neighborhood controller', () => {
   })
   //#endregion Testing create()
 
+  //#region Testing update()
+  describe('given update transaction', () => {
+    const request = {
+      params: {
+        docID: "anyDocId"
+      }
+    };
+    let response;
+
+    let model;
+
+    beforeEach(() => {
+      response = new ResponseMock();
+      model = {
+        _hasUpdated: false,
+        update() {
+          this._hasUpdated = true;
+          return Promise.resolve();
+        }
+      };
+    })
+
+    // ------- When Success ------------------
+
+    test('when success, then return status 200', async () => {
+      const controller = new NeighborhoodController(model);
+      await controller.update(request, response);
+      expect(response._status).toEqual(200);
+    })
+
+    test('when success, then return updated neighborhood', async () => {
+      const controller = new NeighborhoodController(model);
+      await controller.update(request, response);
+      expect(response._json).toEqual(model);
+    })
+
+    test('when success, then neighborhood shoud have docId from request', async () => {
+      const controller = new NeighborhoodController(model);
+      await controller.update(request, response);
+      expect(response._json.docID).toEqual("anyDocId");
+    })
+
+    test('when success, then update neighborhood', async () => {
+      const controller = new NeighborhoodController(model);
+      await controller.update(request, response);
+      expect(model._hasUpdated).toBeTruthy();
+    })
+
+    // ------- When Fail ------------------
+
+    test('when fail, then return error status 500', async () => {
+      const controller = new NeighborhoodController({
+        update: () => Promise.reject({code: 500})
+      });
+      await controller.update(request, response);
+      expect(response._status).toEqual(500);
+    })
+
+    test('when fail, then return error json', async () => {
+      const controller = new NeighborhoodController({
+        update: () => Promise.reject({code: 500})
+      });
+      await controller.update(request, response);
+      expect(response._json).toEqual({code: 500});
+    })
+  })
+  //#endregion Testing update()
+
   class ResponseMock {
     _json = null;
     _status = 0;
