@@ -217,7 +217,7 @@ describe('Neighborhood controller', () => {
 
     test('when fail, then return error status 500', async () => {
       const controller = new NeighborhoodController({
-        update: () => Promise.reject({code: 500})
+        update: () => Promise.reject({ code: 500 })
       });
       await controller.update(request, response);
       expect(response._status).toEqual(500);
@@ -225,13 +225,77 @@ describe('Neighborhood controller', () => {
 
     test('when fail, then return error json', async () => {
       const controller = new NeighborhoodController({
-        update: () => Promise.reject({code: 500})
+        update: () => Promise.reject({ code: 500 })
       });
       await controller.update(request, response);
-      expect(response._json).toEqual({code: 500});
+      expect(response._json).toEqual({ code: 500 });
     })
   })
   //#endregion Testing update()
+
+  //#region Testing delete()
+  describe('given remove neighborhood', () => {
+    let request;
+    let response;
+
+    const model = {
+      _hasDeleted: false,
+      delete() {
+        this._hasDeleted = true;
+        return Promise.resolve();
+      }
+    };
+
+    beforeEach(() => {
+      request = {
+        params: {
+          docID: "anyDocId"
+        }
+      };
+      response = new ResponseMock();
+    })
+
+    // ------- When Success ------------------
+
+    test('when success, then return status 200', async () => {
+      const controller = new NeighborhoodController(model);
+      await controller.delete(request, response);
+      expect(response._status).toEqual(200);
+    })
+
+    test('when success, then remove neighborhood', async () => {
+      const controller = new NeighborhoodController(model);
+      await controller.delete(request, response);
+      expect(model._hasDeleted).toBeTruthy();
+    })
+
+    test('when success, then neighborhood shoud have docId from request', async () => {
+      const controller = new NeighborhoodController(model);
+      model.docID = "anyDocId";
+      await controller.delete(request, response);
+      expect(model.docID).toEqual("anyDocId");
+    })
+
+    // ------- When Fail ------------------
+
+    test('when fail, then return error status 500', async () => {
+      const controller = new NeighborhoodController({
+        delete: () => Promise.reject({code: 500})
+      });
+      await controller.delete(request, response);
+      expect(response._status).toEqual(500);
+    })
+
+    test('when fail, then return error json', async () => {
+      const controller = new NeighborhoodController({
+        delete: () => Promise.reject({code: 500})
+      });
+      await controller.delete(request, response);
+      expect(response._json).toEqual({code: 500});
+    })
+  })
+  //#endregion Testing delete()
+
 
   class ResponseMock {
     _json = null;

@@ -60,4 +60,14 @@ export class NeighborhoodController {
       response.status(error.code).json(error);
     })
   }
+
+  delete(request, response) {
+    this.#instance.docID = request.params.docID;
+
+    return this.#instance.delete().then(() => {
+      response.status(200);
+    }).catch(error => {
+      response.status(error.code).json(error);
+    })
+  }
 }
