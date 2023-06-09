@@ -1,6 +1,6 @@
 import { NeighborhoodController } from "../../controller.js";
 import { BadRequestError } from "../../errors/bad-request.error.js";
-import { validateCreateNeighborhood } from "../create.validator.js"
+import { validateNeighborhood } from "../create.validator.js"
 
 // Teste que valida a criação do bairro
 describe('Create neighborhood validator', () => {
@@ -18,7 +18,7 @@ describe('Create neighborhood validator', () => {
   test('given neighborhood is valid, then go to next step', () => {
     let hasCalledNext = false;
     const next = () => { hasCalledNext = true; }
-    validateCreateNeighborhood(request, response, next);
+    validateNeighborhood(request, response, next);
     expect(hasCalledNext).toBeTruthy();
   })
 
@@ -27,13 +27,13 @@ describe('Create neighborhood validator', () => {
 
   test('given name not informed, then return error 400', () => {
     request.body.name = null;
-    validateCreateNeighborhood(request, response);
+    validateNeighborhood(request, response);
     expect(response._status).toEqual(400);
   })
 
   test('given name not informed, then return error json', () => {
     request.body.name = null;
-    validateCreateNeighborhood(request, response);
+    validateNeighborhood(request, response);
     expect(response._json).toBeInstanceOf(BadRequestError);
   })
 

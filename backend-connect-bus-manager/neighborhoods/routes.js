@@ -2,7 +2,7 @@ import express from 'express';
 import admin from 'firebase-admin';
 import { authenticateToken } from '../middlewares/authenticate-jwt.js';
 import { NeighborhoodController } from './controller.js';
-import { validateCreateNeighborhood } from './validators/create.validator.js';
+import { validateNeighborhood } from './validators/create.validator.js';
 
 const app = express();
 
@@ -22,10 +22,16 @@ app.get('/:docID',
 
 // Adiciona bairro
 app.post('/novo',
-  (request, response, next) => validateCreateNeighborhood(request, response, next),
+  (request, response, next) => validateNeighborhood(request, response, next),
   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
   (request, response) => neighborhoodsController.create(request, response)
 )
 
+// Atualiza bairro
+app.post('/update/:docID',
+  (request, response, next) => validateNeighborhood(request, response, next),
+  (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+  (request, response) => neighborhoodsController.update(request, response)
+)
 
 export const neighborhoodsRouter = app;

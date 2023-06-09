@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import { Neighborhood } from './model';
+import { Neighborhood } from './model.js';
 
 // Camada de Repositório
 // - Contém a lógica de acesso aos dados necessária para a aplicacao funcionar
