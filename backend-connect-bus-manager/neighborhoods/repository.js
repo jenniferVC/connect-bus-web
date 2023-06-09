@@ -82,17 +82,29 @@ export class NeighborhoodRepository {
       .add(JSON.parse(JSON.stringify(bairro)))
   }
 
-    /**
-   * Atualiza o bairro
-   * @param {Neighborhood} bairro 
-   * @returns 
-   */
-    update (bairro) {
-      return admin.firestore()
-        .collection("Neighborhoods")
-        .doc(bairro.docID)
-        .update({
-          name: bairro.name
-        })
-    }
+  /**
+ * Atualiza o bairro
+ * @param {Neighborhood} bairro 
+ * @returns 
+ */
+  update(bairro) {
+    return admin.firestore()
+      .collection("Neighborhoods")
+      .doc(bairro.docID)
+      .update({
+        name: bairro.name
+      })
+  }
+
+  /**
+ * 
+ * @param {string} id 
+ * @returns Promise
+ */
+  delete(id) {
+    return admin.firestore()
+      .collection("Neighborhoods")
+      .doc(id)
+      .delete();
+  }
 }

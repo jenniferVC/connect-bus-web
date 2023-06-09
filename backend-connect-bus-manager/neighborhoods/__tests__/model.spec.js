@@ -42,7 +42,7 @@ describe("Neighborhood model", () => {
 
   //#region Testing findByDocID()
   describe('given find neighborhood by docID', () => {
-    
+
     // ------- When Success ------------------
 
     test('then return neighborhood', async () => {
@@ -112,6 +112,9 @@ describe("Neighborhood model", () => {
         update() {
           this._hasUpdated = true;
           return Promise.resolve();
+        },
+        findByDocID(){
+          return Promise.resolve({docID: "anyDocId"})
         }
       }
     })
@@ -152,6 +155,45 @@ describe("Neighborhood model", () => {
     // })
   })
   //#endregion Testing update()
+
+  //#region Testing delete()
+  describe('given delete neighborhood', () => {
+    let repositoryMock;
+
+    beforeEach(() => {
+      repositoryMock = {
+        _hasDeleted: false,
+        delete() {
+          this._hasDeleted = true;
+          return Promise.resolve();
+        },
+        findByDocID(){
+          return Promise.resolve({docID: "anyDocId"})
+        }
+      };
+    })
+
+    // ------- When Success ------------------
+
+    test('when success, then delete neighborhood', async () => {
+      const model = new Neighborhood(repositoryMock);
+      model.docID = "anyDocId";
+      await model.delete();
+      expect(repositoryMock._hasDeleted).toBeTruthy();
+    })
+
+    // ------- When Fail ------------------
+
+    test('when neighborhood doesnt exist, then return error json', async () => {
+      const model = new Neighborhood({
+        findByDocID: () => Promise.resolve(null)
+      })
+      model.docID = "anyDocId";
+      await expect(model.delete()).rejects.toBeInstanceOf(NeighborhoodNotFoundError);
+    })
+
+  })
+  //#endregion Testing delete()
 
 
   function createNeighborhood() {

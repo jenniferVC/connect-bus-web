@@ -58,4 +58,10 @@ export class Neighborhood {
       return this.#instanceRepository.update(this);
     })
   }
+
+  delete(){
+    return this.findByDocID().then(() => {
+      return this.#instanceRepository.delete(this.docID);
+    })
+  }
 }
