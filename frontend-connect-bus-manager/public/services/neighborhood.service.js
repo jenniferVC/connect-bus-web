@@ -7,13 +7,42 @@ const neighborhoodService = {
    * @returns Promise
    */
   getAll: () => {
-    return firebase.firestore()
-      .collection("Neighborhoods")
-      .orderBy("name", "asc")
-      .get()
-      .then((querySnapshot) => {
-        return querySnapshot.docs;
-      });
+    return new Promise(async (resolve, reject) => {
+      // XMLHttpRequest permite que façamos chamadas ao backend usando ajax
+      const xhr = new XMLHttpRequest();
+      xhr.open(
+        "GET",
+        "http://localhost:3000/bairros",
+        true
+      );
+
+      // Enviando o JWT do usuario logado
+      // xhr.setRequestHeader('Authorization', await firebase.auth().currentUser.getIdToken())
+
+      const token = getToken();
+      console.log(token)
+
+      // Quando o estado de pronto da chamada modificar
+      xhr.onreadystatechange = function () {
+        if (this.readyState == 4) {
+          if (this.status != 200) {
+            reject(this.responseText);
+          }
+          console.log(this.responseText);
+        }
+        // if (this.readyState == 4) {
+        //   const json = JSON.parse(this.responseText);
+        //   if (this.status != 200) {
+        //     reject(json);
+        //   } else {
+        //     resolve(json);
+        //   }
+        // }
+      }
+
+      // Enviando a chamada para o backend
+      xhr.send();
+    })
   },
   /**
    * 
@@ -96,5 +125,16 @@ const neighborhoodService = {
       .collection("Neighborhoods")
       .doc(id)
       .delete();
-  }
+  },
+}
+
+function getToken() {
+  return firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      user.getIdToken().then(token => {
+        console.log(token);
+        return token;
+      });
+    }
+  });
 }
