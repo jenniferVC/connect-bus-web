@@ -65,7 +65,7 @@ export class NeighborhoodController {
     this.#instance.docID = request.params.docID;
 
     return this.#instance.delete().then(() => {
-      response.status(200);
+      response.status(200).json({message: "Bairro deletado com sucesso"});
     }).catch(error => {
       response.status(error.code).json(error);
     })
