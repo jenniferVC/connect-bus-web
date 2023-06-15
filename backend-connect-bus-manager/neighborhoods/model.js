@@ -41,7 +41,7 @@ export class Neighborhood {
       if (!neighborhood) {
         return Promise.reject(new NeighborhoodNotFoundError());
       }
-      this.docID = neighborhood.docID;
+      // this.docID = neighborhood.docID;
       this.name = neighborhood.name;
     })
   }
@@ -54,8 +54,8 @@ export class Neighborhood {
   }
 
   update(params) {
+    this.name = params.name;
     return this.findByDocID().then(() => {
-      this.name = params.name;
       return this.#instanceRepository.update(this);
     })
   }

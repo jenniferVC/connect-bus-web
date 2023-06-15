@@ -5,18 +5,18 @@ import { Neighborhood } from './model.js';
 
 
 export class NeighborhoodController {
-  #instance;
+  #instanceNeighborhood;
 
   /**
    * Construtor de NeighborhoodController com Singleton
-   * @param {Neighborhood} instance 
+   * @param {Neighborhood} instanceNeighborhood 
    */
-  constructor(instance) {
-    this.#instance = instance || new Neighborhood();
+  constructor(instanceNeighborhood) {
+    this.#instanceNeighborhood = instanceNeighborhood || new Neighborhood();
   }
 
   listAll(request, response) {
-    return this.#instance.listAll().then(neighborhoods => {
+    return this.#instanceNeighborhood.listAll().then(neighborhoods => {
       response.json(neighborhoods);
     }).catch(error => {
       response.status(error.code).json(error);
@@ -24,9 +24,9 @@ export class NeighborhoodController {
   }
 
   findByName(request, response) {
-    this.#instance.name = request.name;
+    this.#instanceNeighborhood.name = request.name;
 
-    return this.#instance.findByName().then(neighborhoods => {
+    return this.#instanceNeighborhood.findByName().then(neighborhoods => {
       response.json(neighborhoods);
     }).catch(error => {
       response.status(error.code).json(error);
@@ -34,37 +34,38 @@ export class NeighborhoodController {
   }
 
   findByDocID(request, response) {
-    this.#instance.docID = request.params.docID;
+    this.#instanceNeighborhood.docID = request.params.docID;
 
-    return this.#instance.findByDocID().then(() => {
-      response.status(200).json(this.#instance);
+    return this.#instanceNeighborhood.findByDocID().then(() => {
+      response.status(200).json(this.#instanceNeighborhood);
     }).catch(error => {
       response.status(error.code).json(error);
     })
   }
 
   create(request, response) {
-    return this.#instance.create(request.body).then(() => {
-      response.status(200).json(this.#instance);
+    return this.#instanceNeighborhood.create(request.body).then(() => {
+      response.status(200).json(this.#instanceNeighborhood);
     }).catch(error => {
       response.status(error.code).json(error);
     })
   }
 
   update(request, response) {
-    this.#instance.docID = request.params.docID;
+    this.#instanceNeighborhood.docID = request.params.docID;
 
-    return this.#instance.update(request.body).then(() => {
-      response.status(200).json(this.#instance);
+    return this.#instanceNeighborhood.update(request.body).then(() => {
+      response.status(200).json(this.#instanceNeighborhood);
     }).catch(error => {
-      response.status(error.code).json(error);
+      const status = error.status || 500;
+      response.status(status).json(error);
     })
   }
 
   delete(request, response) {
-    this.#instance.docID = request.params.docID;
+    this.#instanceNeighborhood.docID = request.params.docID;
 
-    return this.#instance.delete().then(() => {
+    return this.#instanceNeighborhood.delete().then(() => {
       response.status(200).json({message: "Bairro deletado com sucesso"});
     }).catch(error => {
       response.status(error.code).json(error);

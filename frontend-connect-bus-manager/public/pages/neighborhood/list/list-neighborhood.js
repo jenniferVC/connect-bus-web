@@ -118,7 +118,6 @@ function generateButtonDelete(item) {
  * @param {*} documents 
  */
 function loadItensInTable(documents) {
-    console.log(documents.length);
     if (documents.length === 0) {
         itemNotFound();
     }

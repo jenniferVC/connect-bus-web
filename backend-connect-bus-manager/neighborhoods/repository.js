@@ -77,6 +77,7 @@ export class NeighborhoodRepository {
  * @returns 
  */
   create(bairro) {
+    console.log('bairro salvo no banco:' , JSON.parse(JSON.stringify(bairro)))
     return admin.firestore()
       .collection("Neighborhoods")
       .add(JSON.parse(JSON.stringify(bairro)))
