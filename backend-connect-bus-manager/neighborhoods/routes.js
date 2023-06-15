@@ -34,4 +34,10 @@ app.post('/update/:docID',
   (request, response) => neighborhoodsController.update(request, response)
 )
 
+// Remove bairro
+app.post('/delete/:docID',
+  (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+  (request, response) => neighborhoodsController.delete(request, response)
+)
+
 export const neighborhoodsRouter = app;
