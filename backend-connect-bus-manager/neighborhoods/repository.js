@@ -1,5 +1,5 @@
-import admin from 'firebase-admin';
-import { Neighborhood } from './model.js';
+import admin from "firebase-admin";
+import { Neighborhood } from "./model.js";
 
 // Camada de Repositório
 // - Contém a lógica de acesso aos dados necessária para a aplicacao funcionar
@@ -7,32 +7,34 @@ import { Neighborhood } from './model.js';
 
 export class NeighborhoodRepository {
   /**
- * Retorna todos os Bairros do banco
- * @returns Promise
- */
+   * Retorna todos os Bairros do banco
+   * @returns Promise
+   */
   listAll() {
-    return admin.firestore()
-      .collection('Neighborhoods')
-      .orderBy("name", "asc")
+    return admin
+      .firestore()
+      .collection("Bairros")
+      .orderBy("nome", "asc")
       .get()
-      .then(querySnapshot => {
-        return querySnapshot.docs.map(doc => ({
+      .then((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => ({
           ...doc.data(),
-          docId: doc.id
-        }))
-      })
+          docId: doc.id,
+        }));
+      });
   }
 
   /**
- * Busca no banco todos os bairros que tem os nomes parecidos
- * @param {string} name 
- * @returns Promise
- */
-  findByName(name) {
-    return admin.firestore()
-      .collection("Neighborhoods")
-      .where("name", ">=", name)
-      .orderBy("name", "asc")
+   * Busca no banco todos os bairros que tem os nomes parecidos
+   * @param {string} nome
+   * @returns Promise
+   */
+  findByName(nome) {
+    return admin
+      .firestore()
+      .collection("Bairros")
+      .where("nome", ">=", nome)
+      .orderBy("nome", "asc")
       .get()
       .then((querySnapshot) => {
         return querySnapshot.docs;
@@ -40,16 +42,17 @@ export class NeighborhoodRepository {
   }
 
   /**
- * Encontra o bairro pelo ID do documento
- * @param {string} id 
- * @returns Promise
- */
+   * Encontra o bairro pelo ID do documento
+   * @param {string} id
+   * @returns Promise
+   */
   findByDocID(id) {
-    return admin.firestore()
-      .collection("Neighborhoods")
+    return admin
+      .firestore()
+      .collection("Bairros")
       .doc(id)
       .get()
-      .then(doc => {
+      .then((doc) => {
         if (doc.exists) {
           return doc.data();
         }
@@ -57,14 +60,15 @@ export class NeighborhoodRepository {
   }
 
   /**
- * Busca no banco todos os bairros que tem os nomes exatamente igual
- * @param {string} name 
- * @returns 
- */
-  findByEqualName(name) {
-    return admin.firestore()
-      .collection("Neighborhoods")
-      .where("name", "==", name)
+   * Busca no banco todos os bairros que tem os nomes exatamente igual
+   * @param {string} nome
+   * @returns
+   */
+  findByEqualName(nome) {
+    return admin
+      .firestore()
+      .collection("Bairros")
+      .where("nome", "==", nome)
       .get()
       .then((querySnapshot) => {
         return querySnapshot.docs;
@@ -72,40 +76,39 @@ export class NeighborhoodRepository {
   }
 
   /**
- * Adiciona no banco um bairro novo com o ID do documento gerado automaticamente
- * @param {Neighborhood} bairro 
- * @returns 
- */
+   * Adiciona no banco um bairro novo com o ID do documento gerado automaticamente
+   * @param {Neighborhood} bairro
+   * @returns
+   */
   create(bairro) {
-    console.log('bairro salvo no banco:' , JSON.parse(JSON.stringify(bairro)))
-    return admin.firestore()
-      .collection("Neighborhoods")
-      .add(JSON.parse(JSON.stringify(bairro)))
+    console.log("bairro salvo no banco:", JSON.parse(JSON.stringify(bairro)));
+    return admin
+      .firestore()
+      .collection("Bairros")
+      .add(JSON.parse(JSON.stringify(bairro)));
   }
 
   /**
- * Atualiza o bairro
- * @param {Neighborhood} bairro 
- * @returns 
- */
+   * Atualiza o bairro
+   * @param {Neighborhood} bairro
+   * @returns
+   */
   update(bairro) {
-    return admin.firestore()
-      .collection("Neighborhoods")
+    return admin
+      .firestore()
+      .collection("Bairros")
       .doc(bairro.docID)
       .update({
-        name: bairro.name
-      })
+        nome: bairro.nome,
+      });
   }
 
   /**
- * 
- * @param {string} id 
- * @returns Promise
- */
+   *
+   * @param {string} id
+   * @returns Promise
+   */
   delete(id) {
-    return admin.firestore()
-      .collection("Neighborhoods")
-      .doc(id)
-      .delete();
+    return admin.firestore().collection("Bairros").doc(id).delete();
   }
 }

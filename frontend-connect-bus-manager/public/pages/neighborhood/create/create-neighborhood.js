@@ -3,7 +3,7 @@ var bairrosCollectionRef = db.collection("Neighborhoods");
 
 class Neighborhood {
   docId;
-  name;
+  nome;
 }
 
 /**
@@ -70,7 +70,7 @@ function findItemByID(docID) {
  * @param {Neighborhood} neighborhood
  */
 function fillFields(neighborhood) {
-  formNeighborhood.inputNeighborhoodName().value = neighborhood.name;
+  formNeighborhood.inputNeighborhoodName().value = neighborhood.nome;
 }
 
 /**

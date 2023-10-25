@@ -8,7 +8,7 @@ import { NeighborhoodRepository } from './repository.js';
 
 export class Neighborhood {
   docID;
-  name;
+  nome;
   // Hashtag '#' na frente do atributo pois o JS entende que ele é privado 
   #instanceRepository;
 
@@ -26,10 +26,10 @@ export class Neighborhood {
   }
 
   findByName() {
-    if (!this.name) {
+    if (!this.nome) {
       return Promise.reject(new NeighborhoodNameNotInformedError)
     }
-    return this.#instanceRepository.findByName(this.name);
+    return this.#instanceRepository.findByName(this.nome);
   }
 
   findByDocID() {
@@ -42,19 +42,19 @@ export class Neighborhood {
         return Promise.reject(new NeighborhoodNotFoundError());
       }
       // this.docID = neighborhood.docID;
-      this.name = neighborhood.name;
+      this.nome = neighborhood.nome;
     })
   }
 
   create(params) {
-    this.name = params.name;
+    this.nome = params.nome;
     return this.#instanceRepository.create(this).then(response => {
       this.docID = response.id;
     })
   }
 
   update(params) {
-    this.name = params.name;
+    this.nome = params.nome;
     return this.findByDocID().then(() => {
       return this.#instanceRepository.update(this);
     })

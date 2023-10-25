@@ -9,8 +9,8 @@ import { BadRequestError } from "../errors/bad-request.error.js";
  * @returns 
  */
 export function validateNeighborhood(request, response, next) {
-  const name = request.body.name;
-  if (!name) {
+  const nome = request.body.nome;
+  if (!nome) {
     return response.status(400).json(new BadRequestError("Nome nao informado"));
   }
 

@@ -35,7 +35,7 @@ function convertDocumentFirebaseToHTML(arrNeighborhoods) {
     arrNeighborhoods.forEach((neighborhood) => {
         // ------------ CÉLULA DO NOME DO BAIRRO -------------
 
-        const td_name = generateElementTextTd(neighborhood.name);
+        const td_name = generateElementTextTd(neighborhood.nome);
 
         // ------------ CÉLULA DO BOTÃO EDITAR -------------
 
@@ -124,11 +124,11 @@ function loadItensInTable(documents) {
     else {
         tbody.innerHTML = "";
         paginationTotal.innerHTML = `1-${documents.length} de ${documents.length}`;
-        const arrBairros = documents.map(document => convertDocumentFirebaseToObject(document));
-        console.log(arrBairros);
-        // TODO: Colocar loading
+        // const arrBairros = documents.map(document => convertDocumentFirebaseToObject(document));
+        // console.log(arrBairros);
+        // // TODO: Colocar loading
         console.log('convertendo documents em html')
-        convertDocumentFirebaseToHTML(arrBairros);
+        convertDocumentFirebaseToHTML(documents);
     }
 }
 
@@ -140,7 +140,7 @@ function loadItensInTable(documents) {
 function convertDocumentFirebaseToObject(document) {
     const neighborhood = new Neighborhood();
     neighborhood.docId = document.id;
-    neighborhood.name = document.data().name;
+    neighborhood.name = document.data().nome;
     return neighborhood;
 }
 
@@ -161,6 +161,7 @@ function itemNotFound() {
  */
 function searchItem() {
     const neighborhoodSearch = document.getElementById('search').value;
+    debugger
     console.log('Bairro pesquisado: ', neighborhoodSearch);
 
     showLoading();

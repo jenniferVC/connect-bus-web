@@ -20,6 +20,14 @@ app.get('/:docID',
   (request, response) => neighborhoodsController.findByDocID(request, response)
 );
 
+// Busca bairro pelo nome
+app.get('/:nome',
+  (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+  (request, response) => {
+    response.json('issoo');
+  }
+);
+
 // Adiciona bairro
 app.post('/novo',
   (request, response, next) => validateNeighborhood(request, response, next),

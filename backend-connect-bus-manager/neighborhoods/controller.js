@@ -24,13 +24,15 @@ export class NeighborhoodController {
   }
 
   findByName(request, response) {
-    this.#instanceNeighborhood.name = request.name;
+    this.#instanceNeighborhood.nome = request.nome;
+          console.log('buscando bairro pelo nome');
 
-    return this.#instanceNeighborhood.findByName().then(neighborhoods => {
-      response.json(neighborhoods);
-    }).catch(error => {
-      response.status(error.code).json(error);
-    })
+
+    // return this.#instanceNeighborhood.findByName().then(neighborhoods => {
+    //   response.json(neighborhoods);
+    // }).catch(error => {
+    //   response.status(error.code).json(error);
+    // })
   }
 
   findByDocID(request, response) {

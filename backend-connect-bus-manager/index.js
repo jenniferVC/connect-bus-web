@@ -13,7 +13,7 @@ app.use(json());
  */
 admin.initializeApp({
   credential: admin.credential.cert('serviceAccountKey.json'),
-  databaseURL: "https://connectbus-7d8d9-default-rtdb.firebaseio.com"
+  // databaseURL: "https://connectbus-7d8d9-default-rtdb.firebaseio.com"
 });
 
 app.use((request, response, next) => {
@@ -26,7 +26,7 @@ app.use((request, response, next) => {
 
 app.use('/bairros', neighborhoodsRouter);
 
-app.listen(3000, () => console.log('API rest iniciada em http://localhost:3000'))
+app.listen(5000, () => console.log('API rest iniciada em http://localhost:5000'))
 
 
 
