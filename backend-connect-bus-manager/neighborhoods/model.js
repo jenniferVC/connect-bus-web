@@ -1,5 +1,4 @@
 import { NeighborhoodDocIDNotInformedError } from './errors/docID-not-informed.error.js';
-import { NeighborhoodNameNotInformedError } from './errors/name-not-informed.error.js';
 import { NeighborhoodNotFoundError } from './errors/neighborhood-not-found.error.js';
 import { NeighborhoodSameNameError } from './errors/same-name.error.js';
 import { NeighborhoodRepository } from './repository.js';
@@ -27,16 +26,10 @@ export class Neighborhood {
   }
 
   findByName() {
-    if (!this.nome) {
-      return Promise.reject(new NeighborhoodNameNotInformedError)
-    }
     return this.#instanceRepository.findByName(this.nome);
   }
 
   findByEqualName(){
-    if (!this.nome) {
-      return Promise.reject(new NeighborhoodNameNotInformedError)
-    }
     return this.#instanceRepository.findByEqualName(this.nome).then((documents) => {
       if (documents.length > 0) {
         return Promise.reject(new NeighborhoodSameNameError());

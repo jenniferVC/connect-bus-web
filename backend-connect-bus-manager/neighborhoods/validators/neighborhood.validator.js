@@ -11,7 +11,7 @@ import { BadRequestError } from "../errors/bad-request.error.js";
 export function validateNeighborhood(request, response, next) {
   const nome = request.body.nome;
   if (!nome) {
-    return response.status(400).json(new BadRequestError("Nome nao informado"));
+    return response.status(400).json(new BadRequestError("Nome não informado"));
   }
 
 

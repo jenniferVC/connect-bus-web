@@ -161,7 +161,6 @@ function itemNotFound() {
  */
 function searchItem() {
     const neighborhoodSearch = document.getElementById('search').value;
-    debugger
     console.log('Bairro pesquisado: ', neighborhoodSearch);
 
     showLoading();

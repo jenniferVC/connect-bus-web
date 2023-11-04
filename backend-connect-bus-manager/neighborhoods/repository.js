@@ -37,7 +37,10 @@ export class NeighborhoodRepository {
       .orderBy("nome", "asc")
       .get()
       .then((querySnapshot) => {
-        return querySnapshot.docs;
+        return querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          docId: doc.id,
+        }));
       });
   }
 

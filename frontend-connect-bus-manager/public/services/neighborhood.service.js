@@ -24,18 +24,8 @@ const neighborhoodService = {
   findByName: (name) => {
     return callApi({
       method: "GET",
-      url: `http://localhost:5000/bairros/${name}`,
+      url: `http://localhost:5000/bairros/encontrar/${name}`,
     });
-
-    // return firebase
-    //   .firestore()
-    //   .collection("Bairros")
-    //   .where("nome", ">=", name)
-    //   .orderBy("nome", "asc")
-    //   .get()
-    //   .then((querySnapshot) => {
-    //     return querySnapshot.docs;
-    //   });
   },
   /**
    *

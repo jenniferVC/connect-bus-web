@@ -2,7 +2,7 @@ import express from 'express';
 import admin from 'firebase-admin';
 import { authenticateToken } from '../middlewares/authenticate-jwt.js';
 import { NeighborhoodController } from './controller.js';
-import { validateNeighborhood } from './validators/create.validator.js';
+import { validateNeighborhood } from './validators/neighborhood.validator.js';
 
 const app = express();
 
@@ -19,11 +19,9 @@ app.get('/:docID',
 );
 
 // Busca bairro pelo nome
-app.get('/:nome',
+app.get('/encontrar/:nome',
   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
-  (request, response) => {
-    response.json('issoo');
-  }
+  (request, response) => new NeighborhoodController().findByName(request, response)
 );
 
 // Adiciona bairro
