@@ -29,35 +29,14 @@ const neighborhoodService = {
   },
   /**
    *
-   * @param {string} name
-   * @returns
-   */
-  findByEqualName: (name) => {
-    return firebase
-      .firestore()
-      .collection("Bairros")
-      .where("nome", "==", name)
-      .get()
-      .then((querySnapshot) => {
-        return querySnapshot.docs;
-      });
-  },
-  /**
-   *
    * @param {string} docId
    * @returns Promise
    */
   findByDocId: (docId) => {
-    return firebase
-      .firestore()
-      .collection("Bairros")
-      .doc(docId)
-      .get()
-      .then((doc) => {
-        if (doc.exists) {
-          return doc.data();
-        }
-      });
+    return callApi({
+      method: "GET",
+      url: `http://localhost:5000/bairros/${docId}`,
+    });
   },
   /**
    *
