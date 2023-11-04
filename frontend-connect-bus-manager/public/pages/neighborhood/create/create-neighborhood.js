@@ -87,47 +87,34 @@ function existParams() {
  * caso contrário é um novo cadastro e o insere no banco.
  */
 function saveItem() {
+  const bairro = createBairro();
   if (existParams()) {
     UPDATE();
   } else {
-    INSERT(formNeighborhood.inputNeighborhoodName().value);
+    INSERT(bairro);
   }
 }
 
-/**
- * Função que verifica se já existe algum documento com o nome do Bairro informado.
- * Caso existe emite um Alert(), caso não então chama a função saveItem()
- * para criar o documento.
- */
-function verifyIfExists() {
-  neighborhoodService
-    .findByEqualName(formNeighborhood.inputNeighborhoodName().value)
-    .then((documents) => {
-      if (documents.length > 0) {
-        alert("Bairro já cadastrado! Por favor informe outro bairro.");
-      } else {
-        saveItem();
-      }
-    })
-    .catch((error) => {
-      console.log("Erro ao obter documentos: ", error);
-    });
+function createBairro(){
+  const bairro = new Neighborhood();
+  bairro.nome = formNeighborhood.inputNeighborhoodName().value;
+  return bairro;
 }
 
 /**
  * Função responsável por criar um Documento com o nome do bairro
  * informado pelo usuário. Dentro do Documento criar um campo 'name' com
  * o nome do bairro.
- * @param {string} name
+ * @param {Neighborhood} bairro
  */
-function INSERT(name) {
+function INSERT(bairro) {
   neighborhoodService
-    .create(name)
+    .create(bairro)
     .then(() => {
       alert("Bairro cadastrado com sucesso!");
     })
     .catch((error) => {
-      alert("Error ao cadastrar bairro: ", error);
+      alert("Error ao cadastrar bairro: " + error.message);
     });
 }
 

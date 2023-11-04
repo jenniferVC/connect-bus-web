@@ -1,6 +1,7 @@
 import { NeighborhoodDocIDNotInformedError } from './errors/docID-not-informed.error.js';
 import { NeighborhoodNameNotInformedError } from './errors/name-not-informed.error.js';
 import { NeighborhoodNotFoundError } from './errors/neighborhood-not-found.error.js';
+import { NeighborhoodSameNameError } from './errors/same-name.error.js';
 import { NeighborhoodRepository } from './repository.js';
 // Camada de Modelo 
 // - Contém a logica e as regras de negócio
@@ -32,6 +33,17 @@ export class Neighborhood {
     return this.#instanceRepository.findByName(this.nome);
   }
 
+  findByEqualName(){
+    if (!this.nome) {
+      return Promise.reject(new NeighborhoodNameNotInformedError)
+    }
+    return this.#instanceRepository.findByEqualName(this.nome).then((documents) => {
+      if (documents.length > 0) {
+        return Promise.reject(new NeighborhoodSameNameError());
+      }
+    })
+  }
+
   findByDocID() {
     if (!this.docID) {
       return Promise.reject(new NeighborhoodDocIDNotInformedError());
@@ -48,8 +60,8 @@ export class Neighborhood {
 
   create(params) {
     this.nome = params.nome;
-    return this.#instanceRepository.create(this).then(response => {
-      this.docID = response.id;
+    return this.findByEqualName(this.nome).then(() =>{
+     this.#instanceRepository.create(this).then(response => this.docID = response.id);
     })
   }
 
@@ -61,6 +73,7 @@ export class Neighborhood {
   }
 
   delete(){
+    console.log("delete: ",this);
     return this.findByDocID().then(() => {
       return this.#instanceRepository.delete(this.docID);
     })

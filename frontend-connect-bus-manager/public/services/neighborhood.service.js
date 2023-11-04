@@ -71,15 +71,14 @@ const neighborhoodService = {
   },
   /**
    *
-   * @param {string} nome
+   * @param {Neighborhood} bairro
    * @returns
    */
-  create: (nome) => {
-    let bairro = {"nome": nome};
+  create: (bairro) => {
     return callApi({
       method: "POST",
       url: "http://localhost:5000/bairros/novo",
-      params: {"nome": nome},
+      params: bairro,
     });
   },
 
@@ -105,7 +104,12 @@ const neighborhoodService = {
    * @returns Promise
    */
   delete: (id) => {
-    return firebase.firestore().collection("Bairros").doc(id).delete();
+    return callApi({
+      method: "POST",
+      url: `http://localhost:5000/bairros/delete/${id}`,
+      // params: id,
+    });
+    // return firebase.firestore().collection("Bairros").doc(id).delete();
   },
 };
 
