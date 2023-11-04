@@ -60,8 +60,7 @@ export class NeighborhoodController {
     return this.#instanceNeighborhood.update(request.body).then(() => {
       response.status(200).json(this.#instanceNeighborhood);
     }).catch(error => {
-      const status = error.status || 500;
-      response.status(status).json(error);
+      response.status(error.code).json(error);
     })
   }
 

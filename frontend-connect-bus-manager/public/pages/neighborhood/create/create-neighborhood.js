@@ -89,7 +89,7 @@ function existParams() {
 function saveItem() {
   const bairro = createBairro();
   if (existParams()) {
-    UPDATE();
+    UPDATE(bairro);
   } else {
     INSERT(bairro);
   }
@@ -97,6 +97,7 @@ function saveItem() {
 
 function createBairro(){
   const bairro = new Neighborhood();
+  bairro.docId = getItemURL();
   bairro.nome = formNeighborhood.inputNeighborhoodName().value;
   return bairro;
 }
@@ -120,19 +121,19 @@ function INSERT(bairro) {
 
 /**
  * Função responsável por atualizar item no banco
+ * @param {Neighborhood} bairro
  */
-function UPDATE() {
+function UPDATE(bairro) {
   showLoading();
   neighborhoodService
-    .update(getItemURL(), formNeighborhood.inputNeighborhoodName().value)
+    .update(bairro)
     .then(() => {
       hideLoading();
       alert("Bairro atualizado com sucesso!");
     })
     .catch((error) => {
       hideLoading();
-      // The document probably doesn't exist.
-      console.error("Erro ao atualizar Bairro ", error);
+      alert("Erro ao atualizar Bairro: " + error.message);
     });
 }
 

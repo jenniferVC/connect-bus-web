@@ -60,7 +60,7 @@ export class Neighborhood {
 
   create(params) {
     this.nome = params.nome;
-    return this.findByEqualName(this.nome).then(() =>{
+    return this.findByEqualName().then(() =>{
      this.#instanceRepository.create(this).then(response => this.docID = response.id);
     })
   }
@@ -68,7 +68,9 @@ export class Neighborhood {
   update(params) {
     return this.findByDocID().then(() => {
       this.nome = params.nome;
-      return this.#instanceRepository.update(this);
+      return this.findByEqualName().then(() => {
+        return this.#instanceRepository.update(this);
+      });
     })
   }
 

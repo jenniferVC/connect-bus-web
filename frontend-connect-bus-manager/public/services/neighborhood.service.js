@@ -81,21 +81,16 @@ const neighborhoodService = {
       params: bairro,
     });
   },
-
-  // (name) => {
-  //   return firebase.firestore().collection("Bairros").add({
-  //     name: name,
-  //   });
-  // },
   /**
    *
-   * @param {string} docId
-   * @param {string} name
+   * @param {Neighborhood} bairro
    * @returns
    */
-  update: (docId, name) => {
-    return firebase.firestore().collection("Bairros").doc(docId).update({
-      nome: name,
+  update: (bairro) => {
+    return callApi({
+      method: "POST",
+      url: `http://localhost:5000/bairros/update/${bairro.docId}`,
+      params: bairro,
     });
   },
   /**
