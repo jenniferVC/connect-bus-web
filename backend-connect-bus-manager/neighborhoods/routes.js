@@ -6,18 +6,16 @@ import { validateNeighborhood } from './validators/create.validator.js';
 
 const app = express();
 
-const neighborhoodsController = new NeighborhoodController();
-
 // Lista os Bairros
 app.get('/',
   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
-  (request, response) => neighborhoodsController.listAll(request, response)
+  (request, response) => new NeighborhoodController().listAll(request, response)
 );
 
 // Busca bairro pelo Id do Document
 app.get('/:docID',
   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
-  (request, response) => neighborhoodsController.findByDocID(request, response)
+  (request, response) => new NeighborhoodController().findByDocID(request, response)
 );
 
 // Busca bairro pelo nome
@@ -32,20 +30,20 @@ app.get('/:nome',
 app.post('/novo',
   (request, response, next) => validateNeighborhood(request, response, next),
   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
-  (request, response) => neighborhoodsController.create(request, response)
+  (request, response) => new NeighborhoodController().create(request, response)
 )
 
 // Atualiza bairro
 app.post('/update/:docID',
   (request, response, next) => validateNeighborhood(request, response, next),
   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
-  (request, response) => neighborhoodsController.update(request, response)
+  (request, response) => new NeighborhoodController().update(request, response)
 )
 
 // Remove bairro
 app.post('/delete/:docID',
   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
-  (request, response) => neighborhoodsController.delete(request, response)
+  (request, response) => new NeighborhoodController().delete(request, response)
 )
 
 export const neighborhoodsRouter = app;
