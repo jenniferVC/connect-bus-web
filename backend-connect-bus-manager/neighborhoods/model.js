@@ -66,8 +66,8 @@ export class Neighborhood {
   }
 
   update(params) {
-    this.nome = params.nome;
     return this.findByDocID().then(() => {
+      this.nome = params.nome;
       return this.#instanceRepository.update(this);
     })
   }
