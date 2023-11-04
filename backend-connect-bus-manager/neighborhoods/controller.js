@@ -55,6 +55,7 @@ export class NeighborhoodController {
 
   update(request, response) {
     this.#instanceNeighborhood.docID = request.params.docID;
+    this.#instanceNeighborhood.nome = request.params.nome;
 
     return this.#instanceNeighborhood.update(request.body).then(() => {
       response.status(200).json(this.#instanceNeighborhood);
