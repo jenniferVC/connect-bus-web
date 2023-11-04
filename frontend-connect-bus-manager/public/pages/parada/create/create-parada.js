@@ -72,7 +72,7 @@ function save() {
                 alert("Não encontrou o documento!");
             }
         }).catch((error) => {
-            alert("Error ao consultar documento:", error);
+            alert("Error ao consultar documento:" + error);
         });
 
 

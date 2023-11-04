@@ -23,7 +23,7 @@ function deleteItem(neighborhood) {
         alert("Bairro deletado com sucesso!");
         window.location.reload();
     }).catch((error) => {
-        alert("Erro ao remover bairro: ", error);
+        alert("Erro ao remover bairro: " + error.message);
     });
 }
 
@@ -171,7 +171,7 @@ function searchItem() {
     })
         .catch((error) => {
             hideLoading();
-            alert("Erro ao obter documentos: ", error);
+            alert("Erro ao obter documentos: " + error.message);
         });
 }
 
@@ -185,7 +185,7 @@ function getItensBD() {
         loadItensInTable(documents);
     }).catch((error) => {
         hideLoading();
-        alert("Erro ao obter documentos: ", error);
+        alert("Erro ao obter documentos: " + error.message);
     });
 }
 

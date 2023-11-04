@@ -86,7 +86,7 @@ function searchItem() {
             });
         })
         .catch((error) => {
-            console.log("Erro ao obter documentos: ", error);
+            console.log("Erro ao obter documentos: " + error);
         });
 
 
@@ -109,7 +109,7 @@ function getItensBD() {
         loadItensInTable(arrayParadasFlat);
     })
         .catch((error) => {
-            alert("Erro ao obter documentos: ", error);
+            alert("Erro ao obter documentos: " + error);
         });
 }
 

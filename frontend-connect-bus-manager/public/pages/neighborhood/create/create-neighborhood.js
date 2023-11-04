@@ -17,7 +17,7 @@ function logout() {
       window.location.href = "../../../index.html";
     })
     .catch((error) => {
-      alert("Um Erro ocorreu ao fazer logout", error);
+      alert("Um Erro ocorreu ao fazer logout" + error);
     });
 }
 
@@ -61,7 +61,7 @@ function findItemByID(docID) {
     })
     .catch((error) => {
       hideLoading();
-      alert("Erro ao obter documento: ", error);
+      alert("Erro ao obter documento: " + error.message);
     });
 }
 
