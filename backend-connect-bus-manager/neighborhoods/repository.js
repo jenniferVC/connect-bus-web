@@ -92,18 +92,24 @@ export class NeighborhoodRepository {
   }
 
   /**
+   * Conta a quantidade de Bairros cadastrados no Firebase.
+   * @returns int
+   */
+  async qtdBairros() {
+    const collectionRef = admin.firestore().collection("Bairros");
+    const snapshot = await collectionRef.count().get();
+    return snapshot.data().count;
+  }
+
+  /**
    * Atualiza o bairro
    * @param {Neighborhood} bairro
    * @returns
    */
   update(bairro) {
-    return admin
-      .firestore()
-      .collection("Bairros")
-      .doc(bairro.docID)
-      .update({
-        nome: bairro.nome,
-      });
+    return admin.firestore().collection("Bairros").doc(bairro.docID).update({
+      nome: bairro.nome,
+    });
   }
 
   /**

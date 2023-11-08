@@ -9,6 +9,7 @@ import { NeighborhoodRepository } from './repository.js';
 export class Neighborhood {
   docID;
   nome;
+  numBairro;
   // Hashtag '#' na frente do atributo pois o JS entende que ele é privado 
   #instanceRepository;
 
@@ -53,6 +54,9 @@ export class Neighborhood {
 
   create(params) {
     this.nome = params.nome;
+
+    this.#instanceRepository.qtdBairros().then(count => this.numBairro = count);
+
     return this.findByEqualName().then(() =>{
      this.#instanceRepository.create(this).then(response => this.docID = response.id);
     })
