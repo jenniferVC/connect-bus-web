@@ -22,9 +22,10 @@ button {
 
 .container {
     width: 90%;
-    height: 80%;
+    height: 73%;
     border-radius: 10px;
     background: white;
+    margin: 3em;
 }
 
 .header {

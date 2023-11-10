@@ -123,7 +123,7 @@ function loadItensInTable(documents) {
     }
     else {
         tbody.innerHTML = "";
-        paginationTotal.innerHTML = `1-${documents.length} de ${documents.length}`;
+        paginationTotal.innerHTML = `${documents.length} items`;
         // const arrBairros = documents.map(document => convertDocumentFirebaseToObject(document));
         // console.log(arrBairros);
         // // TODO: Colocar loading
