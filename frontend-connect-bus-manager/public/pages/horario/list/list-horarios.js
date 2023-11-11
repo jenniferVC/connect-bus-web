@@ -7,6 +7,7 @@ let documentosHorarios = [];
  * Classe Horario para auxiliar na tipagem
  */
 class Horario {
+    docId;
     bairros = [];
     linha;
     diaDeFuncionamento;
@@ -92,6 +93,14 @@ function generateButtonEdit(item) {
     td_edit.appendChild(button_edit);
 
     return td_edit;
+}
+
+/**
+ * Função chamada ao clicar no icone de editar da tabela.
+ * @param {Horario} horario 
+ */
+function editItem(horario) {
+    window.location.href = "../create/create-horario.html?docID=" + horario.docId;
 }
 
 /**
