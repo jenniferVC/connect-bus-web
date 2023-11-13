@@ -10,6 +10,8 @@ export class Horario {
   linha;
   bairros;
   diaDeFuncionamento;
+  horaPartidaBairro;
+  horaPartidaRodoviaria;
   // Hashtag '#' na frente do atributo pois o JS entende que ele é privado
   #instanceRepository;
 
@@ -23,7 +25,7 @@ export class Horario {
       instanceRepository || new HorarioRepository();
   }
 
-  listAll() {
+  async listAll() {
     try {
       return this.#instanceRepository.listAll();
     } catch (error) {

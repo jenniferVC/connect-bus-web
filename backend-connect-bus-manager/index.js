@@ -1,6 +1,8 @@
 import express, { json } from 'express';
 import admin from 'firebase-admin';
 import { neighborhoodsRouter } from './neighborhoods/routes.js';
+import { paradasRouter } from './paradas/routes.js';
+import { horariosRouter } from './horarios/routes.js';
 
 const app = express();
 app.use(json());
@@ -24,7 +26,13 @@ app.use((request, response, next) => {
   next();
 })
 
+
+
 app.use('/bairros', neighborhoodsRouter);
+app.use('/paradas', paradasRouter);
+app.use('/horarios', horariosRouter);
+
+
 
 app.listen(5000, () => console.log('API rest iniciada em http://localhost:5000'))
 
