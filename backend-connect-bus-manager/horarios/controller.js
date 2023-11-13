@@ -8,17 +8,31 @@ export class HorarioController {
 
   /**
    * Construtor de HorarioController com Singleton
-   * @param {Horario} instanceHorario 
+   * @param {Horario} instanceHorario
    */
   constructor(instanceHorario) {
     this.#instanceHorario = instanceHorario || new Horario();
   }
 
   listAll(request, response) {
-    return this.#instanceHorario.listAll().then(horarios => {
-      response.json(horarios);
-    }).catch(error => {
-      response.status(error.code).json(error);
-    })
+    return this.#instanceHorario
+      .listAll()
+      .then((horarios) => {
+        response.json(horarios);
+      })
+      .catch((error) => {
+        response.status(error.code).json(error);
+      });
+  }
+
+  create(request, response) {
+    return this.#instanceHorario
+      .create(request.body)
+      .then(() => {
+        response.status(200).json(this.#instanceHorario);
+      })
+      .catch((error) => {
+        response.status(error.code).json(error);
+      });
   }
 }

@@ -22,18 +22,7 @@ app.post(
   (request, response, next) => validateHorario(request, response, next),
   (request, response, next) =>
     authenticateToken(request, response, next, admin.auth()),
-  (request, response) => {
-    console.log(request.body);
-    const horario = new Horario();
-    horario.linha = request.body.linha;
-    horario.diaDeFuncionamento = request.body.diaDeFuncionamento;
-
-    admin
-      .firestore()
-      .collection("Horarios")
-      .add(JSON.parse(JSON.stringify(horario)));
-    response.json("teste");
-  }
+    (request, response) => new HorarioController().create(request, response)
 );
 
 // Busca horario pelo Id do Document

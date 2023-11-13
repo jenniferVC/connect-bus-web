@@ -16,6 +16,29 @@ const horarioService = {
   getAll: () => {
     return callApi({ method: "GET", url: "http://localhost:5000/horarios" });
   },
+  /**
+   *
+   * @param {Horario} horario
+   * @returns
+   */
+  create: (horario) => {
+    return callApi({
+      method: "POST",
+      url: "http://localhost:5000/horarios/novo",
+      params: horario,
+    });
+  },
+  /**
+   *
+   * @param {string} docId
+   * @returns Promise
+   */
+  findByDocId: (docId) => {
+    return callApi({
+      method: "GET",
+      url: `http://localhost:5000/horarios/${docId}`,
+    });
+  },
 };
 
 function callApi({ method, url, params }) {

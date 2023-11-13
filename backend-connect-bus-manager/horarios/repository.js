@@ -11,10 +11,33 @@ export class HorarioRepository {
    * @returns Promise
    */
   async listAll() {
-    var docs = await this.getDocsHorariosCollection();
-    var horarios = await this.getHorarios(docs);
-    console.log("A:", horarios[1]);
-    return horarios[1];
+    // var docs = await this.getDocsHorariosCollection();
+    // var horarios = await this.getHorarios(docs);
+    // console.log("A:", horarios[1]);
+    // return horarios[1];
+    return admin
+      .firestore()
+      .collection("Horarios")
+      .get()
+      .then((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          docId: doc.id,
+        }));
+      });
+  }
+
+  /**
+   * Adiciona no banco um horario novo com o ID do documento gerado automaticamente
+   * @param {Horario} horario
+   * @returns
+   */
+  create(horario) {
+    console.log("horario salvo no banco:", JSON.parse(JSON.stringify(horario)));
+    return admin
+      .firestore()
+      .collection("Horarios")
+      .add(JSON.parse(JSON.stringify(horario)));
   }
 
   /**
@@ -25,7 +48,8 @@ export class HorarioRepository {
     const horariosRef = admin
       .firestore()
       .collection("Horarios")
-      .orderBy("linha", "asc");
+      .where("linha", "==", "Linha 011 TURÍSTICA");
+    // .orderBy("linha", "asc");
     const snapshot = await horariosRef.get();
     return snapshot.docs;
   }
