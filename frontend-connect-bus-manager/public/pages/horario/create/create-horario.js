@@ -41,7 +41,7 @@ if (existParams()) {
 } else {
   getHorariosPartidaBairro();
   getHorariosPartidaRodoviaria();
-  getBairros().then((bairros) => loadNeighborhood(bairros));
+  getBairros();
 }
 
 /**
@@ -74,7 +74,7 @@ function findItemByID(docID) {
  * @param {Horario} horario
  */
 function fillFields(horario) {
-  getBairros(horario.bairros).then((bairros) => loadNeighborhood(bairros));
+  getBairros(horario.bairros);
   getHorariosPartidaBairro(horario.horaPartidaBairro);
   getHorariosPartidaRodoviaria(horario.horaPartidaRodoviaria);
 
@@ -173,32 +173,38 @@ function getBairros(bairrosEdit) {
 
   // Itera sobre cada documento da collection "Bairros" e
   // coloca o valor do atributo "nome" dentro da tag "option"
-  return neighborhoodService
+  neighborhoodService
     .getAll()
     .then((bairros) => {
       console.log(bairros);
       bairros.forEach((bairro) => {
         count = count + 1;
 
-        let bairroExist = bairrosEdit.some(
-          (nomeBairro) => nomeBairro === bairro.nome
-        );
-        if (bairroExist) {
-          concat += `
+        if (bairrosEdit) {
+          let bairroExist = bairrosEdit.some(
+            (nomeBairro) => nomeBairro === bairro.nome
+          );
+          if (bairroExist) {
+            concat += `
                 <option value="${count}" selected>${bairro.nome}</option>
                 `;
+          }
+          if (!bairroExist) {
+            concat += `
+                <option value="${count}">${bairro.nome}</option>
+                `;
+          }
         }
-        if (!bairroExist) {
+        if (!bairrosEdit) {
           concat += `
                 <option value="${count}">${bairro.nome}</option>
                 `;
         }
       });
-      return concat;
+      loadNeighborhood(concat);
     })
     .catch((error) => {
       alert("Erro ao obter documentos: " + error.message);
-      return;
     });
 }
 
@@ -206,16 +212,23 @@ function getHorariosPartidaBairro(horarios) {
   let count = 0;
   let concat = "";
   for (let i = 0; i <= 23; i++) {
-    let horarioExist = horarios.some((hora) => hora === `${i}:00`);
-    if (horarioExist) {
-      concat += `
-          <option value="${i}" selected>${i}:00</option>
-          `;
+    if (horarios) {
+      let horarioExist = horarios.some((hora) => hora === `${i}:00`);
+      if (horarioExist) {
+        concat += `
+            <option value="${i}" selected>${i}:00</option>
+            `;
+      }
+      if (!horarioExist) {
+        concat += `
+            <option value="${i}">${i}:00</option>
+            `;
+      }
     }
-    if (!horarioExist) {
+    if (!horarios) {
       concat += `
-          <option value="${i}">${i}:00</option>
-          `;
+            <option value="${i}">${i}:00</option>
+            `;
     }
   }
 
@@ -226,16 +239,23 @@ function getHorariosPartidaRodoviaria(horarios) {
   let count = 0;
   let concat = "";
   for (let i = 0; i <= 23; i++) {
-    let horarioExist = horarios.some((hora) => hora === `${i}:00`);
-    if (horarioExist) {
-      concat += `
-          <option value="${i}" selected>${i}:00</option>
-          `;
+    if (horarios) {
+      let horarioExist = horarios.some((hora) => hora === `${i}:00`);
+      if (horarioExist) {
+        concat += `
+            <option value="${i}" selected>${i}:00</option>
+            `;
+      }
+      if (!horarioExist) {
+        concat += `
+            <option value="${i}">${i}:00</option>
+            `;
+      }
     }
-    if (!horarioExist) {
+    if (!horarios) {
       concat += `
-          <option value="${i}">${i}:00</option>
-          `;
+            <option value="${i}">${i}:00</option>
+            `;
     }
   }
 
@@ -369,7 +389,7 @@ async function createHorario() {
   horario.linha = selectLinha.options[selectLinha.selectedIndex].value;
   horario.diaDeFuncionamento = getDias();
 
-  let horarioBD = await findItemByID(docID);
+  let horarioBD = docID ? await findItemByID(docID) : null;
 
   horario.bairros =
     bairrosSelecionados.length != 0 ? bairrosSelecionados : horarioBD.bairros;
