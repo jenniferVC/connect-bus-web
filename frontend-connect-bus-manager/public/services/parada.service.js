@@ -45,24 +45,24 @@ const paradaService = {
    * @param {string} docId
    * @returns Promise
    */
-  // findByDocId: (docId) => {
-  //   return callApi({
-  //     method: "GET",
-  //     url: `http://localhost:5000/horarios/${docId}`,
-  //   });
-  // },
+  findByDocId: (docId) => {
+    return callApi({
+      method: "GET",
+      url: `http://localhost:5000/paradas/${docId}`,
+    });
+  },
   /**
    *
-   * @param {Horario} horario
+   * @param {Parada} parada
    * @returns
    */
-  // update: (horario) => {
-  //   return callApi({
-  //     method: "POST",
-  //     url: `http://localhost:5000/horarios/update/${horario.docID}`,
-  //     params: horario,
-  //   });
-  // },
+  update: (parada) => {
+    return callApi({
+      method: "POST",
+      url: `http://localhost:5000/paradas/update/${parada.docId}`,
+      params: parada,
+    });
+  },
     /**
    *
    * @param {string} id

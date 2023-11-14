@@ -23,4 +23,31 @@ app.post(
   (request, response) => new ParadaController().create(request, response)
 );
 
+// Busca horario pelo Id do Document
+app.get(
+  "/:docID",
+  (request, response, next) =>
+    authenticateToken(request, response, next, admin.auth()),
+  (request, response) => new ParadaController().findByDocID(request, response)
+);
+
+// Atualiza parada
+app.post('/update/:docID',
+  (request, response, next) => validateParada(request, response, next),
+  (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+  (request, response) => new ParadaController().update(request, response)
+)
+
+// Busca horario pela linha
+// app.get('/encontrar/:linha',
+//   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+//   (request, response) => new HorarioController().findByLinha(request, response)
+// );
+
+// Remove horario
+// app.post('/delete/:docID',
+//   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+//   (request, response) => new HorarioController().delete(request, response)
+// )
+
 export const paradasRouter = app;

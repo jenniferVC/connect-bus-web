@@ -13,7 +13,7 @@ class Parada {
  * @param {Parada} parada
  */
 function editItem(parada) {
-  window.location.href = "../create/create-paradas.html?idParada=" + parada.id;
+  window.location.href = "../create/create-paradas.html?docID=" + parada.docId;
 }
 
 /**

@@ -1,13 +1,18 @@
-document.addEventListener("DOMContentLoaded", function (event) {
-  console.log("DOM completamente carregado e analisado");
-  getBairros();
-});
 
 class Parada {
   docId;
   bairro;
   latitude;
   longitude;
+}
+
+// Verificando  se tem um paramentro na URL
+// caso tenha então o consulta no banco
+if (existParams()) {
+  const docID = getItemURL();
+  findItemByID(docID);
+} else {
+  getBairros();
 }
 
 /**
@@ -22,11 +27,47 @@ function getItemURL() {
 }
 
 /**
+ * Função responsável por consultar no banco através do ID do Document.
+ * Caso encontre, então preenche os campos com a função fillFields(),
+ * caso contrário o usuário é redirecionado para a pagina da tabela bairros.
+ * @param {string} docID
+ */
+function findItemByID(docID) {
+  showLoading();
+  paradaService
+    .findByDocId(docID)
+    .then((parada) => {
+      hideLoading();
+      if (parada) {
+        console.log(parada);
+        fillFields(parada);
+      } else {
+        alert("Documento não encontrado");
+        window.location.href = "../list/list-paradas.html";
+      }
+    })
+    .catch((error) => {
+      hideLoading();
+      alert("Erro ao obter documento: " + error.message);
+    });
+}
+
+/**
+ * Função responsável por preencher todos os campos da pagina.
+ * @param {Parada} parada
+ */
+function fillFields(parada) {
+  getBairros(parada.bairro);
+  formParada.inputLat().value = parada.latitude;
+  formParada.inputLgn().value = parada.longitude;
+}
+
+/**
  * Obtendo os bairros do banco e gerando as options
- * @param {string[]} bairrosEdit
+ * @param {string} bairroEdit
  * @returns string
  */
-function getBairros() {
+function getBairros(bairroEdit) {
   let count = 0;
   let concat = "";
 
@@ -38,10 +79,17 @@ function getBairros() {
       console.log(bairros);
       bairros.forEach((bairro) => {
         count = count + 1;
-        concat += `
-                  <option value="${count}">${bairro.nome}</option>
-                  `;
+        if (bairroEdit === bairro.nome) {
+          concat += `
+              <option value="${count}" selected>${bairro.nome}</option>
+              `;
+        } else {
+          concat += `
+              <option value="${count}">${bairro.nome}</option>
+              `;
+        }
       });
+      console.log(concat);
       loadNeighborhood(concat);
     })
     .catch((error) => {
@@ -88,12 +136,30 @@ function existParams() {
 
 function saveItem() {
   const parada = createParada();
-  console.log(parada);
   if (existParams()) {
-    //   UPDATE(horario);
+    UPDATE(parada);
   } else {
     INSERT(parada);
   }
+}
+
+/**
+ * Função responsável por atualizar item no banco
+ * @param {Parada} parada
+ */
+function UPDATE(parada) {
+  showLoading();
+  console.log(parada);
+  paradaService
+    .update(parada)
+    .then(() => {
+      hideLoading();
+      alert("Parada atualizada com sucesso!");
+    })
+    .catch((error) => {
+      hideLoading();
+      alert("Erro ao atualizar Parada: " + error.message);
+    });
 }
 
 /**
@@ -101,7 +167,6 @@ function saveItem() {
  * @param {Parada} parada
  */
 function INSERT(parada) {
-  console.log(parada);
   paradaService
     .create(parada)
     .then(() => {

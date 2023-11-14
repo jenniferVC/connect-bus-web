@@ -35,6 +35,66 @@ export class ParadaRepository {
   }
 
   /**
+   * Encontra a parada pelo ID do documento
+   * @param {string} id
+   * @returns
+   */
+  findByDocID(id) {
+    return admin
+      .firestore()
+      .collection("Paradas")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          return doc.data();
+        }
+      });
+  }
+
+  /**
+   * Atualiza a parada
+   * @param {Parada} parada
+   * @returns
+   */
+  update(parada) {
+    return admin.firestore().collection("Paradas").doc(parada.docID).update({
+      bairro: parada.bairro,
+      latitude: parada.latitude,
+      longitude: parada.longitude,
+    });
+  }
+
+  /**
+   * Busca no banco todos os horarios que tem as linhas parecidas
+   * @param {string} linha
+   * @returns Promise
+   */
+  // findByLinha(linha) {
+  //   return admin
+  //     .firestore()
+  //     .collection("Horarios")
+  //     .where("linha", ">=", linha)
+  //     .orderBy("linha", "asc")
+  //     .get()
+  //     .then((querySnapshot) => {
+  //       return querySnapshot.docs.map((doc) => ({
+  //         ...doc.data(),
+  //         docId: doc.id,
+  //       }));
+  //     });
+  // }
+
+  /**
+   *
+   * @param {string} id
+   * @returns Promise
+   */
+  // delete(id) {
+  //   return admin.firestore().collection("Horarios").doc(id).delete();
+  // }
+
+  /**
    * Conta a quantidade de Bairros cadastrados no Firebase.
    * @param {string} docIdBairro
    * @returns int

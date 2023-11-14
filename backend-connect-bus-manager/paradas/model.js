@@ -2,13 +2,13 @@
 // - Contém a logica e as regras de negócio
 // - Converte dados em algo que faz sentido para o meu negocio
 
+import { BadRequestError } from "../neighborhoods/errors/bad-request.error.js";
 import { NeighborhoodNotFoundError } from "../neighborhoods/errors/neighborhood-not-found.error.js";
 import { NeighborhoodRepository } from "../neighborhoods/repository.js";
 import { ParadaRepository } from "./repository.js";
 
 export class Parada {
   docID;
-  id;
   longitude;
   latitude;
   bairro;
@@ -43,4 +43,39 @@ export class Parada {
       );
     }
   }
+
+  findByDocID() {
+    if (!this.docID) {
+      return Promise.reject(new BadRequestError("id de Parada não informado"));
+    }
+
+    return this.#instanceRepository.findByDocID(this.docID).then((parada) => {
+      if (!parada) {
+        return Promise.reject(new BadRequestError("Parada não encontrada"));
+      }
+      this.bairro = parada.bairro;
+      this.latitude = parada.latitude;
+      this.longitude = parada.longitude;
+    });
+  }
+
+  update(params) {
+    return this.findByDocID().then(() => {
+      this.bairro = params.bairro;
+      this.latitude = params.latitude;
+      this.longitude = params.longitude;
+      return this.#instanceRepository.update(this);
+    });
+  }
+
+  // findByLinha() {
+  //   return this.#instanceRepository.findByLinha(this.linha);
+  // }
+
+  // delete() {
+  //   console.log("delete: ", this);
+  //   return this.findByDocID().then(() => {
+  //     return this.#instanceRepository.delete(this.docID);
+  //   });
+  // }
 }
