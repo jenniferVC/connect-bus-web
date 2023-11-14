@@ -71,9 +71,7 @@ const neighborhoodService = {
     return callApi({
       method: "POST",
       url: `http://localhost:5000/bairros/delete/${id}`,
-      // params: id,
     });
-    // return firebase.firestore().collection("Bairros").doc(id).delete();
   },
 };
 

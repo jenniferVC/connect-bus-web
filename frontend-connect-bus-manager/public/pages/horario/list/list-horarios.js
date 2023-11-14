@@ -160,12 +160,12 @@ function generateButtonDelete(item) {
  * @param {Horario} horario
  */
 function deleteItem(horario) {
-  // neighborhoodService.delete(horario.docID).then(() => {
-  //     alert("Bairro deletado com sucesso!");
-  //     window.location.reload();
-  // }).catch((error) => {
-  //     alert("Erro ao remover bairro: " + error.message);
-  // });
+  horarioService.delete(horario.docId).then(() => {
+      alert("Horario deletado com sucesso!");
+      window.location.reload();
+  }).catch((error) => {
+      alert("Erro ao remover horario: " + error.message);
+  });
 }
 
 /**

@@ -69,23 +69,32 @@ export class HorarioRepository {
     });
   }
 
-    /**
+  /**
    * Busca no banco todos os horarios que tem as linhas parecidas
    * @param {string} linha
    * @returns Promise
    */
-    findByLinha(linha) {
-      return admin
-        .firestore()
-        .collection("Horarios")
-        .where("linha", ">=", linha)
-        .orderBy("linha", "asc")
-        .get()
-        .then((querySnapshot) => {
-          return querySnapshot.docs.map((doc) => ({
-            ...doc.data(),
-            docId: doc.id,
-          }));
-        });
-    }
+  findByLinha(linha) {
+    return admin
+      .firestore()
+      .collection("Horarios")
+      .where("linha", ">=", linha)
+      .orderBy("linha", "asc")
+      .get()
+      .then((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          docId: doc.id,
+        }));
+      });
+  }
+
+  /**
+   *
+   * @param {string} id
+   * @returns Promise
+   */
+  delete(id) {
+    return admin.firestore().collection("Horarios").doc(id).delete();
+  }
 }

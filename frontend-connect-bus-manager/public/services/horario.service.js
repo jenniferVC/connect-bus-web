@@ -63,6 +63,17 @@ const horarioService = {
       params: horario,
     });
   },
+    /**
+   *
+   * @param {string} id
+   * @returns Promise
+   */
+    delete: (id) => {
+      return callApi({
+        method: "POST",
+        url: `http://localhost:5000/horarios/delete/${id}`,
+      });
+    },
 };
 
 function callApi({ method, url, params }) {

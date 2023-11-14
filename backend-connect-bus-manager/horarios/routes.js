@@ -46,4 +46,10 @@ app.get('/encontrar/:linha',
   (request, response) => new HorarioController().findByLinha(request, response)
 );
 
+// Remove horario
+app.post('/delete/:docID',
+  (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+  (request, response) => new HorarioController().delete(request, response)
+)
+
 export const horariosRouter = app;

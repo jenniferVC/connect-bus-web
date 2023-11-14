@@ -78,4 +78,14 @@ export class HorarioController {
       response.status(error.code).json(error);
     })
   }
+
+  delete(request, response) {
+    this.#instanceHorario.docID = request.params.docID;
+
+    return this.#instanceHorario.delete().then(() => {
+      response.status(200).json({message: "Horario deletado com sucesso"});
+    }).catch(error => {
+      response.status(error.code).json(error);
+    })
+  }
 }

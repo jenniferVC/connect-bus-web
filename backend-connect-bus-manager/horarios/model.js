@@ -82,4 +82,11 @@ export class Horario {
   findByLinha() {
     return this.#instanceRepository.findByLinha(this.linha);
   }
+
+  delete() {
+    console.log("delete: ", this);
+    return this.findByDocID().then(() => {
+      return this.#instanceRepository.delete(this.docID);
+    });
+  }
 }
