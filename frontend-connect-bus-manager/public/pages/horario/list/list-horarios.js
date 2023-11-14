@@ -169,6 +169,18 @@ function deleteItem(horario) {
 }
 
 /**
+ * Função que irá exibir mensagem de 'Nenhum conteúdo para listar' ao fazer uma pesquisa.
+ */
+function itemNotFound() {
+  tbody.innerHTML = "";
+  let tr = document.createElement("tr");
+  tr.innerHTML = `
+      <td>Nenhum conteúdo para listar</td>
+  `
+  tbody.appendChild(tr)
+}
+
+/**
  * Função que verifica se possui dados a serem listados.
  * @param {*} documents
  */
