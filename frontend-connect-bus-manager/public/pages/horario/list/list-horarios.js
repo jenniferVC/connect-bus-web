@@ -133,39 +133,39 @@ function convertDocumentFirebaseToHTML(arrHorarios) {
 }
 
 /**
- * Função responsável por criar célula TR contendo botão de excluir. 
- * @param {*} item 
+ * Função responsável por criar célula TR contendo botão de excluir.
+ * @param {*} item
  * @returns HTMLTableCellElement
  */
 function generateButtonDelete(item) {
-    // Icone de excluir
-    let icon_delete = document.createElement("i");
-    icon_delete.classList.add("bx", "bx-trash");
+  // Icone de excluir
+  let icon_delete = document.createElement("i");
+  icon_delete.classList.add("bx", "bx-trash");
 
-    // Botao contendo icone de excluir
-    let button_delete = document.createElement("button");
-    button_delete.appendChild(icon_delete);
-    button_delete.addEventListener("click", () => deleteItem(item));
+  // Botao contendo icone de excluir
+  let button_delete = document.createElement("button");
+  button_delete.appendChild(icon_delete);
+  button_delete.addEventListener("click", () => deleteItem(item));
 
-    // Celula TD da tabela contendo o botao de excluir
-    let td_delete = document.createElement("td");
-    td_delete.classList.add("acao");
-    td_delete.appendChild(button_delete);
-    
-    return td_delete;
+  // Celula TD da tabela contendo o botao de excluir
+  let td_delete = document.createElement("td");
+  td_delete.classList.add("acao");
+  td_delete.appendChild(button_delete);
+
+  return td_delete;
 }
 
 /**
  * Função chamada ao clicar no icone de excluir da tabela.
- * @param {Horario} horario 
+ * @param {Horario} horario
  */
 function deleteItem(horario) {
-    // neighborhoodService.delete(horario.docID).then(() => {
-    //     alert("Bairro deletado com sucesso!");
-    //     window.location.reload();
-    // }).catch((error) => {
-    //     alert("Erro ao remover bairro: " + error.message);
-    // });
+  // neighborhoodService.delete(horario.docID).then(() => {
+  //     alert("Bairro deletado com sucesso!");
+  //     window.location.reload();
+  // }).catch((error) => {
+  //     alert("Erro ao remover bairro: " + error.message);
+  // });
 }
 
 /**
@@ -183,6 +183,26 @@ function loadItensInTable(documents) {
     console.log("convertendo documents em html");
     convertDocumentFirebaseToHTML(documents);
   }
+}
+
+/**
+ * Função chamada quando é informado um valor no campo de Busca
+ */
+function searchItem() {
+  const horarioSearch = document.getElementById("search").value;
+  console.log("Linha pesquisada: ", horarioSearch);
+
+  showLoading();
+  horarioService
+    .findByLinha(horarioSearch)
+    .then((horarios) => {
+      hideLoading();
+      loadItensInTable(horarios);
+    })
+    .catch((error) => {
+      hideLoading();
+      alert("Erro ao obter documentos: " + error.message);
+    });
 }
 
 /**
