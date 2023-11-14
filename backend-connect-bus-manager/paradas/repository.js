@@ -67,23 +67,23 @@ export class ParadaRepository {
 
   /**
    * Busca no banco todos os horarios que tem as linhas parecidas
-   * @param {string} linha
+   * @param {string} bairro
    * @returns Promise
    */
-  // findByLinha(linha) {
-  //   return admin
-  //     .firestore()
-  //     .collection("Horarios")
-  //     .where("linha", ">=", linha)
-  //     .orderBy("linha", "asc")
-  //     .get()
-  //     .then((querySnapshot) => {
-  //       return querySnapshot.docs.map((doc) => ({
-  //         ...doc.data(),
-  //         docId: doc.id,
-  //       }));
-  //     });
-  // }
+  findByBairro(bairro) {
+    return admin
+      .firestore()
+      .collection("Paradas")
+      .where("bairro", ">=", bairro)
+      .orderBy("bairro", "asc")
+      .get()
+      .then((querySnapshot) => {
+        return querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          docId: doc.id,
+        }));
+      });
+  }
 
   /**
    *

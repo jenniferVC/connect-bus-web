@@ -59,15 +59,15 @@ export class ParadaController {
       });
   }
 
-  // findByLinha(request, response) {
-  //   this.#instanceHorario.linha = request.params.linha;
+  findByBairro(request, response) {
+    this.#instanceParada.bairro = request.params.bairro;
 
-  //   return this.#instanceHorario.findByLinha().then(horarios => {
-  //     response.json(horarios);
-  //   }).catch(error => {
-  //     response.status(error.code).json(error);
-  //   })
-  // }
+    return this.#instanceParada.findByBairro().then(paradas => {
+      response.json(paradas);
+    }).catch(error => {
+      response.status(error.code).json(error);
+    })
+  }
 
   // delete(request, response) {
   //   this.#instanceHorario.docID = request.params.docID;

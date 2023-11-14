@@ -68,9 +68,9 @@ export class Parada {
     });
   }
 
-  // findByLinha() {
-  //   return this.#instanceRepository.findByLinha(this.linha);
-  // }
+  findByBairro() {
+    return this.#instanceRepository.findByBairro(this.bairro);
+  }
 
   // delete() {
   //   console.log("delete: ", this);

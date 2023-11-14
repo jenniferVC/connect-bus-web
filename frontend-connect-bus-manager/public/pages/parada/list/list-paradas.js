@@ -202,30 +202,19 @@ function convertDocumentFirebaseToObject(doc) {
  * Função chamada quando é informado um valor no campo de Busca
  */
 function searchItem() {
-  const latlongSearch = document.getElementById("busca").value;
-  console.log("lat e long de busca: " + latlongSearch);
-  const latlongWithoutComma = latlongSearch.split(",");
-  console.log(
-    "latitude e longitude quebrada pela virgula: " + latlongWithoutComma
-  );
-  const geopointSearch = new firebase.firestore.GeoPoint(
-    latlongWithoutComma[0],
-    latlongWithoutComma[1]
-  );
+  const neighborhoodSearch = document.getElementById("search").value;
+  console.log("Bairro pesquisado: ", neighborhoodSearch);
 
-  console.log("geopoint consulta: " + JSON.stringify(geopointSearch));
-
-  paradasCollectionRef
-    .where("paradas", "array-contains", geopointSearch)
-    .get()
-    .then((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-      });
+  showLoading();
+  paradaService
+    .findByBairro(neighborhoodSearch)
+    .then((paradas) => {
+      hideLoading();
+      loadItensInTable(paradas);
     })
     .catch((error) => {
-      console.log("Erro ao obter documentos: " + error);
+      hideLoading();
+      alert("Erro ao obter documentos: " + error.message);
     });
 }
 

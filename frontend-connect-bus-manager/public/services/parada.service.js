@@ -30,15 +30,15 @@ const paradaService = {
   },
   /**
    *
-   * @param {string} linha
+   * @param {string} bairro
    * @returns Promise
    */
-  // findByLinha: (linha) => {
-  //   return callApi({
-  //     method: "GET",
-  //     url: `http://localhost:5000/horarios/encontrar/${linha}`,
-  //   });
-  // },
+  findByBairro: (bairro) => {
+    return callApi({
+      method: "GET",
+      url: `http://localhost:5000/paradas/encontrar/${bairro}`,
+    });
+  },
   /**
    *
    *

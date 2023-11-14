@@ -38,11 +38,11 @@ app.post('/update/:docID',
   (request, response) => new ParadaController().update(request, response)
 )
 
-// Busca horario pela linha
-// app.get('/encontrar/:linha',
-//   (request, response, next) => authenticateToken(request, response, next, admin.auth()),
-//   (request, response) => new HorarioController().findByLinha(request, response)
-// );
+// Busca horario pelo bairro
+app.get('/encontrar/:bairro',
+  (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+  (request, response) => new ParadaController().findByBairro(request, response)
+);
 
 // Remove horario
 // app.post('/delete/:docID',
