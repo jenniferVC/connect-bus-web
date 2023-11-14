@@ -33,36 +33,14 @@ export class Parada {
     this.latitude = params.latitude;
     this.longitude = params.longitude;
 
-    this.findBairroByName(this.bairro).then(
-      (docIdBairro) => {
-
-        this.#instanceRepository
-        .create(this, docIdBairro)
-        .then((response) => {
-          this.docID = response.id;
-          
-          this.#instanceRepository.generateIdParada(docIdBairro,this.docID);
-        });
-      }
-    );
-    return this;
-  }
-
- /**
-  * Verificando se existe um bairro com o nome idêntico ao informado pelo usuário.
-  * @param {string} nomeBairro 
-  * @returns 
-  */
-  findBairroByName(nomeBairro) {
-    let neighborhoodRepository = new NeighborhoodRepository();
-    return neighborhoodRepository.findByEqualName(nomeBairro).then((documents) => {
-      if (documents.length === 0) {
-        return Promise.reject(new NeighborhoodNotFoundError());
-      }
-      documents.forEach((doc) => {
-        console.log(doc.id, "=>", doc.data());
-        return doc.id;
-      });
-    });
+    try {
+      return this.#instanceRepository
+        .create(this)
+        .then((response) => (this.docID = response.id));
+    } catch (error) {
+      return Promise.reject(
+        new BadRequestError("Erro ao cadastrar parada: " + error)
+      );
+    }
   }
 }

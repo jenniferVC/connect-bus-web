@@ -1,100 +1,122 @@
-var db = firebase.firestore();
+document.addEventListener("DOMContentLoaded", function (event) {
+  console.log("DOM completamente carregado e analisado");
+  getBairros();
+});
 
-var bairrosCollectionRef = db.collection("Neighborhoods");
-
-function loadNeighborhoodInSelect() {
-    
+class Parada {
+  docId;
+  bairro;
+  latitude;
+  longitude;
 }
 
 /**
- * Função responsável por fazer a consulta no banco.
+ * Função responsável por receber o parâmetro enviado pela URL
+ * no momento de Editar o item.
+ * @returns string
  */
-function getItensBD() {
-    // const inputBairroPai = document.getElementById('neighborhood-select');
-    // inputBairroPai.innerHTML = '';
+function getItemURL() {
+  const urlParams = new URLSearchParams(window.location.search);
+  console.log("Parametro enviado pela URL: ", urlParams.get("docID"));
+  return urlParams.get("docID");
+}
 
-    // Itera sobre cada documento da collection "Bairros" e
-    // coloca o valor do atributo "nomeBairro" dentro da tag "option"
-    bairrosCollectionRef.get().then((querySnapshot) => {
-        // querySnapshot.forEach((docBairro) => {
-        //     // const option = document.createElement("option");
+/**
+ * Obtendo os bairros do banco e gerando as options
+ * @param {string[]} bairrosEdit
+ * @returns string
+ */
+function getBairros() {
+  let count = 0;
+  let concat = "";
 
-        //     // option.setAttribute("value", docBairro.data().nomeBairro);
-        //     // option.innerHTML = docBairro.data().nomeBairro;
-        //     // inputBairroPai.appendChild(option);
+  // Itera sobre cada documento da collection "Bairros" e
+  // coloca o valor do atributo "nome" dentro da tag "option"
+  neighborhoodService
+    .getAll()
+    .then((bairros) => {
+      console.log(bairros);
+      bairros.forEach((bairro) => {
+        count = count + 1;
+        concat += `
+                  <option value="${count}">${bairro.nome}</option>
+                  `;
+      });
+      loadNeighborhood(concat);
+    })
+    .catch((error) => {
+      alert("Erro ao obter documentos: " + error.message);
+    });
+}
 
-        //     concatOption += `
-        //         <option value="${docBairro.data().nomeBairro}">${docBairro.data().nomeBairro}</option> 
-        //     `
-        // });
-    }).catch(err => alert('Erro ao listar bairros' + err));
+/**
+ * Carrega os bairros no campo Select.
+ * @param {string} bairros
+ */
+function loadNeighborhood(bairros) {
+  const label = document.getElementById("select-bairros");
+  const select = document.createElement("select");
 
-    console.log('Options concatenados: ', concatOption);
+  select.setAttribute("name", "bairros");
+  select.setAttribute("id", "bairros");
+  select.innerHTML = bairros;
+
+  label.appendChild(select);
 }
 
 /**
  * Verifica se os campos Latitude e Longitude foram informados.
- * @returns 
+ * @returns
  */
-function onChangeBusStop() {
-    console.log('longitude: ', formParada.inputLgn().value);
-    if (formParada.inputLat().value && formParada.inputLgn().value) {
-        console.log('tem os dois campos')
-        return new firebase.firestore.GeoPoint(formParada.inputLat().value, formParada.inputLgn().value);
-    }
-    else {
-        console.log('esta faltando campo')
-        return false;
-    }
+function createParada() {
+  let selectBairro = document.getElementById("bairros");
+  const parada = new Parada();
+  parada.docId = getItemURL();
+  parada.bairro = selectBairro.options[selectBairro.selectedIndex].innerHTML;
+  parada.latitude = formParada.inputLat().value;
+  parada.longitude = formParada.inputLgn().value;
+  return parada;
 }
 
+/**
+ * Função que verifica se existe parametro enviado pela URL
+ * @returns boolean
+ */
+function existParams() {
+  return getItemURL() ? true : false;
+}
+
+function saveItem() {
+  const parada = createParada();
+  console.log(parada);
+  if (existParams()) {
+    //   UPDATE(horario);
+  } else {
+    INSERT(parada);
+  }
+}
 
 /**
- * Função chamada ao clicar no botão Salvar.
+ * Função responsável por criar um Documento.
+ * @param {Parada} parada
  */
-// Video que mostra como salvar um objeto no firestore
-// https://www.youtube.com/watch?v=qaojB_xyZ4s&list=PLMbclvogjXZWgHgQcY5H4MvKtEW8q53cC&index=26
-function save() {
-    // TODO: chamar a função que mostrar o loading por uns segundos
-    const parada = onChangeBusStop();
-
-    if (parada) {
-
-        // Fazendo referencia ao documento que tem o nome do bairro, o qual
-        // foi selecionado no Select.
-        const docBairroRef = bairrosCollectionRef.doc(formParada.selectNeighbourhood().value);
-
-        docBairroRef.get().then((doc) => {
-            if (doc.exists) {
-                console.log("Documento existe! Dados do documento:", doc.data());
-            } else {
-                // doc.data() pode ser indefinido no caso
-                alert("Não encontrou o documento!");
-            }
-        }).catch((error) => {
-            alert("Error ao consultar documento:" + error);
-        });
-
-
-
-        // paradasCollectionRef.add({
-        //     // Adicionando a nova parada no array "paradas"
-        //     geopoint: parada
-        // })
-        //     .then(function () {
-        //         alert("Parada cadastrada com sucesso!")
-        //     })
-        //     .catch(function (error) {
-        //         alert(`Erro ao cadastrar parada\n${error}`)
-        //     });
-    }
+function INSERT(parada) {
+  console.log(parada);
+  paradaService
+    .create(parada)
+    .then(() => {
+      alert("Parada cadastrada com sucesso!");
+    })
+    .catch((error) => {
+      alert("Error ao cadastrar parada: " + error.message);
+    });
 }
 
 /**
  * Objeto que irá receber os dados informados no formulario
  */
 const formParada = {
-    selectNeighborhood: () => document.getElementById("neighborhood-select"),
-    inputLat: () => document.getElementById("input-lat"),
-    inputLgn: () => document.getElementById("input-lgn"),
-}
+  selectNeighborhood: () => document.getElementById("select-bairros"),
+  inputLat: () => document.getElementById("input-lat"),
+  inputLgn: () => document.getElementById("input-lgn"),
+};

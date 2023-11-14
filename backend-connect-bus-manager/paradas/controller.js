@@ -24,7 +24,7 @@ export class ParadaController {
 
   create(request, response) {
     return this.#instanceParada.create(request.body).then(() => {
-      response.status(200).json("Parada inserida com sucesso");
+      response.status(200).json(this.#instanceParada);
     }).catch(error => {
       response.status(error.code).json(error);
     })

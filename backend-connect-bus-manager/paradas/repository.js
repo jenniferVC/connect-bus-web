@@ -25,13 +25,12 @@ export class ParadaRepository {
   /**
    * Adiciona no banco uma parada nova com o ID do documento gerado automaticamente
    * @param {Parada} parada
-   * @param {string} docIdBairro
    * @returns
    */
-  create(parada, docIdBairro) {
+  create(parada) {
     return admin
       .firestore()
-      .collection(`Bairros/${docIdBairro}/Paradas`)
+      .collection("Paradas")
       .add(JSON.parse(JSON.stringify(parada)));
   }
 

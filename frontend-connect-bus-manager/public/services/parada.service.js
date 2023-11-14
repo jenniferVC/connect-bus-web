@@ -18,16 +18,16 @@ const paradaService = {
   },
   /**
    *
-   * @param {Horario} horario
+   * @param {Parada} parada
    * @returns
    */
-  // create: (horario) => {
-  //   return callApi({
-  //     method: "POST",
-  //     url: "http://localhost:5000/horarios/novo",
-  //     params: horario,
-  //   });
-  // },
+  create: (parada) => {
+    return callApi({
+      method: "POST",
+      url: "http://localhost:5000/paradas/novo",
+      params: parada,
+    });
+  },
   /**
    *
    * @param {string} linha
