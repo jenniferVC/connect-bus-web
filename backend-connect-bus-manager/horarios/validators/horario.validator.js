@@ -17,17 +17,17 @@ export function validateHorario(request, response, next) {
       .status(400)
       .json(new BadRequestError("Dia de funcionamento não informado"));
   }
-  if (!bairros) {
+  if (bairros.length === 0) {
     return response
       .status(400)
       .json(new BadRequestError("Bairro não informado"));
   }
-  if (!horaPartidaBairro) {
+  if (horaPartidaBairro.length === 0) {
     return response
       .status(400)
       .json(new BadRequestError("Hora partida do bairro não informado"));
   }
-  if (!horaPartidaRodoviaria) {
+  if (horaPartidaRodoviaria.length === 0) {
     return response
       .status(400)
       .json(new BadRequestError("Hora partida da rodoviária não informado"));

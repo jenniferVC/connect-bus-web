@@ -11,6 +11,11 @@ class Horario {
   horaPartidaRodoviaria = [];
 }
 
+// document.addEventListener("DOMContentLoaded", function (event) {
+//   console.log("DOM completamente carregado e analisado");
+//   getBairros().then(bairros => loadNeighborhood(bairros));
+// });
+
 /**
  * Função responsável por fazer o logout do usuário e redirecioná-lo para a pagina de login
  */
@@ -26,41 +31,17 @@ function logout() {
     });
 }
 
-// Função da biblioteca que gera o multi-select.
-new MultiSelectTag("horarios-partida-bairros", {
-  rounded: true, // default true
-  shadow: true, // default false
-  placeholder: "Pesquisar", // default Search...
-  onChange: function (values) {
-    horariosBairroSelecionados = [];
-    values.forEach((bairro) => {
-      console.log(bairro);
-      horariosBairroSelecionados.push(bairro.label);
-    });
-    console.log(horariosBairroSelecionados);
-  },
-});
-
-// Função da biblioteca que gera o multi-select.
-new MultiSelectTag("horarios-partida-rodoviaria", {
-  rounded: true, // default true
-  shadow: true, // default false
-  placeholder: "Pesquisar", // default Search...
-  onChange: function (values) {
-    horariosRodoviariaSelecionados = [];
-    values.forEach((horario) => {
-      console.log(horario);
-      horariosRodoviariaSelecionados.push(horario.label);
-    });
-    console.log(horariosRodoviariaSelecionados);
-  },
-});
-
 // Verificando  se tem um paramentro na URL
 // caso tenha então o consulta no banco
 if (existParams()) {
   const docID = getItemURL();
-  findItemByID(docID);
+  findItemByID(docID).then((horario) => {
+    fillFields(horario);
+  });
+} else {
+  getHorariosPartidaBairro();
+  getHorariosPartidaRodoviaria();
+  getBairros().then((bairros) => loadNeighborhood(bairros));
 }
 
 /**
@@ -71,22 +52,52 @@ if (existParams()) {
  */
 function findItemByID(docID) {
   showLoading();
-  neighborhoodService
+  return horarioService
     .findByDocId(docID)
-    .then((neighborhood) => {
+    .then((horario) => {
       hideLoading();
-      if (neighborhood) {
-        console.log(neighborhood);
-        fillFields(neighborhood);
+      if (horario) {
+        return horario;
       } else {
         alert("Documento não encontrado");
-        window.location.href = "../list/list-neighborhood.html";
+        window.location.href = "../list/list-horario.html";
       }
     })
     .catch((error) => {
       hideLoading();
       alert("Erro ao obter documento: " + error.message);
     });
+}
+
+/**
+ * Função responsável por preencher todos os campos da pagina.
+ * @param {Horario} horario
+ */
+function fillFields(horario) {
+  getBairros(horario.bairros).then((bairros) => loadNeighborhood(bairros));
+  getHorariosPartidaBairro(horario.horaPartidaBairro);
+  getHorariosPartidaRodoviaria(horario.horaPartidaRodoviaria);
+
+  var linhaOpts = document.getElementById("input-line-type").options;
+  for (let i = 0; i < linhaOpts.length; i++) {
+    const linha = linhaOpts[i].value;
+    if (horario.linha === linha) {
+      linhaOpts[i].setAttribute("selected", "selected");
+    }
+  }
+
+  if (horario.diaDeFuncionamento === "segunda a sexta") {
+    let radioBtn = document.getElementById("SegSex");
+    radioBtn.setAttribute("checked", "checked");
+  }
+  if (horario.diaDeFuncionamento === "domingos e feriados") {
+    let radioBtn = document.getElementById("DomFer");
+    radioBtn.setAttribute("checked", "checked");
+  }
+  if (horario.diaDeFuncionamento === "sábados") {
+    let radioBtn = document.getElementById("sabado");
+    radioBtn.setAttribute("checked", "checked");
+  }
 }
 
 /**
@@ -121,10 +132,42 @@ function loadNeighborhood(bairros) {
 }
 
 /**
+ * Carrega os horarios bairro no campo Select.
+ * @param {string} horarios
+ */
+function loadHorarioBairro(horarios) {
+  const label = document.getElementById("horarios-partida-bairros");
+  const select = document.createElement("select");
+
+  select.setAttribute("name", "horarios-bairros");
+  select.setAttribute("id", "horarios-bairros");
+  select.setAttribute("multiple", "multiple");
+  select.innerHTML = horarios;
+
+  label.appendChild(select);
+
+  // Função da biblioteca que gera o multi-select.
+  new MultiSelectTag("horarios-bairros", {
+    rounded: true, // default true
+    shadow: true, // default false
+    placeholder: "Pesquisar", // default Search...
+    onChange: function (values) {
+      horariosBairroSelecionados = [];
+      values.forEach((bairro) => {
+        console.log(bairro);
+        horariosBairroSelecionados.push(bairro.label);
+      });
+      console.log(horariosBairroSelecionados);
+    },
+  });
+}
+
+/**
  * Obtendo os bairros do banco e gerando as options
+ * @param {string[]} bairrosEdit
  * @returns string
  */
-function getBairros() {
+function getBairros(bairrosEdit) {
   let count = 0;
   let concat = "";
 
@@ -136,9 +179,20 @@ function getBairros() {
       console.log(bairros);
       bairros.forEach((bairro) => {
         count = count + 1;
-        concat += `
-        <option value="${count}">${bairro.nome}</option>
-        `;
+
+        let bairroExist = bairrosEdit.some(
+          (nomeBairro) => nomeBairro === bairro.nome
+        );
+        if (bairroExist) {
+          concat += `
+                <option value="${count}" selected>${bairro.nome}</option>
+                `;
+        }
+        if (!bairroExist) {
+          concat += `
+                <option value="${count}">${bairro.nome}</option>
+                `;
+        }
       });
       return concat;
     })
@@ -148,14 +202,103 @@ function getBairros() {
     });
 }
 
-function saveItem() {
-  const horario = createHorario();
-  console.log(JSON.stringify(horario));
+function getHorariosPartidaBairro(horarios) {
+  let count = 0;
+  let concat = "";
+  for (let i = 0; i <= 23; i++) {
+    let horarioExist = horarios.some((hora) => hora === `${i}:00`);
+    if (horarioExist) {
+      concat += `
+          <option value="${i}" selected>${i}:00</option>
+          `;
+    }
+    if (!horarioExist) {
+      concat += `
+          <option value="${i}">${i}:00</option>
+          `;
+    }
+  }
+
+  loadHorarioBairro(concat);
+}
+
+function getHorariosPartidaRodoviaria(horarios) {
+  let count = 0;
+  let concat = "";
+  for (let i = 0; i <= 23; i++) {
+    let horarioExist = horarios.some((hora) => hora === `${i}:00`);
+    if (horarioExist) {
+      concat += `
+          <option value="${i}" selected>${i}:00</option>
+          `;
+    }
+    if (!horarioExist) {
+      concat += `
+          <option value="${i}">${i}:00</option>
+          `;
+    }
+  }
+
+  loadHorarioRodoviaria(concat);
+}
+
+/**
+ * Carrega os horarios rodoviaria no campo Select.
+ * @param {string} horarios
+ */
+function loadHorarioRodoviaria(horarios) {
+  const label = document.getElementById("horarios-partida-rodoviaria");
+  const select = document.createElement("select");
+
+  select.setAttribute("name", "horarios-rodoviaria");
+  select.setAttribute("id", "horarios-rodoviaria");
+  select.setAttribute("multiple", "multiple");
+  select.innerHTML = horarios;
+
+  label.appendChild(select);
+
+  // Função da biblioteca que gera o multi-select.
+  new MultiSelectTag("horarios-rodoviaria", {
+    rounded: true, // default true
+    shadow: true, // default false
+    placeholder: "Pesquisar", // default Search...
+    onChange: function (values) {
+      horariosRodoviariaSelecionados = [];
+      values.forEach((horario) => {
+        console.log(horario);
+        horariosRodoviariaSelecionados.push(horario.label);
+      });
+      console.log(horariosRodoviariaSelecionados);
+    },
+  });
+}
+
+async function saveItem() {
+  const horario = await createHorario();
   if (existParams()) {
-    // UPDATE(horario);
+    UPDATE(horario);
   } else {
     INSERT(horario);
   }
+}
+
+/**
+ * Função responsável por atualizar item no banco
+ * @param {Horario} horario
+ */
+function UPDATE(horario) {
+  showLoading();
+  console.log(horario);
+  horarioService
+    .update(horario)
+    .then(() => {
+      hideLoading();
+      alert("Horario atualizado com sucesso!");
+    })
+    .catch((error) => {
+      hideLoading();
+      alert("Erro ao atualizar Horario: " + error.message);
+    });
 }
 
 /**
@@ -217,15 +360,27 @@ function getDias() {
   return;
 }
 
-function createHorario() {
+async function createHorario() {
+  const docID = getItemURL();
   const horario = new Horario();
   let selectLinha = document.getElementById("input-line-type");
 
+  horario.docID = getItemURL();
   horario.linha = selectLinha.options[selectLinha.selectedIndex].value;
   horario.diaDeFuncionamento = getDias();
-  horario.bairros = bairrosSelecionados;
-  horario.horaPartidaBairro = horariosBairroSelecionados;
-  horario.horaPartidaRodoviaria = horariosRodoviariaSelecionados;
+
+  let horarioBD = await findItemByID(docID);
+
+  horario.bairros =
+    bairrosSelecionados.length != 0 ? bairrosSelecionados : horarioBD.bairros;
+  horario.horaPartidaBairro =
+    horariosBairroSelecionados.length != 0
+      ? horariosBairroSelecionados
+      : horarioBD.horaPartidaBairro;
+  horario.horaPartidaRodoviaria =
+    horariosRodoviariaSelecionados.length != 0
+      ? horariosRodoviariaSelecionados
+      : horarioBD.horaPartidaRodoviaria;
   return horario;
 }
 

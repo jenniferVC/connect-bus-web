@@ -50,4 +50,36 @@ export class Horario {
       );
     }
   }
+
+  findByDocID() {
+    if (!this.docID) {
+      return Promise.reject(new BadRequestError("id do Horario não informado"));
+    }
+
+    return this.#instanceRepository.findByDocID(this.docID).then((horario) => {
+      if (!horario) {
+        return Promise.reject(new BadRequestError("Horario não encontrado"));
+      }
+      this.linha = horario.linha;
+      this.diaDeFuncionamento = horario.diaDeFuncionamento;
+      this.bairros = horario.bairros;
+      this.horaPartidaBairro = horario.horaPartidaBairro;
+      this.horaPartidaRodoviaria = horario.horaPartidaRodoviaria;
+    });
+  }
+
+  update(params) {
+    return this.findByDocID().then(() => {
+      this.linha = params.linha;
+      this.diaDeFuncionamento = params.diaDeFuncionamento;
+      this.bairros = params.bairros;
+      this.horaPartidaBairro = params.horaPartidaBairro;
+      this.horaPartidaRodoviaria = params.horaPartidaRodoviaria;
+      return this.#instanceRepository.update(this);
+    });
+  }
+
+  findByLinha() {
+    return this.#instanceRepository.findByLinha(this.linha);
+  }
 }

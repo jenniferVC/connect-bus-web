@@ -22,7 +22,7 @@ app.post(
   (request, response, next) => validateHorario(request, response, next),
   (request, response, next) =>
     authenticateToken(request, response, next, admin.auth()),
-    (request, response) => new HorarioController().create(request, response)
+  (request, response) => new HorarioController().create(request, response)
 );
 
 // Busca horario pelo Id do Document
@@ -30,11 +30,20 @@ app.get(
   "/:docID",
   (request, response, next) =>
     authenticateToken(request, response, next, admin.auth()),
-  async (request, response) => {
-    const horarioRepository = new HorarioRepository();
-    horarioRepository.findByDocID(request.params.docID);
-    response.json("test");
-  }
+  (request, response) => new HorarioController().findByDocID(request, response)
+);
+
+// Atualiza horario
+app.post('/update/:docID',
+  (request, response, next) => validateHorario(request, response, next),
+  (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+  (request, response) => new HorarioController().update(request, response)
+)
+
+// Busca horario pela linha
+app.get('/encontrar/:linha',
+  (request, response, next) => authenticateToken(request, response, next, admin.auth()),
+  (request, response) => new HorarioController().findByLinha(request, response)
 );
 
 export const horariosRouter = app;

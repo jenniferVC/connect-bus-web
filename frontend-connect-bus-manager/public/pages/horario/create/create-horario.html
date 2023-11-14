@@ -67,63 +67,15 @@
         </div><br><br>
 
         <!-- Campo select de horarios de partida dos bairros -->
-        <div style="max-width: 22rem;"><label>Selecione os horarios da partida dos Bairros*:</label>
-            <select id="horarios-partida-bairros" required="required" multiple>
-                <option value="1">01:00</option>
-                <option value="2">02:00</option>
-                <option value="3">03:00</option>
-                <option value="4">04:00</option>
-                <option value="5">05:00</option>
-                <option value="6">06:00</option>
-                <option value="7">07:00</option>
-                <option value="8">08:00</option>
-                <option value="9">09:00</option>
-                <option value="10">10:00</option>
-                <option value="11">11:00</option>
-                <option value="12">12:00</option>
-                <option value="13">13:00</option>
-                <option value="14">14:00</option>
-                <option value="15">15:00</option>
-                <option value="16">16:00</option>
-                <option value="17">17:00</option>
-                <option value="18">18:00</option>
-                <option value="19">19:00</option>
-                <option value="20">20:00</option>
-                <option value="21">21:00</option>
-                <option value="22">22:00</option>
-                <option value="23">23:00</option>
-                <option value="24">00:00</option>
-            </select>
+        <div id="horarios-partida-bairros" style="max-width: 22rem;"><label>Selecione os horarios da partida dos
+                Bairros*:</label>
+            <!-- Os horarios dos bairros são carregados aqui -->
         </div><br><br>
 
         <!-- Campo select de horarios de partida da Rodoviária -->
-        <div style="max-width: 22rem;"><label>Selecione os horarios da partida da Rodoviária*:</label>
-            <select id="horarios-partida-rodoviaria" required="required" multiple>
-                <option value="1">01:00</option>
-                <option value="2">02:00</option>
-                <option value="3">03:00</option>
-                <option value="4">04:00</option>
-                <option value="5">05:00</option>
-                <option value="6">06:00</option>
-                <option value="7">07:00</option>
-                <option value="8">08:00</option>
-                <option value="9">09:00</option>
-                <option value="10">10:00</option>
-                <option value="11">11:00</option>
-                <option value="12">12:00</option>
-                <option value="13">13:00</option>
-                <option value="14">14:00</option>
-                <option value="15">15:00</option>
-                <option value="16">16:00</option>
-                <option value="17">17:00</option>
-                <option value="18">18:00</option>
-                <option value="19">19:00</option>
-                <option value="20">20:00</option>
-                <option value="21">21:00</option>
-                <option value="22">22:00</option>
-                <option value="23">23:00</option>
-                <option value="24">00:00</option>
-            </select>
+        <div id="horarios-partida-rodoviaria" style="max-width: 22rem;"><label>Selecione os horarios da partida da
+                Rodoviária*:</label>
+            <!-- Os horarios da rodoviaria são carregados aqui -->
         </div><br><br>
 
         <!-- Checkbox dos dias de funcionamento -->
@@ -161,15 +113,10 @@
     <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.0/dist/js/multi-select-tag.js"></script>
     <script src="../../../js/firebase-config.js"></script>
     <script src="../../../js/auth-guard.js"></script>
+    <script src="../../../js/loading.js"></script>
     <script src="../../../services/neighborhood.service.js"></script>
     <script src="../../../services/horario.service.js"></script>
     <script src="create-horario.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function (event) {
-            console.log("DOM completamente carregado e analisado");
-            getBairros().then(bairros => loadNeighborhood(bairros));
-        });
-    </script>
 </body>
 
 </html>

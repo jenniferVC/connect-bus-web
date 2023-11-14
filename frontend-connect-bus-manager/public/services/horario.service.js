@@ -30,6 +30,18 @@ const horarioService = {
   },
   /**
    *
+   * @param {string} linha
+   * @returns Promise
+   */
+  findByLinha: (linha) => {
+    return callApi({
+      method: "GET",
+      url: `http://localhost:5000/horarios/encontrar/${linha}`,
+    });
+  },
+  /**
+   *
+   *
    * @param {string} docId
    * @returns Promise
    */
@@ -37,6 +49,18 @@ const horarioService = {
     return callApi({
       method: "GET",
       url: `http://localhost:5000/horarios/${docId}`,
+    });
+  },
+  /**
+   *
+   * @param {Horario} horario
+   * @returns
+   */
+  update: (horario) => {
+    return callApi({
+      method: "POST",
+      url: `http://localhost:5000/horarios/update/${horario.docID}`,
+      params: horario,
     });
   },
 };
