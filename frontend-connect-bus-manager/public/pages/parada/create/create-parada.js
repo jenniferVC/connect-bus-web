@@ -35,7 +35,7 @@ function getItemURL() {
 function findItemByID(docID) {
   showLoading();
   paradaService
-    .findByDocId(docID)
+    .findByDocID(docID)
     .then((parada) => {
       hideLoading();
       if (parada) {
@@ -48,7 +48,7 @@ function findItemByID(docID) {
     })
     .catch((error) => {
       hideLoading();
-      alert("Erro ao obter documento: " + error.message);
+      alert("Erro ao obter documento: " + error);
     });
 }
 
@@ -93,7 +93,7 @@ function getBairros(bairroEdit) {
       loadNeighborhood(concat);
     })
     .catch((error) => {
-      alert("Erro ao obter documentos: " + error.message);
+      alert("Erro ao obter documentos: " + error);
     });
 }
 
@@ -136,6 +136,7 @@ function existParams() {
 
 function saveItem() {
   const parada = createParada();
+  console.log(parada);
   if (existParams()) {
     UPDATE(parada);
   } else {
@@ -158,7 +159,7 @@ function UPDATE(parada) {
     })
     .catch((error) => {
       hideLoading();
-      alert("Erro ao atualizar Parada: " + error.message);
+      alert("Erro ao atualizar Parada: " + error);
     });
 }
 
@@ -173,7 +174,7 @@ function INSERT(parada) {
       alert("Parada cadastrada com sucesso!");
     })
     .catch((error) => {
-      alert("Error ao cadastrar parada: " + error.message);
+      alert("Error ao cadastrar parada: " + error);
     });
 }
 
