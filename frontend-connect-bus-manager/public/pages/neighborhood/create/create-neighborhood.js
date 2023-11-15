@@ -61,7 +61,7 @@ function findItemByID(docID) {
     })
     .catch((error) => {
       hideLoading();
-      alert("Erro ao obter documento: " + error.message);
+      alert("Erro ao obter documento: " + error);
     });
 }
 
@@ -115,7 +115,7 @@ function INSERT(bairro) {
       alert("Bairro cadastrado com sucesso!");
     })
     .catch((error) => {
-      alert("Error ao cadastrar bairro: " + error.message);
+      alert("Error ao cadastrar bairro: " + error);
     });
 }
 
@@ -133,7 +133,7 @@ function UPDATE(bairro) {
     })
     .catch((error) => {
       hideLoading();
-      alert("Erro ao atualizar Bairro: " + error.message);
+      alert("Erro ao atualizar Bairro: " + error);
     });
 }
 
