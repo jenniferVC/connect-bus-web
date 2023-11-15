@@ -72,10 +72,10 @@ export class Parada {
     return this.#instanceRepository.findByBairro(this.bairro);
   }
 
-  // delete() {
-  //   console.log("delete: ", this);
-  //   return this.findByDocID().then(() => {
-  //     return this.#instanceRepository.delete(this.docID);
-  //   });
-  // }
+  delete() {
+    console.log("delete: ", this);
+    return this.findByDocID().then(() => {
+      return this.#instanceRepository.delete(this.docID);
+    });
+  }
 }

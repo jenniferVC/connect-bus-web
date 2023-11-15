@@ -21,12 +21,17 @@ function editItem(parada) {
  * @param {Parada} parada
  */
 function deleteItem(parada) {
-  // paradaService.delete(parada.docId).then(() => {
-  //     alert("Bairro deletado com sucesso!");
-  //     window.location.reload();
-  // }).catch((error) => {
-  //     alert("Erro ao remover bairro: " + error.message);
-  // });
+  showLoading();
+  paradaService
+    .delete(parada.docId)
+    .then(() => {
+      hideLoading();
+      alert("Parada deletada com sucesso!");
+      window.location.reload();
+    })
+    .catch((error) => {
+      alert("Erro ao remover parada: " + error.message);
+    });
 }
 
 /**

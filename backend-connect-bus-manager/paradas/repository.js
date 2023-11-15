@@ -90,9 +90,9 @@ export class ParadaRepository {
    * @param {string} id
    * @returns Promise
    */
-  // delete(id) {
-  //   return admin.firestore().collection("Horarios").doc(id).delete();
-  // }
+  delete(id) {
+    return admin.firestore().collection("Paradas").doc(id).delete();
+  }
 
   /**
    * Conta a quantidade de Bairros cadastrados no Firebase.
