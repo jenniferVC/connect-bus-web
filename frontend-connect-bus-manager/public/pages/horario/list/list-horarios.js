@@ -160,7 +160,9 @@ function generateButtonDelete(item) {
  * @param {Horario} horario
  */
 function deleteItem(horario) {
+  showLoading();
   horarioService.delete(horario.docId).then(() => {
+    hideLoading();
       alert("Horario deletado com sucesso!");
       window.location.reload();
   }).catch((error) => {

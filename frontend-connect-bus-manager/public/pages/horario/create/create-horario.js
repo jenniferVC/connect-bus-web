@@ -53,7 +53,7 @@ if (existParams()) {
 function findItemByID(docID) {
   showLoading();
   return horarioService
-    .findByDocId(docID)
+    .findByDocID(docID)
     .then((horario) => {
       hideLoading();
       if (horario) {
@@ -65,7 +65,7 @@ function findItemByID(docID) {
     })
     .catch((error) => {
       hideLoading();
-      alert("Erro ao obter documento: " + error.message);
+      alert("Erro ao obter documento: " + error);
     });
 }
 
@@ -204,7 +204,7 @@ function getBairros(bairrosEdit) {
       loadNeighborhood(concat);
     })
     .catch((error) => {
-      alert("Erro ao obter documentos: " + error.message);
+      alert("Erro ao obter documentos: " + error);
     });
 }
 
@@ -317,7 +317,7 @@ function UPDATE(horario) {
     })
     .catch((error) => {
       hideLoading();
-      alert("Erro ao atualizar Horario: " + error.message);
+      alert("Erro ao atualizar Horario: " + error);
     });
 }
 
@@ -333,7 +333,7 @@ function INSERT(horario) {
       alert("Horario cadastrado com sucesso!");
     })
     .catch((error) => {
-      alert("Error ao cadastrar horario: " + error.message);
+      alert("Error ao cadastrar horario: " + error);
     });
 }
 
@@ -392,15 +392,15 @@ async function createHorario() {
   let horarioBD = docID ? await findItemByID(docID) : null;
 
   horario.bairros =
-    bairrosSelecionados.length != 0 ? bairrosSelecionados : horarioBD.bairros;
+    bairrosSelecionados.length != 0 ? bairrosSelecionados : horarioBD?.bairros;
   horario.horaPartidaBairro =
     horariosBairroSelecionados.length != 0
       ? horariosBairroSelecionados
-      : horarioBD.horaPartidaBairro;
+      : horarioBD?.horaPartidaBairro;
   horario.horaPartidaRodoviaria =
     horariosRodoviariaSelecionados.length != 0
       ? horariosRodoviariaSelecionados
-      : horarioBD.horaPartidaRodoviaria;
+      : horarioBD?.horaPartidaRodoviaria;
   return horario;
 }
 
