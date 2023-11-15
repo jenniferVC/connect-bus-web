@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Normalize.css padroniza o estilo em todos os navegadores e remove bordas e outros elementos dos navegadores -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet">
+
+  <!-- Material Design -->
+  <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+  <!-- Material Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../../css/global.css">
+
+  <title>ConnectBus | Onibus</title>
+</head>
+
+<body>
+  <!---- TOPBAR ----------------------------------->
+  <header class="mdc-top-app-bar">
+    <div class="mdc-top-app-bar__row">
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <span class="mdc-top-app-bar__title">Cadastro de Onibus</span>
+      </section>
+      <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+        <button class="material-icons mdc-top-app-bar__action-item mdc-icon-button" aria-label="Logout"
+          title="Sair">logout</button>
+      </section>
+    </div>
+  </header>
+  <main class="mdc-top-app-bar--fixed-adjust centralize">
+    <br><br>
+    <!-- Campo select de Tipo da Linha-->
+    <div><label>Qual a linha?</label>
+      <select id="input-line-type" required="required">
+        <option>Linha 001 AZUL</option>
+        <option>Linha 002 (A) LARANJA</option>
+        <option>Linha 002 (B) LARANJA</option>
+        <option>Linha 003 VERDE</option>
+        <option>Linha 004 VERMELHA</option>
+        <option>Linha 005 CORAL</option>
+        <option>Linha 006 LILÁS</option>
+        <option>Linha 007 (A) EXPRESSA</option>
+        <option>Linha 007 (B) EXPRESSA</option>
+        <option>Linha 008 PERIMETRAL</option>
+        <option>Linha 009 BRONZE</option>
+        <option>Linha 010 PRATA</option>
+        <option>Linha 011 TURÍSTICA</option>
+      </select>
+    </div><br><br>
+
+    <!-- Campo select de Estado Fisico-->
+    <div><label>Qual a estado físico?</label>
+      <select id="select-estados" required="required">
+        <option>Normal</option>
+        <option>Ônibus quebrou</option>
+        <option>Acidente</option>
+        <option>Congestionamento</option>
+      </select>
+    </div><br><br>
+
+    <!-- Campo Codigo-->
+    <label class="form-field mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
+      <span class="mdc-text-field__ripple"></span>
+      <input id="input-code" class="mdc-text-field__input" type="text" placeholder="Codigo" aria-label="Label">
+      <span class="mdc-line-ripple"></span>
+    </label>
+
+    <button onclick="saveItem()">Salvar</button>
+  </main>
+</body>
+
+<!--
+        Dependências Firebase
+
+        Como este projeto não utiliza ferramentas de builds, uso a opção de tag <script> para adicionar
+        e utilizar o SDK do Firebase para JavaScript. Essa opção é recomendada no começo, mas não para apps em produção.
+        Para produção é recomendada o NPM https://firebase.google.com/docs/web/setup?authuser=0&hl=pt#add-sdks-initialize 
+    -->
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-firestore-compat.js"></script>
+<script src="../../../js/firebase-config.js"></script>
+<script src="../../../js/auth-guard.js"></script>
+<script src="../../../js/loading.js"></script>
+<script src="../../../services/onibus.service.js"></script>
+<script src="create-onibus.js"></script>
+
+</html>
