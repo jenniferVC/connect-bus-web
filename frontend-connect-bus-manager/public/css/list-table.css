@@ -1,91 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700&family=Roboto:wght@100;300;400;500;700;900&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700&family=Roboto:wght@100;300;400;500;700;900&family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
 body {
-    width: 100vw;
-    height: 100vh;
-    /* display: flex;
+  width: 100vw;
+  height: 100vh;
+  /* display: flex;
     align-items: center;
     justify-content: center; */
-    background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.1);
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .container {
-    width: 90%;
-    height: 73%;
-    border-radius: 10px;
-    background: white;
-    margin: 3em;
+  width: 90%;
+  height: 73%;
+  border-radius: 10px;
+  background: white;
+  margin: 3em;
 }
 
 .header {
-    min-height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: auto 12px;
+  min-height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto 12px;
 }
 
 .header span {
-    font-weight: 900;
-    font-size: 20px;
-    word-break: break-all;
+  font-weight: 900;
+  font-size: 20px;
+  word-break: break-all;
 }
 
 #new {
-    font-size: 16px;
-    padding: 8px;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    background-color: rgb(57, 57, 226);
+  width: 14rem;
+  height: 3rem;
+  border-radius: 5px;
+  color: white;
+  background-color: rgb(57, 57, 226);
 }
 
 #new a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 .divTable {
-    padding: 10px;
-    width: auto;
-    height: inherit;
-    overflow: auto;
+  padding: 10px;
+  width: auto;
+  height: inherit;
+  overflow: auto;
 }
 
 .divTable::-webkit-scrollbar {
-    width: 12px;
-    background-color: whitesmoke;
+  width: 12px;
+  background-color: whitesmoke;
 }
 
 .divTable::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    background-color: darkgray;
+  border-radius: 10px;
+  background-color: darkgray;
 }
 
 table {
-    width: 100%;
-    border-spacing: 10px;
-    word-break: break-all;
-    border-collapse: collapse;
+  width: 100%;
+  border-spacing: 10px;
+  word-break: break-all;
+  border-collapse: collapse;
 }
 
 thead {
-    background-color: whitesmoke;
+  background-color: whitesmoke;
 }
 
 tr {
-    border-bottom: 1px solid rgb(238, 235, 235) !important;
+  border-bottom: 1px solid rgb(238, 235, 235) !important;
 }
 
 /* tbody tr td {
@@ -95,9 +94,9 @@ tr {
 } */
 
 thead tr th {
-    padding: 5px;
-    text-align: start;
-    margin-bottom: 50px;
+  padding: 5px;
+  text-align: start;
+  margin-bottom: 50px;
 }
 /* 
 tbody tr {
@@ -105,51 +104,56 @@ tbody tr {
 } */
 
 thead tr th.acao {
-    width: 100px !important;
-    text-align: center;
+  width: 100px !important;
+  text-align: center;
 }
 
 tbody tr td.acao {
-    text-align: center;
+  text-align: center;
 }
 
 td button {
-    border: none;
-    outline: none;
-    background: transparent;
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 td button i {
-    font-size: 25px;
+  font-size: 25px;
 }
 
 td button i:first-child {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 @media (max-width: 700px) {
-    body {
-        font-size: 10px;
-    }
+  body {
+    font-size: 10px;
+  }
 
-    .header span {
-        font-size: 15px;
-    }
+  .header span {
+    font-size: 15px;
+  }
 
-    #new {
-        padding: 5px;
-        font-size: 10px;
-    }
+  #new {
+    padding: 5px;
+    font-size: 10px;
+  }
 
-    thead tr th.acao {
-        width: auto !important;
-    }
+  thead tr th.acao {
+    width: auto !important;
+  }
 
-    td button i {
-        font-size: 20px !important;
-    }
+  td button i {
+    font-size: 20px !important;
+  }
 
-    td button i:first-child {
-        margin-right: 0;
-    }
+  td button i:first-child {
+    margin-right: 0;
+  }
+
+  .container {
+    margin: 0;
+    width: 100%;
+  }
 }

@@ -29,7 +29,7 @@
  
  
   <h1 style="margin-bottom: 2rem;">Connect Bus Web</h1>
-  <form>
+  <form class="centralize">
     <!-- Campo Email -->
     <label class="form-field mdc-text-field mdc-text-field--filled mdc-text-field--no-label">
       <span class="mdc-text-field__ripple"></span>
@@ -57,7 +57,10 @@
 
     <!-- Botão Entrar -->
     <div>
-      <button type="button" class="solid" onclick="login()" disabled="true" id="login-button">Entrar</button>
+      <!-- <button type="button" class="solid" onclick="login()" disabled="true" id="login-button">Entrar</button> -->
+      <button type ="button" class="mdc-button mdc-button--raised" onclick="login()" disabled="true" id="login-button">
+        <span class="mdc-button__label">Entrar</span>
+    </button>
     </div>
   </form>
 

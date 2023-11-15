@@ -57,6 +57,21 @@ function findItemByID(docID) {
 function fillFields(onibus) {
   let codigo = document.getElementById("input-code");
   codigo.value = onibus.codigo;
+  var linhaOpts = document.getElementById("input-line-type").options;
+  for (let i = 0; i < linhaOpts.length; i++) {
+    const linha = linhaOpts[i].value;
+    if (onibus.linha === linha) {
+      linhaOpts[i].setAttribute("selected", "selected");
+    }
+  }
+
+  var estadoFisicoOpts = document.getElementById("select-estados").options;
+  for (let i = 0; i < estadoFisicoOpts.length; i++) {
+    const estado = estadoFisicoOpts[i].value;
+    if (onibus.estadoFisico === estado) {
+      estadoFisicoOpts[i].setAttribute("selected", "selected");
+    }
+  }
 }
 
 /**

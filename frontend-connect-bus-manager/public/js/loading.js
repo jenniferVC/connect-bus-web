@@ -1,18 +1,18 @@
 function showLoading() {
-    const div = document.createElement("div");
-    div.classList.add("loading", "centralize");
+  const div = document.createElement("div");
+  div.classList.add("loading");
 
-    const label = document.createElement("label");
-    label.innerText = "Carregando...";
+  const loading = document.createElement("div");
+  loading.classList.add("circular-progress");
 
-    div.appendChild(label);
+  div.appendChild(loading);
 
-    document.body.appendChild(div);
+  document.body.appendChild(div);
 }
 
 function hideLoading() {
-    const loadings = document.getElementsByClassName("loading");
-    if (loadings.length) {
-        loadings[0].remove();
-    }
+  const loadings = document.getElementsByClassName("loading");
+  if (loadings.length) {
+    loadings[0].remove();
+  }
 }

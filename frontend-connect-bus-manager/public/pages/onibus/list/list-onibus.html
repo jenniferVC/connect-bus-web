@@ -26,10 +26,19 @@
 </head>
 
 <body>
+  <aside class="mdc-snackbar" >
+    <div class="mdc-snackbar__surface" role="status" aria-relevant="additions">
+      <div class="mdc-snackbar__label" aria-atomic="false">
+        Can't send photo. Retry in 5 seconds.
+      </div>
+    </div>
+  </aside>
   <!---- TOPBAR ----------------------------------->
   <header class="mdc-top-app-bar">
     <div class="mdc-top-app-bar__row">
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+        <span class="icon"><a href="../../dashboard/dashboard.html"><img src="../../../img/icon-50-50.png" alt=""
+              srcset=""></a></span>
         <span class="mdc-top-app-bar__title">Onibus</span>
       </section>
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
@@ -54,16 +63,10 @@
             role="button">search</i>
           <span class="mdc-line-ripple"></span>
         </label>
-
         <!-- Botão Incluir -->
-        <button id="new"><a href="../create/create-onibus.html">Incluir</a></button>
-
-        <!-- TODO: Adicionar o botão do Material Design para ser o botão 'Incluir'-->
-        <!-- <button id="button-add" class="mdc-button mdc-button--raised mdc-button--leading">
-          <span class="mdc-button__ripple"></span>
-          <i class="material-icons mdc-button__icon" aria-hidden="true">add</i>
-          <span class="mdc-button__label">Incluir</span>
-        </button> -->
+        <button id="new" class="mdc-button mdc-button--raised">
+          <span class="mdc-button__label"><a href="../create/create-onibus.html">Incluir</a></span>
+        </button>
       </div>
 
       <!-- Tabela -->
@@ -87,11 +90,11 @@
       <!---- PAGINAÇÃO ----------------------------------->
       <div class="mdc-data-table__pagination">
         <div class="mdc-data-table__pagination-navigation">
-            <div class="mdc-data-table__pagination-total">
-                <p id="pagination-total"></p>
-            </div>
+          <div class="mdc-data-table__pagination-total">
+            <p id="pagination-total"></p>
+          </div>
         </div>
-    </div>
+      </div>
     </div>
   </main>
 
