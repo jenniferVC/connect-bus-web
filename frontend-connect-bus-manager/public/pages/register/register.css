@@ -1,13 +1,27 @@
 body {
-    background: rgb(45, 211, 111);
-    height: 100vh;
+  background: #bb5eff4f;
+  height: 100vh;
 }
 form {
-    width: 300px;
+  width: 300px;
 }
 input {
-    border: none;
+  border: none;
 }
-button {
+
+form {
+  width: 300px;
+}
+
+a {
+  color: purple;
+  text-decoration: none;
+}
+
+.mdc-text-field--filled {
+  height: 56px;
+  width: -webkit-fill-available;
+}
+/* button {
     margin-bottom: 10px;
-}
+} */
