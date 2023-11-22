@@ -121,8 +121,8 @@ function createParada() {
   const parada = new Parada();
   parada.docId = getItemURL();
   parada.bairro = selectBairro.options[selectBairro.selectedIndex].innerHTML;
-  parada.latitude = formParada.inputLat().value;
-  parada.longitude = formParada.inputLgn().value;
+  parada.latitude = parseFloat(formParada.inputLat().value);
+  parada.longitude = parseFloat(formParada.inputLgn().value);
   return parada;
 }
 
