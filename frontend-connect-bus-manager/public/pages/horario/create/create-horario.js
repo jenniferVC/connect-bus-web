@@ -313,11 +313,11 @@ function UPDATE(horario) {
     .update(horario)
     .then(() => {
       hideLoading();
-      alert("Horario atualizado com sucesso!");
+      alert("Linha atualizada com sucesso!");
     })
     .catch((error) => {
       hideLoading();
-      alert("Erro ao atualizar Horario: " + error);
+      alert("Erro ao atualizar Linha: " + error);
     });
 }
 
@@ -330,10 +330,10 @@ function INSERT(horario) {
   horarioService
     .create(horario)
     .then(() => {
-      alert("Horario cadastrado com sucesso!");
+      alert("Linha cadastrado com sucesso!");
     })
     .catch((error) => {
-      alert("Error ao cadastrar horario: " + error);
+      alert("Error ao cadastrar linha: " + error);
     });
 }
 

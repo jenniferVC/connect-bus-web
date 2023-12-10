@@ -163,10 +163,10 @@ function deleteItem(horario) {
   showLoading();
   horarioService.delete(horario.docId).then(() => {
     hideLoading();
-      alert("Horario deletado com sucesso!");
+      alert("Linha deletada com sucesso!");
       window.location.reload();
   }).catch((error) => {
-      alert("Erro ao remover horario: " + error.message);
+      alert("Erro ao remover linha: " + error.message);
   });
 }
 
